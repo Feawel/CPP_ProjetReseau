@@ -11,13 +11,13 @@
 class Location {
 
 public:
-
+	Location();
+	Location(int userNumber);
 	int getUserNumber() const;
+	void setUserNumber(int userNumber);
 
 private:
-
-	int userNB;
-
+	int userNumber;
 };
 
 #endif /* LIEU_H_ */

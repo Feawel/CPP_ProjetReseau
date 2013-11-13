@@ -8,7 +8,17 @@
 #ifndef FLOOR_H_
 #define FLOOR_H_
 
+#include "location.h"
+
 class Floor: public Location {
+
+public:
+	Floor(int floorNumber);
+	Floor(int userNumber,int floorNumber);
+	int getFloorNumber();
+
+private:
+	int floorNumber;
 
 };
 

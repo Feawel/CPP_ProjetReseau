@@ -8,10 +8,18 @@
 #ifndef BUILDING_BUILDING_H_
 #define BUILDING_BUILDING_H_
 
-class Building_Building
-{
+#include "building.h"
+
+class Building_Building {
+
+public:
+	Building_Building(Building *building1, Building *building2, float distance);
+
+private:
+	float distance;
+	Building *building1;
+	Building *building2;
 
 };
-
 
 #endif /* BUILDING_BUILDING_H_ */
