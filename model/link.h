@@ -8,10 +8,16 @@
 #ifndef LINK_H_
 #define LINK_H_
 
-class Link
-{
+#include "component/component.h"
+
+class Link {
+public:
+	Link(Component *component1, Component *component2);
+
+private:
+	Component *component1;
+	Component *component2;
 
 };
-
 
 #endif /* LINK_H_ */
