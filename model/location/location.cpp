@@ -12,14 +12,14 @@ Location::Location() :
 		userNumber(0) {
 }
 
-Location::Location(int userNumber) :
+Location::Location(unsigned int userNumber) :
 		userNumber(userNumber) {
 }
 
-int Location::getUserNumber() const {
+unsigned int Location::getUserNumber() const {
 	return userNumber;
 }
 
-void Location::setUserNumber(int userNumber) {
+void Location::setUserNumber(unsigned int userNumber) {
 	this->userNumber = userNumber;
 }

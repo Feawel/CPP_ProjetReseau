@@ -12,12 +12,12 @@ class Location {
 
 public:
 	Location();
-	Location(int userNumber);
-	int getUserNumber() const;
-	void setUserNumber(int userNumber);
+	Location(unsigned int userNumber);
+	unsigned int getUserNumber() const;
+	void setUserNumber(unsigned int userNumber);
 
 private:
-	int userNumber;
+	unsigned int userNumber;
 };
 
 #endif /* LIEU_H_ */

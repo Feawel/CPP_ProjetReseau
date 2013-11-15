@@ -8,10 +8,15 @@
 #ifndef COMPONENT_H_
 #define COMPONENT_H_
 
-class Component
-{
+#include "../address.h"
 
+class Component {
+public:
+	Address getAddress() const;
+	void setAddress(Address adress);
+
+private:
+	Address address;
 };
-
 
 #endif /* COMPONENT_H_ */
