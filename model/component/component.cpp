@@ -8,6 +8,16 @@
 #include "component.h"
 #include "../address.h"
 
+Component::Component()
+{
+
+}
+
+Component::Component(Address address): address(address)
+{
+
+}
+
 Address Component::getAddress() const
 {
 	return address;

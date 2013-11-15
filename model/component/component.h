@@ -12,6 +12,8 @@
 
 class Component {
 public:
+	Component();
+	Component(Address address);
 	Address getAddress() const;
 	void setAddress(Address adress);
 
