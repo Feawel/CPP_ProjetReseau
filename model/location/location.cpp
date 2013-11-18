@@ -23,3 +23,11 @@ unsigned int Location::getUserNumber() const {
 void Location::setUserNumber(unsigned int userNumber) {
 	this->userNumber = userNumber;
 }
+
+void Location::cantUseTechnology(Technology technology) {
+	cantUseTechs.push_back(technology);
+}
+
+std::vector<Technology> Location::getCantUseTechs() {
+	return cantUseTechs;
+}
