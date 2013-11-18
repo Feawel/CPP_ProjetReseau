@@ -10,7 +10,7 @@
 
 
 typedef enum {
-	WIFI, ETHERNET, FIBER, INFRARED
+	WIFI, ETHERNET, FIBER, INFRARED, TWISTEDPAIR
 } Technology;
 
 
