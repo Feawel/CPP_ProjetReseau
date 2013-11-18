@@ -1,6 +1,6 @@
-SOURCES += /model \
-    model/link.cpp \
+SOURCES += \
     model/address.cpp \
+    model/link.cpp \
     model/location/location.cpp \
     model/location/floor.cpp \
     model/location/building_building.cpp \
@@ -11,15 +11,14 @@ SOURCES += /model \
     model/component/firewall.cpp \
     model/component/component.cpp \
     model/component/backbone.cpp \
-    view.cpp \
     main.cpp
 
 QT += widgets
 
 HEADERS += \
-    model/link.h \
-    model/constant.h \
     model/address.h \
+    model/constant.h \
+    model/link.h \
     model/location/location.h \
     model/location/floor.h \
     model/location/building_building.h \
