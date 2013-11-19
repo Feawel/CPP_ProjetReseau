@@ -31,3 +31,12 @@ void Building::addFloor(int userNumber) {
 int Building::getFloorsNumber(){
 	return floors.size();
 }
+
+
+vector<Component> Building::getComponents() {
+	return components;
+}
+
+void Building::addComponent(Component newComponent) {
+	components.push_back(newComponent);
+}
