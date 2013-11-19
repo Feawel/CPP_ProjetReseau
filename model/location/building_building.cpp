@@ -23,6 +23,10 @@ float Building_Building::getDistance() {
 	return distance;
 }
 
+float Building_Building::getVisibility() {
+	return visibility;
+}
+
 std::vector<Technology> Building_Building::getExistingTechs() {
 	return existingTechs;
 }
