@@ -10,7 +10,6 @@
 
 #include <vector>
 #include "floor.h"
-#include "component.h"
 
 class Building: public Location {
 
@@ -19,13 +18,10 @@ public:
 	Building(int userNumber);
 	std::vector<Floor> getFloors();
 	void addFloor(int userNumber);
-	int getFloorsNumber();
-    std::vector<Component> getComponents();
-	void addComponent(Component newComponent);
+    int getFloorsNumber();
 
 private:
-	std::vector<Floor> floors;
-    std::vector<Component> components;
+    std::vector<Floor> floors;
 };
 
 #endif /* BUILDING_H_ */

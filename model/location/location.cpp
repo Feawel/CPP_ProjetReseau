@@ -6,6 +6,7 @@
  */
 
 #include "location.h"
+#include "../component/component.h"
 using namespace std;
 
 Location::Location() :
@@ -30,4 +31,13 @@ void Location::cantUseTechnology(Technology technology) {
 
 std::vector<Technology> Location::getCantUseTechs() {
 	return cantUseTechs;
+}
+
+
+vector<Component> Location::getComponents() {
+    return components;
+}
+
+void Location::addComponent(Component newComponent) {
+    components.push_back(newComponent);
 }
