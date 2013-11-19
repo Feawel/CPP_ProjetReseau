@@ -16,6 +16,12 @@
 //Nombre de batiments dans le réseau
 const int NB_BUILDINGS = 5;
 
+//Tableau contenant les distances entre batiments
+float tabDistanceB2B[NB_BUILDINGS][NB_BUILDINGS];
+
+//tableau contenant les visibilités entre batiment
+bool tabVisibilityB2B[NB_BUILDINGS][NB_BUILDINGS];
+
 //Nombre de sections à considérer par batiment
 const int NB_FLOORS = 3;
 
@@ -27,3 +33,4 @@ const int NB_USERS_SUP = 30;
 
 //Nombre d'utilisateurs avec un accès "admin" (internet + serveurs publics/privés + serveurs admins)
 const int NB_USERS_ADMIN = 3;
+
