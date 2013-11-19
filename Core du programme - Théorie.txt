@@ -15,9 +15,9 @@ Phase I : Création du backbone
 	Une adresse par bâtiment : pour chaque bâtiment i
 		10.10.i.i
 	Un bâtiment désigné comme « Bat Admin » (Bat admin à TRUE ?)
-	Définition des distances B2B
 
 Phase II : Technologies de liaison inter-batiments
+	Définition des distances B2B
 	Fibre optique (défaut)
 	Paire torsadée (SI paire torsadée déjà câblée entre bâtiments)
 	InfraRouge (D(B2B) < 3 && vision == true)
