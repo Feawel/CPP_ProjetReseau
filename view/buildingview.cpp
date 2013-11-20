@@ -7,6 +7,19 @@
 
 #include "buildingview.h"
 
-BuildingView::BuildingView( int x, int y, int width, int height ): QRect(x, y, width, height)
+using namespace std;
+
+BuildingView::BuildingView( int x, int y, int width, int height, string name ): QRect(x, y, width, height), building(0)
 {
+    building = new Building(0,name);
+}
+
+Building* BuildingView::getBuilding()
+{
+    return building;
+}
+
+QString BuildingView::getName()
+{
+    return QString::fromStdString(building->getName());
 }
