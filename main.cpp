@@ -5,20 +5,16 @@
  *      Author: MOULIN
  */
 
-#include <iostream>
-#include "model/address.h"
-#include "model/component/component.h"
+#include "view/requestinterface.h"
+#include <QApplication>
+#include <QtGui>
 
-using namespace std;
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
 
-int main() {
-	Address address(255, 255, 255, 255, 0);
-	cout << address << endl;
+    RequestInterface window ;
+    window.show();
 
-	Component component;
-	component.setAddress(address);
-	cout << component.getAddress() << endl;
-
-	return 0;
+    return app.exec();
 }
-

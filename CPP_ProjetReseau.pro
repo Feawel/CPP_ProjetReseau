@@ -11,7 +11,9 @@ SOURCES += \
     model/component/firewall.cpp \
     model/component/component.cpp \
     model/component/backbone.cpp \
-    main.cpp
+    main.cpp \
+    view/requestinterface.cpp \
+    view/buildingview.cpp
 
 QT += widgets
 
@@ -28,4 +30,6 @@ HEADERS += \
     model/component/port.h \
     model/component/firewall.h \
     model/component/component.h \
-    model/component/backbone.h
+    model/component/backbone.h \
+    view/requestinterface.h \
+    view/buildingview.h
