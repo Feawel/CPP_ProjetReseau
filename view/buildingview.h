@@ -18,6 +18,7 @@ public:
     BuildingView(int x, int y, int width, int height, std::string name);
     Building* getBuilding();
     QString getName();
+    QString getUsers();
 private:
     Building *building;
 };

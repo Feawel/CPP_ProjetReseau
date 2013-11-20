@@ -23,3 +23,9 @@ QString BuildingView::getName()
 {
     return QString::fromStdString(building->getName());
 }
+
+
+QString BuildingView::getUsers()
+{
+    return QString::fromStdString("Users: ") + QString::number(building->getUserNumber());
+}

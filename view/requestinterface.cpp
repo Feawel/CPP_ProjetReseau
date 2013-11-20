@@ -83,12 +83,13 @@ void RequestInterface::paintEvent(QPaintEvent *)
     QColor buildingColor(90,167,45);
 
     // foreach building view, add it on the board
-    for(int i = 0 ; i < buildingViews.size();i++)
+    for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
         BuildingView *currentbuildingView  = &buildingViews[i];
         painter.drawRect(*currentbuildingView);
         painter.fillRect(*currentbuildingView, buildingColor);
         painter.drawText(*currentbuildingView,Qt::AlignHCenter,currentbuildingView->getName());
+        painter.drawText(*currentbuildingView, Qt::AlignBottom+Qt::AlignCenter, currentbuildingView->getUsers());
     }
 
     painter.end();
@@ -101,7 +102,7 @@ void RequestInterface::paintEvent(QPaintEvent *)
  */
 void RequestInterface::mousePressEvent(QMouseEvent *event)
 {
-    for(int i = 0 ; i < buildingViews.size();i++)
+    for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
         if(buildingViews[i].contains(event->pos()))
         {
