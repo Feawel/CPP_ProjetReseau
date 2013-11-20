@@ -10,11 +10,11 @@
 using namespace std;
 
 Location::Location() :
-		userNumber(0) {
+    userNumber(0) ,name(""){
 }
 
-Location::Location(unsigned int userNumber) :
-		userNumber(userNumber) {
+Location::Location(unsigned int userNumber, string name) :
+    userNumber(userNumber), name(name){
 }
 
 unsigned int Location::getUserNumber() const {
@@ -40,4 +40,14 @@ vector<Component> Location::getComponents() {
 
 void Location::addComponent(Component newComponent) {
     components.push_back(newComponent);
+}
+
+std::string Location::getName()
+{
+    return name;
+}
+
+void Location::setName(std::string name)
+{
+    this->name= name;
 }

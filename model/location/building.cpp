@@ -14,8 +14,8 @@ Building::Building() :
 		Location() {
 }
 
-Building::Building(int userNumber) :
-		Location(userNumber) {
+Building::Building(int userNumber, string name) :
+        Location(userNumber, name) {
 }
 
 vector<Floor> Building::getFloors() {

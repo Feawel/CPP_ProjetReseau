@@ -15,7 +15,7 @@ class Building: public Location {
 
 public:
 	Building();
-	Building(int userNumber);
+    Building(int userNumber, std::string name);
 	std::vector<Floor> getFloors();
 	void addFloor(int userNumber);
     int getFloorsNumber();

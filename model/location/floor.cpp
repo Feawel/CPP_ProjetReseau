@@ -13,7 +13,7 @@ Floor::Floor(int floorNumber) :
 }
 
 Floor::Floor(int userNumber, int floorNumber) :
-		Location(userNumber), floorNumber(floorNumber) {
+    Location(userNumber, "Floor " + floorNumber), floorNumber(floorNumber) {
 }
 
 int Floor::getFloorNumber() {
