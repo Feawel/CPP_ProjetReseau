@@ -19,18 +19,20 @@
 #include <QString>
 #include <QMouseEvent>
 #include <sstream>
+#include <QDockWidget>
+#include <QFormLayout>
+#include <QLineEdit>
+#include <QWidget>
+#include <QSpinBox>
 
 #include "requestinterface.h"
 #include "buildingview.h"
+#include "buildingpanel.h"
 #include "../model/location/building.h"
 
 using namespace std;
 
 RequestInterface::RequestInterface() : QMainWindow(){
-
-    //open the wwindow in maximized format
-    showMaximized();
-
     // create the file menu
     QMenu *file = menuBar()->addMenu("&File");
 
@@ -55,6 +57,13 @@ RequestInterface::RequestInterface() : QMainWindow(){
     // create the central board
     QWidget *board = new QWidget;
     setCentralWidget(board);
+
+    // create the form panel
+    formPanel = new QDockWidget("Form");
+    addDockWidget(Qt::BottomDockWidgetArea, formPanel);
+
+    //open the window in maximized format
+    showMaximized();
 }
 
 /**
@@ -107,6 +116,8 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
         if(buildingViews[i].contains(event->pos()))
         {
             focusedView = &buildingViews[i];
+            formPanel->setWidget(focusedView->getPanel());
+            break;
         }
     }
 }

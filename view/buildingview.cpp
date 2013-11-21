@@ -6,17 +6,24 @@
  */
 
 #include "buildingview.h"
+#include "../model/constant.h"
 
 using namespace std;
 
 BuildingView::BuildingView( int x, int y, int width, int height, string name ): QRect(x, y, width, height), building(0)
 {
-    building = new Building(0,name);
+    building = new Building(name);
+    panel = new BuildingPanel;
 }
 
 Building* BuildingView::getBuilding()
 {
     return building;
+}
+
+BuildingPanel* BuildingView::getPanel()
+{
+    return panel;
 }
 
 QString BuildingView::getName()
@@ -27,5 +34,5 @@ QString BuildingView::getName()
 
 QString BuildingView::getUsers()
 {
-    return QString::fromStdString("Users: ") + QString::number(building->getUserNumber());
+    return QString::fromStdString("Users: ");
 }

@@ -13,21 +13,23 @@
 #include <QGridLayout>
 #include <vector>
 #include <QMouseEvent>
+#include <QDockWidget>
 
 #include "buildingview.h"
 
 class RequestInterface: public QMainWindow {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	RequestInterface();public slots:
-	void addBuilding();
+    RequestInterface();public slots:
+    void addBuilding();
 private:
-	void paintEvent(QPaintEvent *);
-	std::vector<BuildingView> buildingViews;
+    void paintEvent(QPaintEvent *);
+    std::vector<BuildingView> buildingViews;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     BuildingView *focusedView;
+    QDockWidget *formPanel;
 };
 
 #endif // REQUESTINTERFACE_H

@@ -11,25 +11,24 @@
 using namespace std;
 
 Building::Building() :
-		Location() {
+        Location() {
 }
 
-Building::Building(int userNumber, string name, bool admin) :
-        Location(userNumber, name) {
+Building::Building(string name, bool admin) :
+        Location(name) {
 }
 
 vector<Floor> Building::getFloors() {
-	return floors;
+    return floors;
 }
 
-void Building::addFloor(int userNumber) {
-	Floor newFloor(userNumber, floors.size() + 1);
-	floors.push_back(newFloor);
-	userNumber += userNumber;
+void Building::addFloor() {
+    Floor newFloor(floors.size() + 1);
+    floors.push_back(newFloor);
 }
 
 int Building::getFloorsNumber(){
-	return floors.size();
+    return floors.size();
 }
 
 bool Building::isAdmin(){

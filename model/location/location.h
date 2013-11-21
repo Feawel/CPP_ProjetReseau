@@ -17,9 +17,10 @@ class Location {
 
 public:
 	Location();
-    Location(unsigned int userNumber, std::string name);
-	unsigned int getUserNumber() const;
-	void setUserNumber(unsigned int userNumber);
+    Location(std::string name);
+	unsigned int getUserNumber(UserType userType) const;
+	std::vector<int> getUserNumbers() const;
+	void setUserNumber(UserType userType, unsigned int userNumber);
 	void cantUseTechnology(Technology technology);
 	std::vector<Technology> getCantUseTechs();
     std::vector<Component> getComponents();
@@ -28,7 +29,7 @@ public:
     void setName(std::string name);
 
 private:
-	unsigned int userNumber;
+	std::vector<int> userNumbers;
 	std::vector<Technology> cantUseTechs;
     std::vector<Component> components;
     std::string name;

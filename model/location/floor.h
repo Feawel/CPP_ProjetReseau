@@ -14,7 +14,6 @@ class Floor: public Location {
 
 public:
 	Floor(int floorNumber);
-	Floor(int userNumber,int floorNumber);
 	int getFloorNumber();
 
 private:

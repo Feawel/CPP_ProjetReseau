@@ -10,19 +10,23 @@
 using namespace std;
 
 Location::Location() :
-    userNumber(0) ,name(""){
+		userNumbers(3, 0), name("") {
 }
 
-Location::Location(unsigned int userNumber, string name) :
-    userNumber(userNumber), name(name){
+Location::Location(string name) :
+		userNumbers(3, 0), name(name) {
 }
 
-unsigned int Location::getUserNumber() const {
-	return userNumber;
+vector<int> Location::getUserNumbers() const {
+	return userNumbers;
 }
 
-void Location::setUserNumber(unsigned int userNumber) {
-	this->userNumber = userNumber;
+unsigned int Location::getUserNumber(UserType userType) const {
+	return userNumbers[userType];
+}
+
+void Location::setUserNumber(UserType userType, unsigned int userNumber) {
+	userNumbers[userType]=userNumber;
 }
 
 void Location::cantUseTechnology(Technology technology) {
@@ -33,21 +37,18 @@ std::vector<Technology> Location::getCantUseTechs() {
 	return cantUseTechs;
 }
 
-
 vector<Component> Location::getComponents() {
-    return components;
+	return components;
 }
 
 void Location::addComponent(Component newComponent) {
-    components.push_back(newComponent);
+	components.push_back(newComponent);
 }
 
-std::string Location::getName()
-{
-    return name;
+std::string Location::getName() {
+	return name;
 }
 
-void Location::setName(std::string name)
-{
-    this->name= name;
+void Location::setName(std::string name) {
+	this->name = name;
 }

@@ -13,7 +13,8 @@ SOURCES += \
     model/component/backbone.cpp \
     main.cpp \
     view/requestinterface.cpp \
-    view/buildingview.cpp
+    view/buildingview.cpp \
+    view/buildingpanel.cpp
 
 QT += widgets
 
@@ -32,4 +33,5 @@ HEADERS += \
     model/component/component.h \
     model/component/backbone.h \
     view/requestinterface.h \
-    view/buildingview.h
+    view/buildingview.h \
+    view/buildingpanel.h
