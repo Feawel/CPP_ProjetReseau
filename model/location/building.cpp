@@ -14,7 +14,7 @@ Building::Building() :
 		Location() {
 }
 
-Building::Building(int userNumber, string name) :
+Building::Building(int userNumber, string name, bool admin) :
         Location(userNumber, name) {
 }
 
@@ -30,4 +30,8 @@ void Building::addFloor(int userNumber) {
 
 int Building::getFloorsNumber(){
 	return floors.size();
+}
+
+bool Building::isAdmin(){
+    return admin;
 }
