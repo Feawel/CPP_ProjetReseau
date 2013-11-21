@@ -15,7 +15,8 @@ SOURCES += \
     view/requestinterface.cpp \
     view/buildingview.cpp \
     view/buildingpanel.cpp \
-    phases/Request.cpp
+    phases/networkbuilder.cpp \
+    phases/request.cpp
 
 QT += widgets
 
@@ -36,4 +37,5 @@ HEADERS += \
     view/requestinterface.h \
     view/buildingview.h \
     view/buildingpanel.h \
-    phases/Request.h
+    phases/networkbuilder.h \
+    phases/request.h
