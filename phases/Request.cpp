@@ -8,8 +8,7 @@
 
 #include "Request.h"
 #include <vector>
-#include "building.h"
-
+#include "../model/location/building.h"
 
 using namespace std;
 
@@ -17,14 +16,14 @@ Request::Request() : buildings(0)
 {
 }
 
-vector<Floor> Building::getBuildings() {
-	return buildings;
+vector<Building> Request::getBuildings() {
+    return buildings;
 }
 
 void Request::addBuilding(Building newBuilding) {
-	buildings.push_back(newBuilding);
+    buildings.push_back(newBuilding);
 }
 
-void Request::removeBuilding(iterator it) {
-	buildings.erase(it);
+void Request::removeBuilding(int id) {
+    buildings.erase(buildings.begin()+id);
 }

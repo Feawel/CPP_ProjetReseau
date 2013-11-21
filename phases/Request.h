@@ -10,16 +10,17 @@
 #define __NetworkBuilder__Request__
 
 #include <iostream>
-#include "building.cpp"
+#include "../model/location/building.h"
 
 class Request{
-    
-public:
-	std::vector<Building> getBuildings();
-    void addBuilding(string name);
-    void removeBuilding(iterator it)
 
-    
+public:
+    Request();
+    std::vector<Building> getBuildings();
+    void addBuilding(Building newBuilding);
+    void removeBuilding(int id);
+
+
 private:
     std::vector<Building> buildings;
 };
