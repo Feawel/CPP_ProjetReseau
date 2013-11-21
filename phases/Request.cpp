@@ -8,12 +8,12 @@
 
 #include "Request.h"
 #include <vector>
-#include "building.cpp"
+#include "building.h"
 
 
 using namespace std;
 
-Request::Request(vector<Building>) :
+Request::Request() : buildings(0)
 {
 }
 
@@ -21,8 +21,7 @@ vector<Floor> Building::getBuildings() {
 	return buildings;
 }
 
-void Request::addBuilding(int userNumber, string name, bool admin=false) {
-	Building newBuilding(userNumber, name, admin);
+void Request::addBuilding(Building newBuilding) {
 	buildings.push_back(newBuilding);
 }
 
