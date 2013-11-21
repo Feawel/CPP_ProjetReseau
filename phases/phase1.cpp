@@ -44,7 +44,6 @@ int main() {
     
     for (i=1; i <= NB_BUILDINGS; ++i) {
         
-        //Classe Building à créer
         Building building;
         Address addressBuilding(10,10,i,i,NULL);
 
