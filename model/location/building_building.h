@@ -16,7 +16,8 @@ class Building_Building {
 
 public:
 	Building_Building(Building *building1, Building *building2, float distance,bool visibility);
-	void addExistingTechnology(Technology technology);
+    Building_Building();
+    void addExistingTechnology(Technology technology);
 	float getDistance();
     float getVisibility();
 	std::vector<Technology> getExistingTechs();
