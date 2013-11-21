@@ -1,15 +1,15 @@
 Etape 1 (Vincent) :
 
-Création de la requête (objet Request) via l'interface graphique
-Une requête contient une liste de bâtiments (objet Building), une liste de lien bâtiments/bâtiments (objet Building_Building).
-Chaque bâtiments contient une liste d'étage (objet Floor). Les bâtiments et les étages possedent une liste de technologies déjà en place (définie dans l'objet parent Location).
+CrÃ©ation de la requÃªte (objet Request) via l'interface graphique
+Une requÃªte contient une liste de bÃ¢timents (objet Building), une liste de lien bÃ¢timents/bÃ¢timents (objet Building_Building).
+Chaque bÃ¢timents contient une liste d'Ã©tage (objet Floor). Les bÃ¢timents et les Ã©tages possedent une liste de technologies dÃ©jÃ  en place (dÃ©finie dans l'objet parent Location).
 
 Etape 2 (Jonathan) :
-La requête passe à travers un certains nombre de phases qui ajoutent des composants (objet Component) aux objets Location comme des switch (objet Switch), des firewalls (objet Firewall)...
-Des liens (objet Link) sont crées entre les composants et ajoutés dans une liste à la requête. Les adresses sont définies.
+La requÃªte passe Ã  travers un certains nombre de phases qui ajoutent des composants (objet Component) aux objets Location comme des switch (objet Switch), des firewalls (objet Firewall)...
+Des liens (objet Link) sont crÃ©es entre les composants et ajoutÃ©s dans une liste Ã  la requÃªte. Les adresses sont dÃ©finies.
 
 Etape 3 (Alexis) : 
-Les composants et les liens sont transformés en un graph (langage graphix)
+Les composants et les liens sont transformÃ©s en un graph (langage graphix)
 
 Etape 4 (?) : 
-Un fichier est généré rappelant la demande initiale (nombre de bâtiments, d'étages, d'utilisateurs) et la liste des composants, des câbles... (un ordre de grandeur des prix ?).s
+Un fichier est gÃ©nÃ©rÃ© rappelant la demande initiale (nombre de bÃ¢timents, d'Ã©tages, d'utilisateurs) et la liste des composants, des cÃ¢bles... (un ordre de grandeur des prix ?).s
