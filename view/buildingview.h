@@ -12,6 +12,7 @@
 #include <QString>
 #include <string>
 #include "../model/location/building.h"
+#include "../model/constant.h"
 #include "buildingpanel.h"
 
 class BuildingView: public QRect {
@@ -21,6 +22,7 @@ public:
     BuildingPanel* getPanel();
     QString getName();
     QString getUsers();
+    void setUsers(NUserType::UserType userType, unsigned int userNumber);
 private:
     Building *building;
     BuildingPanel *panel;

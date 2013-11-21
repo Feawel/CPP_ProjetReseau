@@ -13,12 +13,12 @@
 
 class Link {
 public:
-	Link(Component *component1, Component *component2, Technology tech);
+    Link(Component *component1, Component *component2, NTechnology::Technology tech);
 
 private:
-	Component *component1;
-	Component *component2;
-	Technology tech;
+    Component *component1;
+    Component *component2;
+    NTechnology::Technology tech;
 
 };
 

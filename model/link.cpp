@@ -7,7 +7,7 @@
 
 #include "link.h"
 
-Link::Link(Component *component1, Component *component2, Technology tech): component1(component1),component2(component2), tech(tech)
+Link::Link(Component *component1, Component *component2, NTechnology::Technology tech): component1(component1),component2(component2), tech(tech)
 {
 
 }

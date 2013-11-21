@@ -81,6 +81,12 @@ void RequestInterface::addBuilding()
     // adding it to the building view array
     buildingViews.push_back(buildingView);
 
+    request.addBuilding(*buildingView.getBuilding());
+
+    //QObject::connect(buildingView.getPanel()->getUserNumberField(NUserType::DEFAULT), SIGNAL(valueChanged(int)), this, SLOT(setUsers(buildingView.getBuilding(),NUserType::UserType,int)));
+    //QObject::connect(buildingView.getPanel()->getUserNumberField(NUserType::SUP), SIGNAL(valueChanged(int)), *this, SLOT(setUsers(*buildingView,NUserType::SUP,int)));
+    //QObject::connect(buildingView.getPanel()->getUserNumberField(NUserType::ADMIN), SIGNAL(valueChanged(int)), *this, SLOT(setUsers(*buildingView,NUserType::ADMIN,int)));
+
     // update the window (call paint event)
     update();
 }
@@ -141,4 +147,11 @@ void RequestInterface::mouseMoveEvent(QMouseEvent *event)
 void RequestInterface::mouseReleaseEvent(QMouseEvent *event)
 {
     focusedView = 0;
+}
+
+
+void RequestInterface::setUsers(Building *building,NUserType::UserType userType, unsigned int userNumber)
+{
+    building->setUserNumber(userType, userNumber);
+    update();
 }

@@ -15,19 +15,19 @@
 class Building_Building {
 
 public:
-	Building_Building(Building *building1, Building *building2, float distance,bool visibility);
     Building_Building();
-    void addExistingTechnology(Technology technology);
-	float getDistance();
+    Building_Building(Building *building1, Building *building2, float distance,bool visibility);
+    void addExistingTechnology(NTechnology::Technology technology);
+    float getDistance();
     float getVisibility();
-	std::vector<Technology> getExistingTechs();
+    std::vector<NTechnology::Technology> getExistingTechs();
 
 private:
-	float distance;
-	Building *building1;
-	Building *building2;
-	bool visibility;
-	std::vector<Technology> existingTechs;
+    float distance;
+    Building *building1;
+    Building *building2;
+    bool visibility;
+    std::vector<NTechnology::Technology> existingTechs;
 };
 
 #endif /* BUILDING_BUILDING_H_ */

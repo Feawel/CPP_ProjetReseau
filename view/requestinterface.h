@@ -16,12 +16,16 @@
 #include <QDockWidget>
 
 #include "buildingview.h"
+#include "../phases/Request.h"
+#include "../model/location/building.h"
 
 class RequestInterface: public QMainWindow {
     Q_OBJECT
 public:
-    RequestInterface();public slots:
+    RequestInterface();
+public slots:
     void addBuilding();
+    void setUsers(Building *building,NUserType::UserType userType, unsigned int userNumber);
 private:
     void paintEvent(QPaintEvent *);
     std::vector<BuildingView> buildingViews;
@@ -30,6 +34,7 @@ private:
     void mouseReleaseEvent(QMouseEvent *event);
     BuildingView *focusedView;
     QDockWidget *formPanel;
+    Request request;
 };
 
 #endif // REQUESTINTERFACE_H

@@ -34,5 +34,10 @@ QString BuildingView::getName()
 
 QString BuildingView::getUsers()
 {
-    return QString::fromStdString("Users: ");
+    return "D: " + QString::number(building->getUserNumber(NUserType::DEFAULT));
+}
+
+void BuildingView::setUsers(NUserType::UserType userType, unsigned int userNumber)
+{
+    building->setUserNumber(userType, userNumber);
 }

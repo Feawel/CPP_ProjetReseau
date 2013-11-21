@@ -9,12 +9,16 @@
 #define BUILDINGPANEL_H_
 
 #include <QWidget>
+#include <QSpinBox>
+#include <vector>
+#include "../model/constant.h"
 
 class BuildingPanel: public QWidget {
 public:
     BuildingPanel();
-
+    QSpinBox* getUserNumberField(NUserType::UserType userType);
 private:
+    std::vector<QSpinBox*> userNumberFields;
 };
 
 #endif /* BUILDINGPANEL_H_ */

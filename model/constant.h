@@ -8,12 +8,17 @@
 #ifndef CONSTANT_H_
 #define CONSTANT_H_
 
+namespace NTechnology {
+
 typedef enum {
-	WIFI, ETHERNET, FIBER, INFRARED, TWISTEDPAIR
+    WIFI, ETHERNET, FIBER, INFRARED, TWISTEDPAIR
 } Technology;
+}
 
+namespace NUserType
+{
 typedef enum {
-	DEFAULT = 0, SUP = 1, ADMIN = 2
+    DEFAULT = 0, SUP = 1, ADMIN = 2
 } UserType;
-
+}
 #endif /* CONSTANT_H_ */
