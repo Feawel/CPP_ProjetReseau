@@ -18,7 +18,7 @@ public:
 	Request();
     Request(std::vector<Building>);
 	std::vector<Building> getBuildings();
-	void addBuilding(string name);
+    void addBuilding(string name);
     void removeBuilding(iterator it)
 
     
