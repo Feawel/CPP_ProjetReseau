@@ -56,12 +56,13 @@ QLine Building_BuildingView::getLine() const
     int left2x = buildingView2->topLeft().x();
     int left2y = buildingView2->topLeft().y();
 
+    // calculate coordonate of the top/right point of the building 2 named right2
+    int right2x = buildingView2->topRight().x();
+    int right2y = buildingView2->topRight().y();
+
     // if left2 if above topBottom
     if(left2y < topBottoma * left2x + topBottomb)
     {
-        // calculate coordonate of the top/right point of the building 2 named right2
-        int right2x = buildingView2->topRight().x();
-        int right2y = buildingView2->topRight().y();
 
         // if right2 is under bottomTop
         if(right2x > (right2y-bottomTopb)/bottomTopa)
@@ -76,10 +77,6 @@ QLine Building_BuildingView::getLine() const
     }
     else
     {
-        // calculate coordonate of the bottom/right point of the building 2 named right2
-        int right2x = buildingView2->bottomRight().x();
-        int right2y = buildingView2->bottomRight().y();
-
         // if right2 is under bottomTop
         if(right2x > (right2y-bottomTopb)/bottomTopa)
         {
