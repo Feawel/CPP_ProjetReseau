@@ -22,7 +22,8 @@ vector<int> Location::getUserNumbers() const {
 }
 
 unsigned int Location::getUserNumber(NUserType::UserType userType) const {
-    return userNumbers[userType];
+    int index = userType;
+    return userNumbers[index];
 }
 
 void Location::setUserNumber(NUserType::UserType userType, unsigned int userNumber) {

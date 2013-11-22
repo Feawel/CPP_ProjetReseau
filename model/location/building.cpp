@@ -15,7 +15,7 @@ Building::Building() :
 }
 
 Building::Building(string name, bool admin) :
-        Location(name) {
+    Location(name), admin(admin) {
 }
 
 vector<Floor> Building::getFloors() {

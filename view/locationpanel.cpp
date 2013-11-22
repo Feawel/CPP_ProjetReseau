@@ -1,5 +1,5 @@
 /*
- * buildingpanel.cpp
+ * locationpanel.cpp
  *
  *  Created on: 20 nov. 2013
  *      Author: MOULIN
@@ -7,9 +7,9 @@
 #include <QFormLayout>
 #include <QSpinBox>
 
-#include "buildingpanel.h"
+#include "locationpanel.h"
 
-BuildingPanel::BuildingPanel(): QWidget(), userNumberFields(3)
+LocationPanel::LocationPanel(): QWidget()
 {
     QFormLayout *layout = new QFormLayout;
     QSpinBox* defaultUserNumberField= new QSpinBox;
@@ -25,9 +25,10 @@ BuildingPanel::BuildingPanel(): QWidget(), userNumberFields(3)
     userNumberFields.push_back(adminUserNumberField);
 }
 
-QSpinBox* BuildingPanel::getUserNumberField(NUserType::UserType userType)
+QSpinBox* LocationPanel::getUserNumberField(NUserType::UserType userType)
 {
-    return userNumberFields[userType];
+    int index = userType;
+    return userNumberFields[index];
 }
 
 

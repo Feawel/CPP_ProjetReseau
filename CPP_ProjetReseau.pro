@@ -14,9 +14,8 @@ SOURCES += \
     main.cpp \
     view/requestinterface.cpp \
     view/buildingview.cpp \
-    view/buildingpanel.cpp \
-    phases/networkbuilder.cpp \
-    phases/request.cpp
+    phases/request.cpp \
+    view/locationpanel.cpp
 
 QT += widgets
 
@@ -36,6 +35,5 @@ HEADERS += \
     model/component/backbone.h \
     view/requestinterface.h \
     view/buildingview.h \
-    view/buildingpanel.h \
-    phases/networkbuilder.h \
-    phases/request.h
+    phases/request.h \
+    view/locationpanel.h

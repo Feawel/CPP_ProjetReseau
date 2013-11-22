@@ -27,8 +27,9 @@
 
 #include "requestinterface.h"
 #include "buildingview.h"
-#include "buildingpanel.h"
+#include "locationpanel.h"
 #include "../model/location/building.h"
+#include <vector>
 
 using namespace std;
 
@@ -61,6 +62,7 @@ RequestInterface::RequestInterface() : QMainWindow(){
     // create the form panel
     formPanel = new QDockWidget("Form");
     addDockWidget(Qt::BottomDockWidgetArea, formPanel);
+    locationPanel = new LocationPanel();
 
     //open the window in maximized format
     showMaximized();
@@ -82,10 +84,6 @@ void RequestInterface::addBuilding()
     buildingViews.push_back(buildingView);
 
     request.addBuilding(*buildingView.getBuilding());
-
-    //QObject::connect(buildingView.getPanel()->getUserNumberField(NUserType::DEFAULT), SIGNAL(valueChanged(int)), this, SLOT(setUsers(buildingView.getBuilding(),NUserType::UserType,int)));
-    //QObject::connect(buildingView.getPanel()->getUserNumberField(NUserType::SUP), SIGNAL(valueChanged(int)), *this, SLOT(setUsers(*buildingView,NUserType::SUP,int)));
-    //QObject::connect(buildingView.getPanel()->getUserNumberField(NUserType::ADMIN), SIGNAL(valueChanged(int)), *this, SLOT(setUsers(*buildingView,NUserType::ADMIN,int)));
 
     // update the window (call paint event)
     update();
@@ -117,12 +115,14 @@ void RequestInterface::paintEvent(QPaintEvent *)
  */
 void RequestInterface::mousePressEvent(QMouseEvent *event)
 {
+    formPanel->setWidget(locationPanel);
     for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
         if(buildingViews[i].contains(event->pos()))
         {
             focusedView = &buildingViews[i];
-            formPanel->setWidget(focusedView->getPanel());
+            locationPanel->getUserNumberField(NUserType::DEFAULT)->setValue(focusedView->getBuilding()->getUserNumber(NUserType::DEFAULT));
+            QObject::connect(locationPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setUsers(int)));
             break;
         }
     }
@@ -146,12 +146,12 @@ void RequestInterface::mouseMoveEvent(QMouseEvent *event)
  */
 void RequestInterface::mouseReleaseEvent(QMouseEvent *event)
 {
-    focusedView = 0;
+   // focusedView = 0;
 }
 
 
-void RequestInterface::setUsers(Building *building,NUserType::UserType userType, unsigned int userNumber)
+void RequestInterface::setUsers(int userNumber)
 {
-    building->setUserNumber(userType, userNumber);
+    focusedView->getBuilding()->setUserNumber(NUserType::DEFAULT, userNumber);
     update();
 }

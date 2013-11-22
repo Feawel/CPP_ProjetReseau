@@ -13,17 +13,11 @@ using namespace std;
 BuildingView::BuildingView( int x, int y, int width, int height, string name ): QRect(x, y, width, height), building(0)
 {
     building = new Building(name);
-    panel = new BuildingPanel;
 }
 
 Building* BuildingView::getBuilding()
 {
     return building;
-}
-
-BuildingPanel* BuildingView::getPanel()
-{
-    return panel;
 }
 
 QString BuildingView::getName()

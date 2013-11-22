@@ -15,6 +15,7 @@
 #include <QMouseEvent>
 #include <QDockWidget>
 
+#include "locationpanel.h"
 #include "buildingview.h"
 #include "../phases/Request.h"
 #include "../model/location/building.h"
@@ -25,16 +26,16 @@ public:
     RequestInterface();
 public slots:
     void addBuilding();
-    void setUsers(Building *building,NUserType::UserType userType, unsigned int userNumber);
+    void setUsers(int userNumber);
 private:
     void paintEvent(QPaintEvent *);
     std::vector<BuildingView> buildingViews;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
     BuildingView *focusedView;
     QDockWidget *formPanel;
     Request request;
+    LocationPanel *locationPanel;
 };
 
 #endif // REQUESTINTERFACE_H

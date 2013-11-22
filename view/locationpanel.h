@@ -1,24 +1,24 @@
 /*
- * buildingpanel.h
+ * locationpanel.h
  *
  *  Created on: 20 nov. 2013
  *      Author: MOULIN
  */
 
-#ifndef BUILDINGPANEL_H_
-#define BUILDINGPANEL_H_
+#ifndef LOCATIONPANEL_H_
+#define LOCATIONPANEL_H_
 
 #include <QWidget>
 #include <QSpinBox>
 #include <vector>
 #include "../model/constant.h"
 
-class BuildingPanel: public QWidget {
+class LocationPanel: public QWidget {
 public:
-    BuildingPanel();
+    LocationPanel();
     QSpinBox* getUserNumberField(NUserType::UserType userType);
 private:
     std::vector<QSpinBox*> userNumberFields;
 };
 
-#endif /* BUILDINGPANEL_H_ */
+#endif /* LOCATIONPANEL_H_ */
