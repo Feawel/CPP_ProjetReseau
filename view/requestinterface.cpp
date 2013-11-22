@@ -24,6 +24,7 @@
 #include <QLineEdit>
 #include <QWidget>
 #include <QSpinBox>
+#include <QPen>
 
 #include "requestinterface.h"
 #include "buildingview.h"
@@ -78,12 +79,12 @@ void RequestInterface::addBuilding()
     oss << (buildingViews.size()+1);
 
     // create the new bulding view with name Building i
-    BuildingView buildingView(100,100,150,200,"Building "+oss.str());
+    BuildingView *buildingView = new BuildingView(100,100,150,200,"Building "+oss.str());
 
     // adding it to the building view array
     buildingViews.push_back(buildingView);
 
-    request.addBuilding(*buildingView.getBuilding());
+    request.addBuilding(buildingView->getBuilding());
 
     // update the window (call paint event)
     update();
@@ -92,13 +93,20 @@ void RequestInterface::addBuilding()
 void RequestInterface::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
+    QPen defaultPen = painter.pen();
+    QPen focusPen;
+    focusPen.setWidth(5);
 
     QColor buildingColor(90,167,45);
 
     // foreach building view, add it on the board
     for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
-        BuildingView *currentbuildingView  = &buildingViews[i];
+        BuildingView *currentbuildingView  = buildingViews[i];
+        if(currentbuildingView == focusedView)
+            painter.setPen(focusPen);
+        else
+            painter.setPen(defaultPen);
         painter.drawRect(*currentbuildingView);
         painter.fillRect(*currentbuildingView, buildingColor);
         painter.drawText(*currentbuildingView,Qt::AlignHCenter,currentbuildingView->getName());
@@ -115,17 +123,27 @@ void RequestInterface::paintEvent(QPaintEvent *)
  */
 void RequestInterface::mousePressEvent(QMouseEvent *event)
 {
-    formPanel->setWidget(locationPanel);
+    focusedView = 0;
     for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
-        if(buildingViews[i].contains(event->pos()))
+        if(buildingViews[i]->contains(event->pos()))
         {
-            focusedView = &buildingViews[i];
+            formPanel->setWidget(locationPanel);
+            focusedView = buildingViews[i];
             locationPanel->getUserNumberField(NUserType::DEFAULT)->setValue(focusedView->getBuilding()->getUserNumber(NUserType::DEFAULT));
-            QObject::connect(locationPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setUsers(int)));
+            locationPanel->getUserNumberField(NUserType::SUP)->setValue(focusedView->getBuilding()->getUserNumber(NUserType::SUP));
+            locationPanel->getUserNumberField(NUserType::ADMIN)->setValue(focusedView->getBuilding()->getUserNumber(NUserType::ADMIN));
+            QObject::connect(locationPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
+            QObject::connect(locationPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
+            QObject::connect(locationPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
             break;
         }
     }
+    if(focusedView == 0)
+    {
+        formPanel->setWidget(0);
+    }
+    update();
 }
 
 /**
@@ -135,23 +153,28 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
  */
 void RequestInterface::mouseMoveEvent(QMouseEvent *event)
 {
-    focusedView->moveTo(event->globalPos());
+    if(focusedView != 0)
+    {
+        focusedView->moveTo(event->globalPos());
+        update();
+    }
+}
+
+
+void RequestInterface::setDefaultUsers(int userNumber)
+{
+    focusedView->getBuilding()->setUserNumber(NUserType::DEFAULT, userNumber);
     update();
 }
 
-/**
- * @brief RequestInterface::mouseReleaseEvent
- * @param event
- * unfocus the element
- */
-void RequestInterface::mouseReleaseEvent(QMouseEvent *event)
+void RequestInterface::setSupUsers(int userNumber)
 {
-   // focusedView = 0;
+    focusedView->getBuilding()->setUserNumber(NUserType::SUP, userNumber);
+    update();
 }
 
-
-void RequestInterface::setUsers(int userNumber)
+void RequestInterface::setAdminUsers(int userNumber)
 {
-    focusedView->getBuilding()->setUserNumber(NUserType::DEFAULT, userNumber);
+    focusedView->getBuilding()->setUserNumber(NUserType::ADMIN, userNumber);
     update();
 }

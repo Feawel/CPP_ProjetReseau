@@ -26,10 +26,12 @@ public:
     RequestInterface();
 public slots:
     void addBuilding();
-    void setUsers(int userNumber);
+    void setDefaultUsers(int userNumber);
+    void setSupUsers(int userNumber);
+    void setAdminUsers(int userNumber);
 private:
     void paintEvent(QPaintEvent *);
-    std::vector<BuildingView> buildingViews;
+    std::vector<BuildingView*> buildingViews;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     BuildingView *focusedView;
