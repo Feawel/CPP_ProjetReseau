@@ -17,11 +17,11 @@ Request::Request() : buildings(0), building_buildings(0)
 {
 }
 
-vector<Building> Request::getBuildings() {
+vector<Building*> Request::getBuildings() {
     return buildings;
 }
 
-void Request::addBuilding(Building newBuilding) {
+void Request::addBuilding(Building* newBuilding) {
     buildings.push_back(newBuilding);
 }
 
@@ -29,11 +29,11 @@ void Request::removeBuilding(int id) {
     buildings.erase(buildings.begin()+id);
 }
 
-vector<Building_Building> Request::getBuilding_Buildings() {
+vector<Building_Building*> Request::getBuilding_Buildings() {
     return building_buildings;
 }
 
-void Request::addBuilding_Building(Building_Building newBuilding_Buildings) {
+void Request::addBuilding_Building(Building_Building* newBuilding_Buildings) {
     building_buildings.push_back(newBuilding_Buildings);
 }
 

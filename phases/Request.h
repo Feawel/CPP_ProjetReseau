@@ -17,17 +17,17 @@ class Request{
 
 public:
     Request();
-    std::vector<Building> getBuildings();
-    void addBuilding(Building newBuilding);
+    std::vector<Building*> getBuildings();
+    void addBuilding(Building* newBuilding);
     void removeBuilding(int id);
-    std::vector<Building_Building> getBuilding_Buildings();
-    void addBuilding_Building(Building_Building newBuilding_Buildings);
+    std::vector<Building_Building*> getBuilding_Buildings();
+    void addBuilding_Building(Building_Building* newBuilding_Buildings);
     void removeBuilding_Building(int id);
 
 
 private:
-    std::vector<Building> buildings;
-    std::vector<Building_Building> building_buildings;
+    std::vector<Building*> buildings;
+    std::vector<Building_Building*> building_buildings;
 };
 
 #endif /* defined(__NetworkBuilder__Request__) */
