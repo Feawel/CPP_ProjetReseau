@@ -1,5 +1,7 @@
 #include "networkbuilder.h"
-
+#include "model/component/backbone.h"
+#include "model/component/switch.h"
+#include "model/component/router.h"
 
 using namespace std;
 
