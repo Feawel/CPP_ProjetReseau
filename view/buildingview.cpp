@@ -10,7 +10,7 @@
 
 using namespace std;
 
-BuildingView::BuildingView( int x, int y, int width, int height, string name ): QRect(x, y, width, height), building(0)
+BuildingView::BuildingView(string name ): QRect(100,100,150,200), building(0)
 {
     building = new Building(name);
 }
@@ -34,4 +34,28 @@ QString BuildingView::getUsers()
 void BuildingView::setUsers(NUserType::UserType userType, unsigned int userNumber)
 {
     building->setUserNumber(userType, userNumber);
+}
+
+QPoint BuildingView::getMidTop()
+{
+    QPoint point(left()+width()/2,top());
+    return point;
+}
+
+QPoint BuildingView::getMidBottom()
+{
+    QPoint point(left()+width()/2,bottom());
+    return point;
+}
+
+QPoint BuildingView::getMidLeft()
+{
+    QPoint point(left(),top()+height()/2);
+    return point;
+}
+
+QPoint BuildingView::getMidRight()
+{
+    QPoint point(right(),top()+height()/2);
+    return point;
 }

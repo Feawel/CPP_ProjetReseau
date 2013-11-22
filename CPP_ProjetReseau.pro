@@ -16,7 +16,8 @@ SOURCES += \
     view/buildingview.cpp \
     phases/request.cpp \
     view/locationpanel.cpp \
-    phases/networkbuilder.cpp
+    phases/networkbuilder.cpp \
+    view/b2bview.cpp
 
 QT += widgets
 
@@ -38,4 +39,5 @@ HEADERS += \
     view/buildingview.h \
     phases/request.h \
     view/locationpanel.h \
-    phases/networkbuilder.h
+    phases/networkbuilder.h \
+    view/b2bview.h

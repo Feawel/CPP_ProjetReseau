@@ -14,9 +14,12 @@
 #include <vector>
 #include <QMouseEvent>
 #include <QDockWidget>
+#include <QPen>
 
 #include "locationpanel.h"
 #include "buildingview.h"
+#include "b2bview.h"
+#include "b2bview.h"
 #include "../phases/Request.h"
 #include "../model/location/building.h"
 
@@ -32,12 +35,16 @@ public slots:
 private:
     void paintEvent(QPaintEvent *);
     std::vector<BuildingView*> buildingViews;
+    std::vector<Building_BuildingView*> b2bViews;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-    BuildingView *focusedView;
+    BuildingView *selectedBuildingView;
+    Building_BuildingView *selectedB2bView;
     QDockWidget *formPanel;
     Request request;
     LocationPanel *locationPanel;
+    QPen defaultPen;
+    QPen selectedPen;
 };
 
 #endif // REQUESTINTERFACE_H

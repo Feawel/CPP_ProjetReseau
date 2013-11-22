@@ -8,6 +8,9 @@
 #include "view/requestinterface.h"
 #include <QApplication>
 #include <QtGui>
+#include <iostream>
+
+using namespace std;
 
 
 //mockup

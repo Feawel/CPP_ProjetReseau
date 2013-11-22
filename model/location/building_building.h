@@ -15,8 +15,7 @@
 class Building_Building {
 
 public:
-    Building_Building();
-    Building_Building(Building *building1, Building *building2, float distance,bool visibility);
+    Building_Building(Building *building1, Building *building2, float distance = 0,bool visibility=true);
     void addExistingTechnology(NTechnology::Technology technology);
     float getDistance();
     Building getBuilding1();

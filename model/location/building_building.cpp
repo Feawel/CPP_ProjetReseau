@@ -13,9 +13,6 @@ Building_Building::Building_Building(Building *building1, Building *building2,
 {
 }
 
-Building_Building::Building_Building(){
-}
-
 /**
  * Add a existing technology between 2 buildings
  */
