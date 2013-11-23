@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     bs.push_back(&b3);
 
     ofstream myfile;
-    myfile.open ("example.txt");
+    myfile.open ("graphviz.txt");
     myfile << "graph G {" << endl;
 
     for(int ii=0; ii < bs.size(); ii++)
@@ -51,7 +51,8 @@ int main(int argc, char *argv[])
 
     myfile.close();
 
-
+//  Génére le graphe en SVG avec un appel système, nécessite graphviz.
+//     system ("dot -Tsvg -graph.svg graphviz.txt");
 
     return app.exec();
 }
