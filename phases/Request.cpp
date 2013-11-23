@@ -49,8 +49,6 @@ void Request::removeBuilding_Building(int id) {
 }
 void Request::generateGraphText(){
     ofstream myfile;
-    for (std::vector<Building*>::iterator it = buildings.begin() ; it != buildings.end(); ++it)
-      std::cout << ' ' << *it;
     std::cout << '\n';
     myfile.open ("example.txt");
     myfile << "Writing this to a file.\n";

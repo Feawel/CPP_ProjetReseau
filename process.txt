@@ -1,4 +1,4 @@
-Etape 1 (Vincent) :
+﻿Etape 1 (Vincent) :
 
 Création de la requête (objet Request) via l'interface graphique
 Une requête contient une liste de bâtiments (objet Building), une liste de lien bâtiments/bâtiments (objet Building_Building).
@@ -9,7 +9,7 @@ La requête passe à travers un certains nombre de phases qui ajoutent des compo
 Des liens (objet Link) sont crées entre les composants et ajoutés dans une liste à la requête. Les adresses sont définies.
 
 Etape 3 (Alexis) : 
-Les composants et les liens sont transformés en un graph (langage graphix)
+Les composants et les liens sont transformés en un graphe (langage graphviz)
 
 Etape 4 (?) : 
 Un fichier est généré rappelant la demande initiale (nombre de bâtiments, d'étages, d'utilisateurs) et la liste des composants, des câbles... (un ordre de grandeur des prix ?).s
