@@ -48,6 +48,21 @@ void Request::removeBuilding_Building(int id) {
     building_buildings.erase(building_buildings.begin()+id);
 }
 void Request::generateGraphText(){
+    //mockup:
+    Building b1=Building("B1");
+    Building b2=Building("B2");
+    Building b3=Building("B3");
+
+    std::vector<Building*> bs;
+    bs.push_back(&b1);
+    bs.push_back(&b2);
+    bs.push_back(&b3);
+
+    for(int ii=0; ii < bs.size(); ii++)
+    {
+        cout << (*bs[ii]).getName() << endl;
+    }
+
     ofstream myfile;
     std::cout << '\n';
     myfile.open ("example.txt");
