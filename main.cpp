@@ -39,6 +39,10 @@ int main(int argc, char *argv[])
     bs.push_back(&b2);
     bs.push_back(&b3);
 
+    Building_Building b2b1 = Building_Building(&b1, &b2,0, true);
+    std::vector<Building_Building*> b2bs;
+    b2bs.push_back(&b2b1);
+
     ofstream myfile;
     myfile.open ("graphviz.txt");
     myfile << "graph G {" << endl;
@@ -49,11 +53,22 @@ int main(int argc, char *argv[])
         myfile << "label = \"" <<(*bs[ii]).getName() <<"\""<< endl;
         myfile << "}"<< endl <<endl;
     }
+
+    for(int ii=0; ii < b2bs.size(); ii++)
+    {
+
+        myfile << "subgraph cluster_"<<ii << "{"<< endl;
+        myfile << "label = \"" <<(*bs[ii]).getName() <<"\""<< endl;
+        myfile << "}"<< endl <<endl;
+    }
+
     myfile << "}" << endl;
+
+
 
     myfile.close();
 
-//  Génére le graphe en SVG avec un appel système, nécessite graphviz.
+//  Génére le graphe en SVG avec un appel système, nécessite graphviz. + ne marche plus
 //    system ("dot -Tsvg -graph.svg graphviz.txt");
 
     return app.exec();

@@ -30,6 +30,14 @@ float Building_Building::getVisibility() {
     return visibility;
 }
 
+Building Building_Building::getBuilding1() {
+    return *building1;
+}
+
+Building Building_Building::getBuilding2() {
+    return *building2;
+}
+
 std::vector<NTechnology::Technology> Building_Building::getExistingTechs() {
     return existingTechs;
 }
