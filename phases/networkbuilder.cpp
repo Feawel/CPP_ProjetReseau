@@ -2,6 +2,9 @@
 #include "model/component/backbone.h"
 #include "model/component/switch.h"
 #include "model/component/router.h"
+#include "phases/request.h"
+#include "model/component/firewall.h"
+
 
 using namespace std;
 
@@ -24,18 +27,33 @@ void NetworkBuilder::launchP1(Request request) {
 
     int i;
 
-    buildings = request.getBuildings();
+    vector<Building*> buildings = request.getBuildings();
 
-    for (i=1; i <= NB_BUILDINGS; ++i) {
+    for (i=1; i <= buildings.size(); ++i) {
 
         Building building;
         Address addressBuilding(10,10,i,i,NULL);
 
 
         if (building.isAdmin()) {
+            /*
+            On se trouve dans le batiment admin, on définit les éléments à ajouter
+            soit un routeur, un firewall au niveau du batiment et un firewall
+            pour l'étage admin
+            */
             Router router;
+            Firewall firewallBuilding;
+            Firewall firewallFloor;
+
             router.setAddress(addressBuilding);
+
             building.addComponent(router);
+            building.addComponent(firewallBuilding);
+
+            Floor adminFloor = building.getAdminFloor();
+            adminFloor.addComponent(firewallFloor);
+
+
 
         }
         else{
@@ -45,7 +63,7 @@ void NetworkBuilder::launchP1(Request request) {
             building.addComponent(switchBuilding);
         }
 
-        buildings[i-1] = building;
+        buildings[i-1] = &building;
 
     }
 }

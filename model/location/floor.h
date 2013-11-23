@@ -13,7 +13,7 @@
 class Floor: public Location {
 
 public:
-	Floor(int floorNumber);
+    Floor(int floorNumber);
 	int getFloorNumber();
 
 private:

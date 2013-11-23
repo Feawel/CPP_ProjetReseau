@@ -15,4 +15,3 @@ Floor::Floor(int floorNumber) :
 int Floor::getFloorNumber() {
 	return floorNumber;
 }
-

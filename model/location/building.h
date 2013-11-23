@@ -19,6 +19,7 @@ public:
     std::vector<Floor> getFloors();
     void addFloor();
     int getFloorsNumber();
+    Floor getAdminFloor();
     bool isAdmin();
 private:
     std::vector<Floor> floors;
