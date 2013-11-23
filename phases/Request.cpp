@@ -11,9 +11,16 @@
 #include "../model/location/building.h"
 #include "../model/location/building_building.h"
 
+// basic file operations
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 Request::Request() : buildings(0), building_buildings(0)
+{
+}
+
+Request::Request(std::vector<Building*> b,std::vector<Building_Building*> b2b) : buildings(b), building_buildings(b2b)
 {
 }
 
@@ -39,4 +46,13 @@ void Request::addBuilding_Building(Building_Building* newBuilding_Buildings) {
 
 void Request::removeBuilding_Building(int id) {
     building_buildings.erase(building_buildings.begin()+id);
+}
+void Request::generateGraphText(){
+    ofstream myfile;
+    for (std::vector<Building*>::iterator it = buildings.begin() ; it != buildings.end(); ++it)
+      std::cout << ' ' << *it;
+    std::cout << '\n';
+    myfile.open ("example.txt");
+    myfile << "Writing this to a file.\n";
+    myfile.close();
 }

@@ -17,13 +17,14 @@ class Request{
 
 public:
     Request();
+    Request(std::vector<Building*> b,std::vector<Building_Building*> b2b);
     std::vector<Building*> getBuildings();
     void addBuilding(Building* newBuilding);
     void removeBuilding(int id);
     std::vector<Building_Building*> getBuilding_Buildings();
     void addBuilding_Building(Building_Building* newBuilding_Buildings);
     void removeBuilding_Building(int id);
-
+    void generateGraphText();
 
 private:
     std::vector<Building*> buildings;
