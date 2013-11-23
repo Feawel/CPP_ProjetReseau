@@ -45,14 +45,16 @@ int main(int argc, char *argv[])
 
     for(int ii=0; ii < bs.size(); ii++)
     {
-        myfile << (*bs[ii]).getName() << endl;
+        myfile << "subgraph cluster_"<<ii << "{"<< endl;
+        myfile << "label = \"" <<(*bs[ii]).getName() <<"\""<< endl;
+        myfile << "}"<< endl <<endl;
     }
     myfile << "}" << endl;
 
     myfile.close();
 
 //  Génére le graphe en SVG avec un appel système, nécessite graphviz.
-//     system ("dot -Tsvg -graph.svg graphviz.txt");
+//    system ("dot -Tsvg -graph.svg graphviz.txt");
 
     return app.exec();
 }
