@@ -19,7 +19,28 @@
 // basic file operations
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
+//This function generates the name of a cluster from the number of the building.
+string createClusterName(int position)
+{
+    stringstream building1_stream;
+    building1_stream << "cluster_" << position;
+    string cluster_name = building1_stream.str();
+    return cluster_name;
+}
+
+//This function returns the postion of a building in a Building_building vector.
+int findBInB2B(std::vector<Building*> buildings, Building building)
+{
+    for( int i = 0; i < buildings.size(); i++ ) {
+        //Je compare les batiments par leurs nom : ilfaut faire en sorte que les noms soient uniques.
+        if( (*buildings[i]).getName() == building.getName()) {
+            return i;
+       }
+    }
+    return -1;
+}
 
 int main(int argc, char *argv[])
 {
@@ -54,12 +75,23 @@ int main(int argc, char *argv[])
         myfile << "}"<< endl <<endl;
     }
 
+
+
     for(int ii=0; ii < b2bs.size(); ii++)
     {
+        Building_Building building_Building=*b2bs[ii];
+        Building building1=building_Building.getBuilding1();
+        int positionBuilding1= findBInB2B(bs, building1);
+        string cluster1= createClusterName(positionBuilding1);
 
-        myfile << "subgraph cluster_"<<ii << "{"<< endl;
-        myfile << "label = \"" <<(*bs[ii]).getName() <<"\""<< endl;
-        myfile << "}"<< endl <<endl;
+
+        Building building2=building_Building.getBuilding2();
+        int positionBuilding2= findBInB2B(bs, building2);
+        string cluster2= createClusterName(positionBuilding2);
+
+
+        myfile << cluster1 << "--"<< cluster2 <<endl;
+
     }
 
     myfile << "}" << endl;
