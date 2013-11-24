@@ -78,8 +78,6 @@ int main(int argc, char *argv[])
         myfile << "}"<< endl <<endl;
     }
 
-
-
     for(int ii=0; ii < b2bs.size(); ii++)
     {
         Building_Building building_Building=*b2bs[ii];
@@ -96,23 +94,16 @@ int main(int argc, char *argv[])
 
             for(int it=0; it < techs.size(); it++)
             {
-
-                myfile << cluster1 << "--" << cluster2 << "[label=\"" <<techs[it]<<"\"]"<<endl;
+                myfile << cluster1 << " -- " << cluster2 << "[label=\"" <<techs[it]<<"\"]"<<endl;
             }
-
-
-
         }
     }
 
     myfile << "}" << endl;
-
-
-
     myfile.close();
 
-//  Génére le graphe en SVG avec un appel système, nécessite graphviz. + ne marche plus
-//    system ("dot -Tsvg -graph.svg graphviz.txt");
+//  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
+//    system ("fdp -Tpng graphviz.txt >graphe.png");
 
     return app.exec();
 }
