@@ -80,18 +80,20 @@ int main(int argc, char *argv[])
     for(int ii=0; ii < b2bs.size(); ii++)
     {
         Building_Building building_Building=*b2bs[ii];
-        Building building1=building_Building.getBuilding1();
-        int positionBuilding1= findBInB2B(bs, building1);
-        string cluster1= createClusterName(positionBuilding1);
+        vector<NTechnology::Technology> techs = building_Building.getExistingTechs();
+        if(techs.size()>0){
+            Building building1=building_Building.getBuilding1();
+            int positionBuilding1= findBInB2B(bs, building1);
+            string cluster1= createClusterName(positionBuilding1);
 
 
-        Building building2=building_Building.getBuilding2();
-        int positionBuilding2= findBInB2B(bs, building2);
-        string cluster2= createClusterName(positionBuilding2);
+            Building building2=building_Building.getBuilding2();
+            int positionBuilding2= findBInB2B(bs, building2);
+            string cluster2= createClusterName(positionBuilding2);
 
 
-        myfile << cluster1 << "--"<< cluster2 <<endl;
-
+            myfile << cluster1 << "--" << cluster2 <<endl;
+        }
     }
 
     myfile << "}" << endl;
