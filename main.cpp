@@ -61,6 +61,9 @@ int main(int argc, char *argv[])
     bs.push_back(&b3);
 
     Building_Building b2b1 = Building_Building(&b1, &b2,0, true);
+    b2b1.addExistingTechnology(NTechnology::WIFI);
+    b2b1.addExistingTechnology(NTechnology::INFRARED);
+
     std::vector<Building_Building*> b2bs;
     b2bs.push_back(&b2b1);
 
@@ -91,8 +94,14 @@ int main(int argc, char *argv[])
             int positionBuilding2= findBInB2B(bs, building2);
             string cluster2= createClusterName(positionBuilding2);
 
+            for(int it=0; it < techs.size(); it++)
+            {
 
-            myfile << cluster1 << "--" << cluster2 <<endl;
+                myfile << cluster1 << "--" << cluster2 << "[label=\"" <<techs[it]<<"\"]"<<endl;
+            }
+
+
+
         }
     }
 
