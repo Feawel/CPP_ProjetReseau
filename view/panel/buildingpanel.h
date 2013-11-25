@@ -1,7 +1,7 @@
 /*
  * buildingpanel.h
  *
- *  Created on: 20 nov. 2013
+ *  Created on: 25 nov. 2013
  *      Author: MOULIN
  */
 

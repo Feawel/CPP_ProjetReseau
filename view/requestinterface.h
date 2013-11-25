@@ -20,6 +20,7 @@
 #include "panel/locationpanel.h"
 #include "panel/buildingpanel.h"
 #include "panel/defaultpanel.h"
+#include "panel/b2bpanel.h"
 #include "buildingview.h"
 #include "b2bview.h"
 #include "b2bview.h"
@@ -46,12 +47,13 @@ private:
     Building_BuildingView *selectedB2bView;
     QDockWidget *formPanel;
     Request request;
-    BuildingPanel *buildingPanel;
     QPen defaultPen;
     QPen selectedPen;
     QColor buildingColor;
     QColor adminColor;
     DefaultPanel* defaultPanel;
+    BuildingPanel *buildingPanel;
+    Building_BuildingPanel *b2bPanel;
 };
 
 #endif // REQUESTINTERFACE_H

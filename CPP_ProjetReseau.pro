@@ -19,7 +19,8 @@ SOURCES += \
     view/b2bview.cpp \
     view/panel/locationpanel.cpp \
     view/panel/buildingpanel.cpp \
-    view/panel/defaultpanel.cpp
+    view/panel/defaultpanel.cpp \
+    view/panel/b2bpanel.cpp
 
 QT += widgets
 
@@ -45,4 +46,5 @@ HEADERS += \
     view/b2bview.h \
     view/panel/locationpanel.h \
     view/panel/buildingpanel.h \
-    view/panel/defaultpanel.h
+    view/panel/defaultpanel.h \
+    view/panel/b2bpanel.h

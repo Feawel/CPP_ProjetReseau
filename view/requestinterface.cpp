@@ -52,13 +52,19 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
     // create the form panel
     formPanel = new QDockWidget("Form");
     formPanel->setAutoFillBackground(true);
-    addDockWidget(Qt::BottomDockWidgetArea, formPanel);
-    buildingPanel = new BuildingPanel();
 
-    // create dafault panel
-    defaultPanel = new DefaultPanel();
+    //create building panel
+    addDockWidget(Qt::RightDockWidgetArea, formPanel);
+    buildingPanel = new BuildingPanel;
+
+    // create b2b panel
+    b2bPanel = new  Building_BuildingPanel;
+
+    // create default panel
+    defaultPanel = new DefaultPanel;
     QObject::connect(defaultPanel->getAddBuildingButton(), SIGNAL(clicked()), this, SLOT(addBuilding()));
     formPanel->setWidget(defaultPanel);
+
 
     //open the window in maximized format
     showMaximized();
@@ -188,6 +194,7 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
     // check if the user select a link b2b
     if(selectedBuildingView==0)
     {
+        bool selected = false;
         for(unsigned int i= 0; i< b2bViews.size(); i++)
         {
             // get the line
@@ -201,8 +208,7 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
             {
                 if(line.p1().x()-5 <= ex && ex <= line.p1().x()+5 && ((line.p1().y()-5 <= ey && line.p2().y()+5>= ey) || (line.p2().y()-5 <= ey && line.p1().y()+5>= ey)))
                 {
-                    selectedB2bView = b2bViews[i];
-                    break;
+                    selected=true;
                 }
             }
             else
@@ -216,9 +222,14 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
                 // check if ly and ey are close
                 if(ly-5<=ey && ey<=ly+5)
                 {
-                    selectedB2bView = b2bViews[i];
-                    break;
+                    selected =true;
                 }
+            }
+            if(selected)
+            {
+                selectedB2bView = b2bViews[i];
+                formPanel->setWidget(b2bPanel);
+                break;
             }
         }
     }
