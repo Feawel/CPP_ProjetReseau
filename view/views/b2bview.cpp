@@ -91,3 +91,13 @@ QLine Building_BuildingView::getLine() const
     }
     return line;
 }
+
+Building_BuildingPanel* Building_BuildingView::getB2bPanel()
+{
+    return panel;
+}
+
+void Building_BuildingView::setB2bPanel(Building_BuildingPanel* b2bPanel)
+{
+    panel=b2bPanel;
+}

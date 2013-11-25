@@ -8,8 +8,6 @@
 #ifndef B2BPANEL_H
 #define B2BPANEL_H
 
-#endif // B2BPANEL_H
-
 #include <QWidget>
 #include <QDoubleSpinBox>
 
@@ -20,3 +18,5 @@ public:
 private:
     QDoubleSpinBox* distanceField;
 };
+#endif // B2BPANEL_H
+
