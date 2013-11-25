@@ -12,6 +12,8 @@
 #include <QSpinBox>
 #include <QFormLayout>
 #include <vector>
+#include <QGroupBox>
+#include <QCheckBox>
 #include "../model/constant.h"
 
 class LocationPanel: public QWidget {
@@ -22,6 +24,7 @@ protected:
     QFormLayout* layout;
 private:
     std::vector<QSpinBox*> userNumberFields;
+
 
 };
 

@@ -49,6 +49,7 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
 
     // create the toolbar
     QToolBar *toolBar = addToolBar("&Edition");
+    toolBar->setAutoFillBackground(true);
 
     // add the create building action
     QAction *addBuildingAction = new QAction("Add Building", this);
@@ -65,6 +66,7 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
 
     // create the form panel
     formPanel = new QDockWidget("Form");
+    formPanel->setAutoFillBackground(true);
     addDockWidget(Qt::BottomDockWidgetArea, formPanel);
     buildingPanel = new BuildingPanel();
 
@@ -246,6 +248,7 @@ void RequestInterface::mouseMoveEvent(QMouseEvent *event)
     if(selectedBuildingView != 0)
     {
         selectedBuildingView->moveTo(event->globalPos());
+
         update();
     }
 }
