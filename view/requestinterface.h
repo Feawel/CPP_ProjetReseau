@@ -21,9 +21,9 @@
 #include "panel/buildingpanel.h"
 #include "panel/defaultpanel.h"
 #include "panel/b2bpanel.h"
-#include "buildingview.h"
-#include "b2bview.h"
-#include "b2bview.h"
+#include "views/buildingview.h"
+#include "views/b2bview.h"
+#include "views/floorview.h"
 #include "../phases/Request.h"
 #include "../model/location/building.h"
 
@@ -37,23 +37,26 @@ public slots:
     void setSupUsers(int userNumber);
     void setAdminUsers(int userNumber);
     void setIsAdmin(bool isAdmin);
+    void addFloor();
 private:
+    Request request;
     void paintEvent(QPaintEvent *);
-    std::vector<BuildingView*> buildingViews;
-    std::vector<Building_BuildingView*> b2bViews;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
+
+    std::vector<BuildingView*> buildingViews;
+    std::vector<Building_BuildingView*> b2bViews;
     BuildingView *selectedBuildingView;
     Building_BuildingView *selectedB2bView;
     QDockWidget *formPanel;
-    Request request;
+    DefaultPanel* defaultPanel;
+    BuildingPanel *buildingPanel;
+    Building_BuildingPanel *b2bPanel;
+
     QPen defaultPen;
     QPen selectedPen;
     QColor buildingColor;
     QColor adminColor;
-    DefaultPanel* defaultPanel;
-    BuildingPanel *buildingPanel;
-    Building_BuildingPanel *b2bPanel;
 };
 
 #endif // REQUESTINTERFACE_H

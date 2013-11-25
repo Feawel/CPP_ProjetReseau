@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     myfile.close();
 
 //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
-    system ("fdp -Tpng graphviz.txt >graphe.png");
+//  system ("fdp -Tpng graphviz.txt >graphe.png");
 
     return app.exec();
 }

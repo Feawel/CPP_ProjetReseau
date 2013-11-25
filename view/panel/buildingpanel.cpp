@@ -28,3 +28,8 @@ QCheckBox* BuildingPanel::getIsAdminField()
 {
     return isAdminField;
 }
+
+QPushButton* BuildingPanel::getAddFloorButton()
+{
+    return addFloorButton;
+}

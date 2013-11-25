@@ -24,10 +24,9 @@
 #include <QSpinBox>
 #include <QLine>
 #include <QCheckBox>
+#include <QPalette>
 
 #include "requestinterface.h"
-#include "buildingview.h"
-#include "../model/location/building.h"
 #include <vector>
 
 using namespace std;
@@ -52,6 +51,9 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
     // create the form panel
     formPanel = new QDockWidget("Form");
     formPanel->setAutoFillBackground(true);
+    QPalette pal = formPanel->palette();
+    pal.setColor( QPalette::Background, QColor( 255, 255, 255));
+    formPanel->setPalette(pal);
 
     //create building panel
     addDockWidget(Qt::RightDockWidgetArea, formPanel);
@@ -65,6 +67,7 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
     QObject::connect(defaultPanel->getAddBuildingButton(), SIGNAL(clicked()), this, SLOT(addBuilding()));
     formPanel->setWidget(defaultPanel);
 
+    //create floor panel
 
     //open the window in maximized format
     showMaximized();
@@ -115,26 +118,34 @@ void RequestInterface::paintEvent(QPaintEvent *)
     // foreach building view, add it on the board
     for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
-        BuildingView *currentbuildingView  = buildingViews[i];
+        BuildingView *currentBuildingView  = buildingViews[i];
 
         //check if the view is selected
-        if(currentbuildingView == selectedBuildingView)
+        if(currentBuildingView == selectedBuildingView)
             painter.setPen(selectedPen);
         else
             painter.setPen(defaultPen);
 
-        painter.drawRect(*currentbuildingView);
+        painter.drawRect(*currentBuildingView);
 
         //add color
-        if(currentbuildingView->getBuilding()->isAdmin())
-            painter.fillRect(*currentbuildingView, adminColor);
+        if(currentBuildingView->getBuilding()->isAdmin())
+            painter.fillRect(*currentBuildingView, adminColor);
         else
-            painter.fillRect(*currentbuildingView, buildingColor);
+            painter.fillRect(*currentBuildingView, buildingColor);
+
+        // add floors
+        for(unsigned int j=0; j< currentBuildingView->getFloorViews().size(); j++)
+        {
+            painter.setPen(defaultPen);
+            QRect rect(currentBuildingView->x()+15, currentBuildingView->y()+ 15 + j * 90, 120,75);
+            painter.drawRect(rect);
+        }
 
         //add name
-        painter.drawText(*currentbuildingView,Qt::AlignHCenter,currentbuildingView->getName());
+        painter.drawText(*currentBuildingView,Qt::AlignHCenter,currentBuildingView->getName());
         //add users
-        painter.drawText(*currentbuildingView, Qt::AlignBottom+Qt::AlignCenter, currentbuildingView->getUsers());
+        painter.drawText(*currentBuildingView, Qt::AlignBottom+Qt::AlignCenter, currentBuildingView->getUsers());
     }
 
     // foreach b2b view, add it on the board
@@ -187,6 +198,7 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
             QObject::connect(buildingPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
             QObject::connect(buildingPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
             QObject::connect(buildingPanel->getIsAdminField(), SIGNAL(clicked(bool)), this, SLOT(setIsAdmin(bool)));
+            QObjectCleanupHandler::connect(buildingPanel->getAddFloorButton(), SIGNAL(clicked()), this, SLOT(addFloor()));
             break;
         }
     }
@@ -234,7 +246,7 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
         }
     }
 
-    // update board draw
+    // update draw
     update();
 }
 
@@ -249,7 +261,6 @@ void RequestInterface::mouseMoveEvent(QMouseEvent *event)
     if(selectedBuildingView != 0)
     {
         selectedBuildingView->moveTo(event->globalPos());
-
         update();
     }
 }
@@ -272,8 +283,25 @@ void RequestInterface::setAdminUsers(int userNumber)
     update();
 }
 
+/**
+ * @brief RequestInterface::setIsAdmin
+ * @param isAdmin
+ * Set selected building to admin
+ */
 void RequestInterface::setIsAdmin(bool isAdmin)
 {
+    // only one building can be admin, put all other to non-admin
+    for(int i = 0 ; i< buildingViews.size(); i++)
+    {
+        buildingViews[i]->getBuilding()->setAdmin(false);
+    }
+
     selectedBuildingView->getBuilding()->setAdmin(isAdmin);
+    update();
+}
+
+void RequestInterface::addFloor()
+{
+    selectedBuildingView->addFloor();
     update();
 }

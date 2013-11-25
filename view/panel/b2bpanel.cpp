@@ -14,19 +14,17 @@
 
 Building_BuildingPanel::Building_BuildingPanel(): QWidget()
 {
-    distanceField = new QSpinBox;
+    distanceField = new QDoubleSpinBox;
 
     QGroupBox* existingTechsGroup = new QGroupBox;
     QVBoxLayout* existingTechsLayout = new QVBoxLayout;
     QCheckBox* wifiCheck = new QCheckBox("Wifi:");
     QCheckBox* infraredCheck = new QCheckBox("Infrared:");
     QCheckBox* fiberCheck = new QCheckBox("Fiber:");
-    QCheckBox* ethernetCheck = new QCheckBox("Ethernet:");
     QCheckBox* twistedPairCheck = new QCheckBox("Twisted Pair:");
     existingTechsLayout->addWidget(wifiCheck);
     existingTechsLayout->addWidget(infraredCheck);
     existingTechsLayout->addWidget(fiberCheck);
-    existingTechsLayout->addWidget(ethernetCheck);
     existingTechsLayout->addWidget(twistedPairCheck);
 
     existingTechsGroup->setLayout(existingTechsLayout);

@@ -20,6 +20,7 @@ public:
     BuildingPanel();
     void setIsAdmin(bool isAdmin);
     QCheckBox* getIsAdminField();
+    QPushButton* getAddFloorButton();
 private:
     QCheckBox* isAdminField;
     QPushButton* addFloorButton;

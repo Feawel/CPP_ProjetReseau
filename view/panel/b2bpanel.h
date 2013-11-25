@@ -11,12 +11,12 @@
 #endif // B2BPANEL_H
 
 #include <QWidget>
-#include <QSpinBox>
+#include <QDoubleSpinBox>
 
 class Building_BuildingPanel: public QWidget
 {
 public:
     Building_BuildingPanel();
 private:
-    QSpinBox* distanceField;
+    QDoubleSpinBox* distanceField;
 };

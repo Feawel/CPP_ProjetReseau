@@ -12,8 +12,11 @@
 #include <QString>
 #include <QPoint>
 #include <string>
+#include <vector>
 #include "../model/location/building.h"
 #include "../model/constant.h"
+#include "../model/location/floor.h"
+#include "floorview.h"
 
 class BuildingView: public QRect {
 public:
@@ -26,9 +29,12 @@ public:
     QPoint getMidBottom();
     QPoint getMidLeft();
     QPoint getMidRight();
+    void addFloor();
+    std::vector<FloorView*> getFloorViews();
 
 private:
     Building *building;
+    std::vector<FloorView*> floorViews;
 
 };
 

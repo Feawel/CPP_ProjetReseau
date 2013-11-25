@@ -13,14 +13,15 @@ SOURCES += \
     model/component/backbone.cpp \
     main.cpp \
     view/requestinterface.cpp \
-    view/buildingview.cpp \
     phases/request.cpp \
     phases/networkbuilder.cpp \
-    view/b2bview.cpp \
     view/panel/locationpanel.cpp \
     view/panel/buildingpanel.cpp \
     view/panel/defaultpanel.cpp \
-    view/panel/b2bpanel.cpp
+    view/panel/b2bpanel.cpp \
+    view/views/buildingview.cpp \
+    view/views/b2bview.cpp \
+    view/views/floorview.cpp
 
 QT += widgets
 
@@ -39,12 +40,12 @@ HEADERS += \
     model/component/component.h \
     model/component/backbone.h \
     view/requestinterface.h \
-    view/buildingview.h \
     phases/request.h \
-    view/locationpanel.h \
     phases/networkbuilder.h \
-    view/b2bview.h \
     view/panel/locationpanel.h \
     view/panel/buildingpanel.h \
     view/panel/defaultpanel.h \
-    view/panel/b2bpanel.h
+    view/panel/b2bpanel.h \
+    view/views/buildingview.h \
+    view/views/b2bview.h \
+    view/views/floorview.h

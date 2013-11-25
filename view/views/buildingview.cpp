@@ -59,3 +59,17 @@ QPoint BuildingView::getMidRight()
     QPoint point(right(),top()+height()/2);
     return point;
 }
+
+void BuildingView::addFloor()
+{
+    int fn = floorViews.size();
+    if(height()<15 + (fn+1)* 90)
+        setHeight(height()+90);
+    FloorView *floorView = new FloorView(building->addFloor());
+    floorViews.push_back(floorView);
+}
+
+vector<FloorView*> BuildingView::getFloorViews()
+{
+    return floorViews;
+}
