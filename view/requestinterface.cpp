@@ -26,7 +26,6 @@
 #include <QCheckBox>
 #include <QPalette>
 
-#include <iostream>
 #include "requestinterface.h"
 #include <vector>
 
@@ -141,9 +140,14 @@ void RequestInterface::paintEvent(QPaintEvent *)
         // add floors
         for(unsigned int j=0; j< currentBuildingView->getFloorViews().size(); j++)
         {
-            painter.setPen(defaultPen);
+            if(selectedFloor == currentBuildingView->getFloorViews()[j])
+                painter.setPen(selectedPen);
+            else
+                painter.setPen(defaultPen);
             QRect rect(currentBuildingView->x()+15, currentBuildingView->y()+ 15 + j * 90, 120,75);
             painter.drawRect(rect);
+            painter.drawText(rect, Qt::AlignHCenter, "Floor");
+            painter.drawText(rect, Qt::AlignBottom + Qt::AlignCenter, currentBuildingView->getFloorViews()[j]->getUsers());
         }
 
         //add name
@@ -180,6 +184,7 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
     // reset selected view pointers
     selectedBuildingView = 0;
     selectedB2bView = 0;
+    selectedFloor = 0;
 
     // hide bottom panel
     formPanel->setWidget(defaultPanel);
@@ -187,7 +192,19 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
     // check if the user select a building
     for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
-        if(buildingViews[i]->contains(event->pos()))
+        BuildingView *currentBuildingView = buildingViews[i];
+        for(unsigned int j =0; j < currentBuildingView->getFloorViews().size(); j++)
+        {
+            QRect rect(currentBuildingView->x()+15, currentBuildingView->y()+ 15 + j * 90, 120,75);
+            if(rect.contains(event->pos()))
+            {
+                selectedFloor = currentBuildingView->getFloorViews()[j];
+                formPanel->setWidget(selectedFloor->getFloorPanel());
+                break;
+            }
+        }
+
+        if(selectedFloor==0 && buildingViews[i]->contains(event->pos()))
         {
             selectedBuildingView = buildingViews[i];
             // set the bottom panel to a building panel
@@ -197,7 +214,7 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
     }
 
     // check if the user select a link b2b
-    if(selectedBuildingView==0)
+    if(selectedBuildingView==0 && selectedFloor == 0)
     {
         bool selected = false;
         for(unsigned int i= 0; i< b2bViews.size(); i++)
@@ -260,19 +277,46 @@ void RequestInterface::mouseMoveEvent(QMouseEvent *event)
 
 void RequestInterface::setDefaultUsers(int userNumber)
 {
-    selectedBuildingView->getBuilding()->setUserNumber(NUserType::DEFAULT, userNumber);
+    Location *location;
+    if(selectedBuildingView != 0)
+    {
+        location = selectedBuildingView->getBuilding();
+    }
+    else
+    {
+        location = selectedFloor->getFloor();
+    }
+    location->setUserNumber(NUserType::DEFAULT, userNumber);
     update();
 }
 
 void RequestInterface::setSupUsers(int userNumber)
 {
-    selectedBuildingView->getBuilding()->setUserNumber(NUserType::SUP, userNumber);
+    Location *location;
+    if(selectedBuildingView != 0)
+    {
+        location = selectedBuildingView->getBuilding();
+    }
+    else
+    {
+        location = selectedFloor->getFloor();
+    }
+    location->setUserNumber(NUserType::SUP, userNumber);
     update();
 }
 
 void RequestInterface::setAdminUsers(int userNumber)
 {
-    selectedBuildingView->getBuilding()->setUserNumber(NUserType::ADMIN, userNumber);
+    Location *location;
+    if(selectedBuildingView != 0)
+    {
+        location = selectedBuildingView->getBuilding();
+    }
+    else
+    {
+        location = selectedFloor->getFloor();
+    }
+    location->setUserNumber(NUserType::ADMIN, userNumber);
     update();
 }
 
@@ -295,7 +339,13 @@ void RequestInterface::setIsAdmin(bool isAdmin)
 
 void RequestInterface::addFloor()
 {
-    cout << "add floor" << endl;
-    selectedBuildingView->addFloor();
+    FloorView *floorView = selectedBuildingView->addFloor();
+    LocationPanel *floorPanel = new LocationPanel;
+    floorView->setFloorPanel(floorPanel);
+
+    QObject::connect(floorPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
+    QObject::connect(floorPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
+    QObject::connect(floorPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
+
     update();
 }

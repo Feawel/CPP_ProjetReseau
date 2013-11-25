@@ -31,11 +31,6 @@ QString BuildingView::getUsers()
     return "D: " + QString::number(building->getUserNumber(NUserType::DEFAULT)) + " S: " +QString::number(building->getUserNumber(NUserType::SUP))+" A: "+QString::number(building->getUserNumber(NUserType::ADMIN));
 }
 
-void BuildingView::setUsers(NUserType::UserType userType, unsigned int userNumber)
-{
-    building->setUserNumber(userType, userNumber);
-}
-
 QPoint BuildingView::getMidTop()
 {
     QPoint point(left()+width()/2,top());
@@ -60,13 +55,14 @@ QPoint BuildingView::getMidRight()
     return point;
 }
 
-void BuildingView::addFloor()
+FloorView* BuildingView::addFloor()
 {
     int fn = floorViews.size();
     if(height()<15 + (fn+1)* 90)
         setHeight(height()+90);
     FloorView *floorView = new FloorView(building->addFloor());
     floorViews.push_back(floorView);
+    return floorView;
 }
 
 vector<FloorView*> BuildingView::getFloorViews()

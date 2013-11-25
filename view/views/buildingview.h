@@ -30,7 +30,7 @@ public:
     QPoint getMidBottom();
     QPoint getMidLeft();
     QPoint getMidRight();
-    void addFloor();
+    FloorView* addFloor();
     std::vector<FloorView*> getFloorViews();
     void setBuildingPanel(BuildingPanel* buildingPanel);
     BuildingPanel* getBuildingPanel();

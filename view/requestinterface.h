@@ -48,6 +48,7 @@ private:
     std::vector<Building_BuildingView*> b2bViews;
     BuildingView *selectedBuildingView;
     Building_BuildingView *selectedB2bView;
+    FloorView *selectedFloor;
     QDockWidget *formPanel;
     DefaultPanel* defaultPanel;
     //BuildingPanel *buildingPanel;
