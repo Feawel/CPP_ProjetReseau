@@ -11,6 +11,7 @@
 #endif // BUILDING_H
 
 #include <QCheckBox>
+#include <QPushButton>
 #include "locationpanel.h"
 
 class BuildingPanel : public LocationPanel
@@ -21,4 +22,5 @@ public:
     QCheckBox* getIsAdminField();
 private:
     QCheckBox* isAdminField;
+    QPushButton* addFloorButton;
 };

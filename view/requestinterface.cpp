@@ -12,7 +12,6 @@
 #include <QMenuBar>
 #include <QAction>
 #include <QObject>
-#include <QToolBar>
 #include <QPainter>
 #include <QPolygon>
 #include <QString>
@@ -28,7 +27,6 @@
 
 #include "requestinterface.h"
 #include "buildingview.h"
-#include "locationpanel.h"
 #include "../model/location/building.h"
 #include <vector>
 
@@ -47,19 +45,6 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
     quit->setShortcut(QKeySequence("Ctrl+Q"));
     QObject::connect(quit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
-    // create the toolbar
-    QToolBar *toolBar = addToolBar("&Edition");
-    toolBar->setAutoFillBackground(true);
-
-    // add the create building action
-    QAction *addBuildingAction = new QAction("Add Building", this);
-    toolBar->addAction(addBuildingAction);
-    QObject::connect(addBuildingAction, SIGNAL(triggered()), this, SLOT(addBuilding()));
-
-    // add the create floor action
-    QAction *addFloorAction = new QAction("Add Floor", this);
-    toolBar->addAction(addFloorAction);
-
     // create the central board
     QWidget *board = new QWidget;
     setCentralWidget(board);
@@ -69,6 +54,11 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
     formPanel->setAutoFillBackground(true);
     addDockWidget(Qt::BottomDockWidgetArea, formPanel);
     buildingPanel = new BuildingPanel();
+
+    // create dafault panel
+    defaultPanel = new DefaultPanel();
+    QObject::connect(defaultPanel->getAddBuildingButton(), SIGNAL(clicked()), this, SLOT(addBuilding()));
+    formPanel->setWidget(defaultPanel);
 
     //open the window in maximized format
     showMaximized();
@@ -171,7 +161,7 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
     selectedB2bView = 0;
 
     // hide bottom panel
-    formPanel->setWidget(0);
+    formPanel->setWidget(defaultPanel);
 
     // check if the user select a building
     for(unsigned int i = 0 ; i < buildingViews.size();i++)

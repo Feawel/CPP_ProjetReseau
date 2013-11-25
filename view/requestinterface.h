@@ -17,8 +17,9 @@
 #include <QPen>
 #include <QColor>
 
-#include "locationpanel.h"
-#include "buildingpanel.h"
+#include "panel/locationpanel.h"
+#include "panel/buildingpanel.h"
+#include "panel/defaultpanel.h"
 #include "buildingview.h"
 #include "b2bview.h"
 #include "b2bview.h"
@@ -50,6 +51,7 @@ private:
     QPen selectedPen;
     QColor buildingColor;
     QColor adminColor;
+    DefaultPanel* defaultPanel;
 };
 
 #endif // REQUESTINTERFACE_H

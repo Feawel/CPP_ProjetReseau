@@ -1,7 +1,7 @@
 /*
  * buildingpanel.cpp
  *
- *  Created on: 20 nov. 2013
+ *  Created on: 2( nov. 2013
  *      Author: MOULIN
  */
 
@@ -11,6 +11,9 @@ BuildingPanel::BuildingPanel():LocationPanel()
 {
     isAdminField = new QCheckBox();
     layout->addRow("Admin building ?",isAdminField);
+
+    addFloorButton = new QPushButton("Add Floor");
+    layout->addRow(addFloorButton);
 }
 
 void BuildingPanel::setIsAdmin(bool isAdmin)
