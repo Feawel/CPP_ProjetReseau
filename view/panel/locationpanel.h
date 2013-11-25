@@ -14,7 +14,7 @@
 #include <vector>
 #include <QGroupBox>
 #include <QCheckBox>
-#include "../model/constant.h"
+#include "../../model/constant.h"
 
 class LocationPanel: public QWidget {
 public:

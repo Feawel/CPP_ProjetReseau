@@ -13,9 +13,9 @@
 #include <QPoint>
 #include <string>
 #include <vector>
-#include "../model/location/building.h"
-#include "../model/constant.h"
-#include "../model/location/floor.h"
+#include "../../model/location/building.h"
+#include "../../model/constant.h"
+#include "../../model/location/floor.h"
 #include "floorview.h"
 
 class BuildingView: public QRect {

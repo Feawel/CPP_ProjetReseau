@@ -6,7 +6,7 @@
  */
 
 #include "buildingview.h"
-#include "../model/constant.h"
+#include "../../model/constant.h"
 
 using namespace std;
 

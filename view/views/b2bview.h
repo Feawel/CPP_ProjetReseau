@@ -11,7 +11,7 @@
 #include <QLine>
 #include <QPoint>
 
-#include "../model/location/building_building.h"
+#include "../../model/location/building_building.h"
 #include "buildingview.h"
 
 class Building_BuildingView

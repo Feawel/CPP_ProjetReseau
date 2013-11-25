@@ -10,9 +10,3 @@
 FloorView::FloorView(Floor* floor): floor(floor)
 {
 }
-
-
-QRect FloorView::getRect()
-{
-
-}

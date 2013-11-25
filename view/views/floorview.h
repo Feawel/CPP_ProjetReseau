@@ -9,13 +9,12 @@
 #define FLOORVIEW_H
 
 #include <QRect>
-#include "../model/location/floor.h"
+#include "../../model/location/floor.h"
 
 class FloorView
 {
 public:
     FloorView(Floor* floor);
-    QRect getRect();
 private:
     Floor* floor;
 };
