@@ -34,11 +34,11 @@ string createClusterName(int position)
 }
 
 //This function returns the postion of a building in a Building_building vector.
-int findBInB2B(std::vector<Building*> buildings, Building building)
+int findBInB2B(std::vector<Building*> buildings, Building* building)
 {
     for( int i = 0; i < buildings.size(); i++ ) {
         //Je compare les batiments par leurs nom : ilfaut faire en sorte que les noms soient uniques.
-        if( (*buildings[i]).getName() == building.getName()) {
+        if( buildings[i]== building) {
             return i;
        }
     }
@@ -83,15 +83,15 @@ int main(int argc, char *argv[])
 
     for(int ii=0; ii < b2bs.size(); ii++)
     {
-        Building_Building building_Building=*b2bs[ii];
-        vector<NTechnology::Technology> techs = building_Building.getExistingTechs();
+        Building_Building* building_Building=b2bs[ii];
+        vector<NTechnology::Technology> techs = building_Building->getExistingTechs();
         if(techs.size()>0){
-            Building building1=building_Building.getBuilding1();
+            Building* building1=building_Building->getBuilding1();
             int positionBuilding1= findBInB2B(bs, building1);
             string cluster1= createClusterName(positionBuilding1);
 
 
-            Building building2=building_Building.getBuilding2();
+            Building* building2=building_Building->getBuilding2();
             int positionBuilding2= findBInB2B(bs, building2);
             string cluster2= createClusterName(positionBuilding2);
 
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     myfile.close();
 
 //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
-//    system ("fdp -Tpng graphviz.txt >graphe.png");
+    system ("fdp -Tpng graphviz.txt >graphe.png");
 
     return app.exec();
 }
