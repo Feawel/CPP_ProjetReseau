@@ -26,6 +26,7 @@
 #include <QCheckBox>
 #include <QPalette>
 
+#include <iostream>
 #include "requestinterface.h"
 #include <vector>
 
@@ -57,17 +58,11 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
 
     //create building panel
     addDockWidget(Qt::RightDockWidgetArea, formPanel);
-    buildingPanel = new BuildingPanel;
-
-    // create b2b panel
-    b2bPanel = new  Building_BuildingPanel;
 
     // create default panel
     defaultPanel = new DefaultPanel;
     QObject::connect(defaultPanel->getAddBuildingButton(), SIGNAL(clicked()), this, SLOT(addBuilding()));
     formPanel->setWidget(defaultPanel);
-
-    //create floor panel
 
     //open the window in maximized format
     showMaximized();
@@ -88,6 +83,13 @@ void RequestInterface::addBuilding()
 
     // create the new bulding view with name Building i
     BuildingView *buildingView = new BuildingView("Building "+oss.str());
+    BuildingPanel *buildingPanel = new BuildingPanel;
+    buildingView->setBuildingPanel(buildingPanel);
+    QObject::connect(buildingPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
+    QObject::connect(buildingPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
+    QObject::connect(buildingPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
+    QObject::connect(buildingPanel->getIsAdminField(), SIGNAL(clicked(bool)), this, SLOT(setIsAdmin(bool)));
+    QObject::connect(buildingPanel->getAddFloorButton(), SIGNAL(clicked()), this, SLOT(addFloor()));
 
     // create a b2b for each other building
     if(!buildingViews.empty())
@@ -95,6 +97,8 @@ void RequestInterface::addBuilding()
         for(unsigned int i = 0; i<buildingViews.size(); i++)
         {
             Building_BuildingView *b2bView = new Building_BuildingView(buildingViews[i], buildingView);
+            Building_BuildingPanel *b2bPanel = new Building_BuildingPanel;
+            b2bView->setB2bPanel(b2bPanel);
             b2bViews.push_back(b2bView);
         }
     }
@@ -185,20 +189,9 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
     {
         if(buildingViews[i]->contains(event->pos()))
         {
-            // set the bottom panel to a building panel
-            formPanel->setWidget(buildingPanel);
             selectedBuildingView = buildingViews[i];
-
-            // fill fields and connect field to the building
-            buildingPanel->getUserNumberField(NUserType::DEFAULT)->setValue(selectedBuildingView->getBuilding()->getUserNumber(NUserType::DEFAULT));
-            buildingPanel->getUserNumberField(NUserType::SUP)->setValue(selectedBuildingView->getBuilding()->getUserNumber(NUserType::SUP));
-            buildingPanel->getUserNumberField(NUserType::ADMIN)->setValue(selectedBuildingView->getBuilding()->getUserNumber(NUserType::ADMIN));
-            buildingPanel->setIsAdmin(selectedBuildingView->getBuilding()->isAdmin());
-            QObject::connect(buildingPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
-            QObject::connect(buildingPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
-            QObject::connect(buildingPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
-            QObject::connect(buildingPanel->getIsAdminField(), SIGNAL(clicked(bool)), this, SLOT(setIsAdmin(bool)));
-            QObjectCleanupHandler::connect(buildingPanel->getAddFloorButton(), SIGNAL(clicked()), this, SLOT(addFloor()));
+            // set the bottom panel to a building panel
+            formPanel->setWidget(selectedBuildingView->getBuildingPanel());
             break;
         }
     }
@@ -240,7 +233,7 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
             if(selected)
             {
                 selectedB2bView = b2bViews[i];
-                formPanel->setWidget(b2bPanel);
+                formPanel->setWidget(selectedB2bView->getB2bPanel());
                 break;
             }
         }
@@ -302,6 +295,7 @@ void RequestInterface::setIsAdmin(bool isAdmin)
 
 void RequestInterface::addFloor()
 {
+    cout << "add floor" << endl;
     selectedBuildingView->addFloor();
     update();
 }

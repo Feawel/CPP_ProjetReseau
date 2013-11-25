@@ -17,6 +17,7 @@
 #include "../../model/constant.h"
 #include "../../model/location/floor.h"
 #include "floorview.h"
+#include "../panel/buildingpanel.h"
 
 class BuildingView: public QRect {
 public:
@@ -31,10 +32,13 @@ public:
     QPoint getMidRight();
     void addFloor();
     std::vector<FloorView*> getFloorViews();
+    void setBuildingPanel(BuildingPanel* buildingPanel);
+    BuildingPanel* getBuildingPanel();
 
 private:
     Building *building;
     std::vector<FloorView*> floorViews;
+    BuildingPanel *panel;
 
 };
 

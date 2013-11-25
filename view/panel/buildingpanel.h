@@ -8,8 +8,6 @@
 #ifndef BUILDING_H
 #define BUILDING_H
 
-#endif // BUILDING_H
-
 #include <QCheckBox>
 #include <QPushButton>
 #include "locationpanel.h"
@@ -25,3 +23,5 @@ private:
     QCheckBox* isAdminField;
     QPushButton* addFloorButton;
 };
+
+#endif // BUILDING_H

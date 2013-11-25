@@ -73,3 +73,13 @@ vector<FloorView*> BuildingView::getFloorViews()
 {
     return floorViews;
 }
+
+void BuildingView::setBuildingPanel(BuildingPanel* buildingPanel)
+{
+    panel=buildingPanel;
+}
+
+BuildingPanel* BuildingView::getBuildingPanel()
+{
+    return panel;
+}

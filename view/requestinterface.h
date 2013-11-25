@@ -50,8 +50,8 @@ private:
     Building_BuildingView *selectedB2bView;
     QDockWidget *formPanel;
     DefaultPanel* defaultPanel;
-    BuildingPanel *buildingPanel;
-    Building_BuildingPanel *b2bPanel;
+    //BuildingPanel *buildingPanel;
+    //Building_BuildingPanel *b2bPanel;
 
     QPen defaultPen;
     QPen selectedPen;
