@@ -9,9 +9,9 @@
 using namespace std;
 
 Floor::Floor(int floorNumber) :
-    Location("Floor " + floorNumber), floorNumber(floorNumber) {
+    Location("Floor"), floorNumber(floorNumber) {
 }
 
 int Floor::getFloorNumber() {
-	return floorNumber;
+    return floorNumber;
 }
