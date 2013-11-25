@@ -21,7 +21,8 @@ SOURCES += \
     view/panel/b2bpanel.cpp \
     view/views/buildingview.cpp \
     view/views/b2bview.cpp \
-    view/views/floorview.cpp
+    view/views/floorview.cpp \
+    graph_view/graph_generate.cpp
 
 QT += widgets
 
@@ -48,4 +49,5 @@ HEADERS += \
     view/panel/b2bpanel.h \
     view/views/buildingview.h \
     view/views/b2bview.h \
-    view/views/floorview.h
+    view/views/floorview.h \
+    graph_view/graph_generate.h
