@@ -4,14 +4,11 @@
  *  Created on: 20 nov. 2013
  *      Author: MOULIN
  */
-#include <QFormLayout>
-#include <QSpinBox>
-
 #include "locationpanel.h"
 
 LocationPanel::LocationPanel(): QWidget()
 {
-    QFormLayout *layout = new QFormLayout;
+    layout = new QFormLayout;
     QSpinBox* defaultUserNumberField= new QSpinBox;
     QSpinBox* supUserNumberField= new QSpinBox;
     QSpinBox* adminUserNumberField= new QSpinBox;

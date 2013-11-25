@@ -21,6 +21,7 @@ public:
     int getFloorsNumber();
     Floor getAdminFloor();
     bool isAdmin();
+    void setAdmin(bool isAdmin);
 private:
     std::vector<Floor> floors;
     bool admin;

@@ -15,7 +15,6 @@
 #include <QToolBar>
 #include <QPainter>
 #include <QPolygon>
-#include <QColor>
 #include <QString>
 #include <QMouseEvent>
 #include <sstream>
@@ -25,6 +24,7 @@
 #include <QWidget>
 #include <QSpinBox>
 #include <QLine>
+#include <QCheckBox>
 
 #include "requestinterface.h"
 #include "buildingview.h"
@@ -37,7 +37,7 @@ using namespace std;
 /**
  * @brief RequestInterface::RequestInterface
  */
-RequestInterface::RequestInterface() : QMainWindow(){
+RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), adminColor(255,124,124){
     // create the file menu
     QMenu *file = menuBar()->addMenu("&File");
 
@@ -66,13 +66,14 @@ RequestInterface::RequestInterface() : QMainWindow(){
     // create the form panel
     formPanel = new QDockWidget("Form");
     addDockWidget(Qt::BottomDockWidgetArea, formPanel);
-    locationPanel = new LocationPanel();
+    buildingPanel = new BuildingPanel();
 
     //open the window in maximized format
     showMaximized();
 
     // definition of 2 types of pens : default and focus
     selectedPen.setWidth(5);
+
 }
 
 /**
@@ -113,8 +114,6 @@ void RequestInterface::paintEvent(QPaintEvent *)
     // painter creation
     QPainter painter(this);
 
-    QColor buildingColor(90,167,45);
-
     // foreach building view, add it on the board
     for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
@@ -127,8 +126,13 @@ void RequestInterface::paintEvent(QPaintEvent *)
             painter.setPen(defaultPen);
 
         painter.drawRect(*currentbuildingView);
+
         //add color
-        painter.fillRect(*currentbuildingView, buildingColor);
+        if(currentbuildingView->getBuilding()->isAdmin())
+            painter.fillRect(*currentbuildingView, adminColor);
+        else
+            painter.fillRect(*currentbuildingView, buildingColor);
+
         //add name
         painter.drawText(*currentbuildingView,Qt::AlignHCenter,currentbuildingView->getName());
         //add users
@@ -173,16 +177,18 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
         if(buildingViews[i]->contains(event->pos()))
         {
             // set the bottom panel to a building panel
-            formPanel->setWidget(locationPanel);
+            formPanel->setWidget(buildingPanel);
             selectedBuildingView = buildingViews[i];
 
             // fill fields and connect field to the building
-            locationPanel->getUserNumberField(NUserType::DEFAULT)->setValue(selectedBuildingView->getBuilding()->getUserNumber(NUserType::DEFAULT));
-            locationPanel->getUserNumberField(NUserType::SUP)->setValue(selectedBuildingView->getBuilding()->getUserNumber(NUserType::SUP));
-            locationPanel->getUserNumberField(NUserType::ADMIN)->setValue(selectedBuildingView->getBuilding()->getUserNumber(NUserType::ADMIN));
-            QObject::connect(locationPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
-            QObject::connect(locationPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
-            QObject::connect(locationPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
+            buildingPanel->getUserNumberField(NUserType::DEFAULT)->setValue(selectedBuildingView->getBuilding()->getUserNumber(NUserType::DEFAULT));
+            buildingPanel->getUserNumberField(NUserType::SUP)->setValue(selectedBuildingView->getBuilding()->getUserNumber(NUserType::SUP));
+            buildingPanel->getUserNumberField(NUserType::ADMIN)->setValue(selectedBuildingView->getBuilding()->getUserNumber(NUserType::ADMIN));
+            buildingPanel->setIsAdmin(selectedBuildingView->getBuilding()->isAdmin());
+            QObject::connect(buildingPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
+            QObject::connect(buildingPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
+            QObject::connect(buildingPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
+            QObject::connect(buildingPanel->getIsAdminField(), SIGNAL(clicked(bool)), this, SLOT(setIsAdmin(bool)));
             break;
         }
     }
@@ -259,5 +265,11 @@ void RequestInterface::setSupUsers(int userNumber)
 void RequestInterface::setAdminUsers(int userNumber)
 {
     selectedBuildingView->getBuilding()->setUserNumber(NUserType::ADMIN, userNumber);
+    update();
+}
+
+void RequestInterface::setIsAdmin(bool isAdmin)
+{
+    selectedBuildingView->getBuilding()->setAdmin(isAdmin);
     update();
 }

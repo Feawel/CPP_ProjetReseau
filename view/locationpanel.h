@@ -10,6 +10,7 @@
 
 #include <QWidget>
 #include <QSpinBox>
+#include <QFormLayout>
 #include <vector>
 #include "../model/constant.h"
 
@@ -17,8 +18,11 @@ class LocationPanel: public QWidget {
 public:
     LocationPanel();
     QSpinBox* getUserNumberField(NUserType::UserType userType);
+protected:
+    QFormLayout* layout;
 private:
     std::vector<QSpinBox*> userNumberFields;
+
 };
 
 #endif /* LOCATIONPANEL_H_ */

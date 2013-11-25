@@ -53,3 +53,8 @@ Floor Building::getAdminFloor(){
      *dans tout réseau.
      */
 }
+
+void Building::setAdmin(bool isAdmin)
+{
+    admin=isAdmin;
+}

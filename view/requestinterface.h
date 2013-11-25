@@ -15,8 +15,10 @@
 #include <QMouseEvent>
 #include <QDockWidget>
 #include <QPen>
+#include <QColor>
 
 #include "locationpanel.h"
+#include "buildingpanel.h"
 #include "buildingview.h"
 #include "b2bview.h"
 #include "b2bview.h"
@@ -32,6 +34,7 @@ public slots:
     void setDefaultUsers(int userNumber);
     void setSupUsers(int userNumber);
     void setAdminUsers(int userNumber);
+    void setIsAdmin(bool isAdmin);
 private:
     void paintEvent(QPaintEvent *);
     std::vector<BuildingView*> buildingViews;
@@ -42,9 +45,11 @@ private:
     Building_BuildingView *selectedB2bView;
     QDockWidget *formPanel;
     Request request;
-    LocationPanel *locationPanel;
+    BuildingPanel *buildingPanel;
     QPen defaultPen;
     QPen selectedPen;
+    QColor buildingColor;
+    QColor adminColor;
 };
 
 #endif // REQUESTINTERFACE_H
