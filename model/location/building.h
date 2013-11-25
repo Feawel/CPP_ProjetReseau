@@ -17,7 +17,7 @@ public:
     Building();
     Building(std::string name, bool admin = false);
     std::vector<Floor> getFloors();
-    void addFloor();
+    Floor* addFloor();
     int getFloorsNumber();
     Floor getAdminFloor();
     bool isAdmin();

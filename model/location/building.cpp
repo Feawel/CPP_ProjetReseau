@@ -22,9 +22,11 @@ vector<Floor> Building::getFloors() {
     return floors;
 }
 
-void Building::addFloor() {
+Floor* Building::addFloor() {
     Floor newFloor(floors.size() + 1);
     floors.push_back(newFloor);
+    Floor *ptr(&newFloor);
+    return ptr;
 }
 
 int Building::getFloorsNumber(){

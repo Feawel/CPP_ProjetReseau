@@ -92,7 +92,7 @@ void RequestInterface::addBuilding()
     // create a b2b for each other building
     if(!buildingViews.empty())
     {
-        for(int i = 0; i<buildingViews.size(); i++)
+        for(unsigned int i = 0; i<buildingViews.size(); i++)
         {
             Building_BuildingView *b2bView = new Building_BuildingView(buildingViews[i], buildingView);
             b2bViews.push_back(b2bView);
@@ -291,7 +291,7 @@ void RequestInterface::setAdminUsers(int userNumber)
 void RequestInterface::setIsAdmin(bool isAdmin)
 {
     // only one building can be admin, put all other to non-admin
-    for(int i = 0 ; i< buildingViews.size(); i++)
+    for(unsigned int i = 0 ; i< buildingViews.size(); i++)
     {
         buildingViews[i]->getBuilding()->setAdmin(false);
     }
