@@ -7,8 +7,14 @@
 
 #include "buildingpanel.h"
 
-BuildingPanel::BuildingPanel():LocationPanel()
+using namespace std;
+
+BuildingPanel::BuildingPanel(string name):LocationPanel()
 {
+    nameField = new QLineEdit;
+    nameField->setText(QString::fromStdString(name));
+    layout->addRow("Name:", nameField);
+
     isAdminField = new QCheckBox();
     layout->addRow("Admin building ?",isAdminField);
 
@@ -64,4 +70,9 @@ bool BuildingPanel::isReadOnly() const
 QPushButton* BuildingPanel::getRemoveBuildingButton() const
 {
     return removeBuildingButton;
+}
+
+QLineEdit* BuildingPanel::getNameField() const
+{
+    return nameField;
 }

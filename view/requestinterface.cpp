@@ -95,7 +95,7 @@ void RequestInterface::addBuilding()
 
     // create the new bulding view with name Building i
     BuildingView *buildingView = new BuildingView("Building "+oss.str());
-    BuildingPanel *buildingPanel = new BuildingPanel;
+    BuildingPanel *buildingPanel = new BuildingPanel("Building "+oss.str());
     buildingView->setBuildingPanel(buildingPanel);
     QObject::connect(buildingPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
     QObject::connect(buildingPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
@@ -103,6 +103,7 @@ void RequestInterface::addBuilding()
     QObject::connect(buildingPanel->getIsAdminField(), SIGNAL(clicked(bool)), this, SLOT(setIsAdmin(bool)));
     QObject::connect(buildingPanel->getAddFloorButton(), SIGNAL(clicked()), this, SLOT(addFloor()));
     QObject::connect(buildingPanel->getRemoveBuildingButton(), SIGNAL(clicked()), this, SLOT(removeBuilding()));
+    QObject::connect(buildingPanel->getNameField(), SIGNAL(textChanged(QString)), this, SLOT(setName(QString)));
 
     // create a b2b for each other building
     if(!buildingViews.empty())
@@ -435,5 +436,11 @@ void RequestInterface::removeBuilding()
     }
     delete selectedBuildingView;
     formPanel->setWidget(defaultPanel);
+    update();
+}
+
+void RequestInterface::setName(QString name)
+{
+    selectedBuildingView->getBuilding()->setName(name.toStdString());
     update();
 }
