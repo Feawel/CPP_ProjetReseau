@@ -431,7 +431,6 @@ void RequestInterface::removeBuilding()
         {
             request.removeBuilding(i);
             buildingViews.erase(buildingViews.begin()+i);
-            deleted = true;
         }
     }
     delete selectedBuildingView;
