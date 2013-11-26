@@ -111,6 +111,7 @@ void Graph_generate::graph_building_generate(Building* building){
     {
         string name = int_to_string(ii);
         draw_location(myfile,name , floors[ii]);
+        myfile << "cluster_L2L3 " << " -- " << "cluster_" << ii <<endl<<endl;
     }
 
     myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
@@ -118,7 +119,7 @@ void Graph_generate::graph_building_generate(Building* building){
     myfile <<endl<< "}" << endl;
     myfile.close();
 
-    //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
+    //  Génére le graphe en png avec un appel système, nécessite graphviz.
     system (("fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
 }
 
