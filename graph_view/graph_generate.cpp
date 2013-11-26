@@ -15,13 +15,10 @@
 using namespace::std;
 
 string int_to_string(int i){
+
     std::ostringstream oss;
-    // écrire un nombre dans le flux
-    oss << dynamic_cast<std::ostringstream&>(
-             std::ostringstream().flush() << i
-           ).str();
-    string result =string(oss.str());
-    return result;
+    oss << i;
+    return oss.str();
 }
 
 string createClusterName(int position)
@@ -35,7 +32,7 @@ string createClusterName(int position)
 //This function returns the postion of a building in a Building_building vector.
 int findBInB2B(std::vector<Building*> buildings, Building* building)
 {
-    for( int i = 0; i < buildings.size(); i++ ) {
+    for(unsigned int i = 0; i < buildings.size(); i++ ) {
         if( buildings[i]== building) {
             return i;
        }
@@ -128,13 +125,13 @@ void Graph_generate::global_graph_generate(){
     myfile.open ( (file_name+".txt").c_str());
     myfile << "graph G {" << endl;
 
-    for(int ii=0; ii < bs.size(); ii++)
+    for(unsigned int ii=0; ii < bs.size(); ii++)
     {
         string name = int_to_string(ii);
         draw_location(myfile, &name , bs[ii]);
     }
 
-    for(int ii=0; ii < b2bs.size(); ii++)
+    for(unsigned int ii=0; ii < b2bs.size(); ii++)
     {
         Building_Building* building_Building=b2bs[ii];
         vector<NTechnology::Technology> techs = building_Building->getExistingTechs();
@@ -147,7 +144,7 @@ void Graph_generate::global_graph_generate(){
             int positionBuilding2= findBInB2B(bs, building2);
             string cluster2= createClusterName(positionBuilding2);
 
-            for(int it=0; it < techs.size(); it++)
+            for(unsigned int it=0; it < techs.size(); it++)
             {
                 myfile << cluster1 << " -- " << cluster2 << "[color = \"" <<getColorB2B(&techs[it])<<"\"]"<<endl;
             }
