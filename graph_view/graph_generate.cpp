@@ -73,8 +73,20 @@ Graph_generate::Graph_generate(Request* request):request(request)
 }
 //Generates the graph for a given building.
 void Graph_generate::graph_building_generate(Building* building){
+    string building_name=building->getName();
+    string file_name ="graph_building_"+building_name;
 
+    ofstream myfile;
+    myfile.open (( file_name+".txt").c_str());
+    myfile << "graph G {" << endl;
 
+    myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
+    myfile << "legend[label = <<FONT color=\"red\">Infrared</FONT><BR/><FONT color=\"orange\">Ethernet</FONT><BR/><FONT color=\"darkorchid\">Fiber</FONT><BR/><FONT color=\"blue\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";
+    myfile <<endl<< "}" << endl;
+    myfile.close();
+
+    //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
+    system (("fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
 }
 
 //Generates the graph for the full organization.
@@ -83,7 +95,8 @@ void Graph_generate::global_graph_generate(){
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
 
     ofstream myfile;
-    myfile.open ("graphviz.txt");
+    string file_name ="global_graph";
+    myfile.open ( (file_name+".txt").c_str());
     myfile << "graph G {" << endl;
 
     for(int ii=0; ii < bs.size(); ii++)
@@ -121,5 +134,5 @@ void Graph_generate::global_graph_generate(){
     myfile.close();
 
 //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
-  system ("fdp -Tpng graphviz.txt >graphe.png");
+    system (("fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
 }
