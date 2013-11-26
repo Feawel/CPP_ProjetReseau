@@ -74,15 +74,16 @@ string getColorB2B(NTechnology::Technology* tech){
     break;
 }
 }
-void draw_location(ofstream& file, string name, Location* location, string* label=NULL){
+
+void draw_location(ofstream& file, string name, Location* location, bool generate_label=true){
     file << "subgraph cluster_"<< name << "{"<< endl;
     Component comp = (location->getComponents()).front();
     string IP =  comp.getAddress().toString();
     file << "label = \"";
-    if(label==NULL){
+    if(generate_label){
         file <<location->getName();
     }else{
-        file << label;
+        file << name;
     }
     file <<" \\n"  << IP  <<"\""<< endl;
     file <<  "}"<< endl <<endl;
@@ -101,10 +102,16 @@ void Graph_generate::graph_building_generate(Building* building){
     myfile << "graph G {" << endl;
 
     //On commence par dessiner le L2L3
-    Component L2L3 = (building->getComponents()).front();
-    string IP_L2L3 =  L2L3.getAddress().toString();
-    myfile << "label = \" L2L3" <<" \\n"  << IP_L2L3  <<"\""<< endl;
-    myfile <<  "}"<< endl <<endl;
+    draw_location(myfile, "L2L3",building, false);
+
+    //Then we draw the floors.
+    vector<Floor*> floors= building->getFloors();
+    myfile<< floors.size()<<endl;
+    for(unsigned int ii=0; ii < floors.size(); ii++)
+    {
+        string name = int_to_string(ii);
+        draw_location(myfile,name , floors[ii]);
+    }
 
     myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
     myfile << "legend[label = <<FONT color=\"red\">Infrared</FONT><BR/><FONT color=\"orange\">Ethernet</FONT><BR/><FONT color=\"darkorchid\">Fiber</FONT><BR/><FONT color=\"blue\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";

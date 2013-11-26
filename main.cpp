@@ -54,14 +54,14 @@ int main(int argc, char *argv[])
     b2bs.push_back(&b2b2);
     Request request = Request(bs, b2bs);
     Graph_generate graph_generate = Graph_generate(&request);
-    graph_generate.global_graph_generate();
+    //graph_generate.global_graph_generate();
 
     //mockup pour le graphe du batiment B1:
     Floor* f1= b1.addFloor();
     f1->addComponent(Component(Address(10,0,1,0,0)));
-    Floor* f2= b2.addFloor();
+    Floor* f2= b1.addFloor();
     f2->addComponent(Component(Address(10,0,1,1,0)));
-    Floor* f3= b3.addFloor();
+    Floor* f3= b1.addFloor();
     f3->addComponent(Component(Address(10,0,1,2,0)));
     graph_generate.graph_building_generate(&b1);
     return app.exec();
