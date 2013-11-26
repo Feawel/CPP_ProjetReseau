@@ -24,6 +24,7 @@ void Floor::setNetworkAddress(Address newNetworkAddress){
     this->networkAddress = newNetworkAddress;
 }
 
+
 Address Floor::getBroadcastAddress(){
     return broadcastAddress;
 }

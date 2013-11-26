@@ -157,6 +157,7 @@ void NetworkBuilder::launchP4() {
 
     int i,j;
 
+
     vector<Building*> buildings = request->getBuildings();
     for(i=0; i < buildings.size() ;i++){
         vector<Floor*> floors = buildings[i]->getFloors();
@@ -173,6 +174,7 @@ void NetworkBuilder::launchP4() {
             floors[j]->addComponent(tempSwitch);
 
 
+
             floors[j]->addComponent(tempSwitch);
             floors[j]->setBroadcastAddress(tempAddressBroadcast);
             floors[j]->setNetworkAddress(tempAddressNetwork);
@@ -181,5 +183,6 @@ void NetworkBuilder::launchP4() {
         }
 
     }
-        }
+ }
+
 
