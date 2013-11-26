@@ -24,10 +24,10 @@ Address Floor::setNetworkAddress(Address newNetworkAddress){
     this->networkAddress = newNetworkAddress;
 }
 
-void Floor::getBroadcastAddress(){
-    return broadcastAddress;
-}
+//void Floor::getBroadcastAddress(){
+//    return broadcastAddress;
+//}
 
-void Floor::getNetworkAddress(){
-    return networkAddress;
-}
+//void Floor::getNetworkAddress(){
+//    return networkAddress;
+//}
