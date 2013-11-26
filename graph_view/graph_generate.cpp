@@ -84,7 +84,7 @@ void Graph_generate::graph_buildings_generate(){
         myfile << "subgraph cluster_"<<ii << "{"<< endl;
         Component L2L3 = ((*bs[ii]).getComponents()).front();
         string IP =  L2L3.getAddress().toString();
-        myfile << "label = \"" <<(*bs[ii]).getName() <<" \\n"  << IP  << endl;
+        myfile << "label = \"" <<(*bs[ii]).getName() <<" \\n"  << IP  <<"\""<< endl;
         myfile <<  "}"<< endl <<endl;
     }
 
