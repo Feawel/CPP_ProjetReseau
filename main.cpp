@@ -10,6 +10,7 @@
 #include <QApplication>
 #include <QtGui>
 #include <iostream>
+#include "model/component/router.h"
 
 using namespace std;
 
@@ -34,7 +35,9 @@ int main(int argc, char *argv[])
     Building b1=Building("B1");
     Building b2=Building("B2");
     Building b3=Building("B3");
-
+    b1.addComponent(Component(Address(10,0,0,1,0)));
+    b2.addComponent(Component(Address(10,0,0,2,0)));
+    b3.addComponent(Component(Address(10,0,0,3,0)));
     std::vector<Building*> bs;
     bs.push_back(&b1);
     bs.push_back(&b2);

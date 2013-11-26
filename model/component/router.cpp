@@ -5,6 +5,9 @@
  *      Author: MOULIN
  */
 
+#include "router.h"
 
+//Router::Router(Address address):Address(address){
 
+//}
 
