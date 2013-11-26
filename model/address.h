@@ -17,6 +17,7 @@ public:
 	Address(unsigned int part1, unsigned int part2, unsigned int part3,
 			unsigned int part4, unsigned int prefixSize);
 	void display(std::ostream &flux) const;
+    std::string toString();
 
 private:
 	unsigned int prefixSize;

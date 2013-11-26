@@ -6,6 +6,7 @@
  */
 
 #include "address.h"
+#include <sstream>
 
 using namespace std;
 
@@ -29,4 +30,13 @@ void Address::display(ostream &flux) const {
 ostream &operator<<(ostream &flux, Address const& address) {
 	address.display(flux);
 	return flux;
+}
+string Address::toString(){
+    stringstream adress_stream;
+    adress_stream <<  part1 << ".";
+    adress_stream <<  part2 << ".";
+    adress_stream <<  part3 << ".";
+    adress_stream <<  part4;
+    string adress_string = adress_stream.str();
+    return adress_string;
 }
