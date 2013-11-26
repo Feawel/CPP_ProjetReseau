@@ -15,6 +15,16 @@ BuildingView::BuildingView(string name ): QRect(100,100,150,200), building(0)
     building = new Building(name);
 }
 
+BuildingView::~BuildingView()
+{
+    for(unsigned int i =0; i <floorViews.size(); i++)
+    {
+        delete floorViews[i];
+    }
+    delete building;
+    delete panel;
+}
+
 Building* BuildingView::getBuilding()
 {
     return building;

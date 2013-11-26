@@ -11,7 +11,15 @@
 using namespace std;
 
 Building::Building() :
-        Location() {
+    Location(), floors(0) {
+}
+
+Building::~Building()
+{
+    for(unsigned int i = 0; i< floors.size(); i++)
+    {
+        delete floors[i];
+    }
 }
 
 Building::Building(string name, bool admin) :

@@ -19,6 +19,7 @@
 class LocationPanel: public QWidget {
 public:
     LocationPanel();
+    ~LocationPanel();
     QSpinBox* getUserNumberField(NUserType::UserType userType);
 protected:
     QFormLayout* layout;

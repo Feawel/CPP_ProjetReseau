@@ -15,6 +15,7 @@ class Building_BuildingPanel: public QWidget
 {
 public:
     Building_BuildingPanel();
+    ~Building_BuildingPanel();
     QDoubleSpinBox* getDistanceField() const;
 private:
     QDoubleSpinBox* distanceField;

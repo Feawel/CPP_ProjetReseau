@@ -12,6 +12,12 @@ Building_BuildingView::Building_BuildingView(BuildingView *buildingView1, Buildi
     b2b = new Building_Building(buildingView1->getBuilding(), buildingView2->getBuilding());
 }
 
+Building_BuildingView::~Building_BuildingView()
+{
+    delete b2b;
+    delete panel;
+}
+
 /**
  * @brief Building_BuildingView::getLine
  * @return
@@ -94,7 +100,7 @@ QLine Building_BuildingView::getLine() const
 
 /**
  * @brief Building_BuildingView::getB2bPanel
- * @return
+ * @return Building_BuildingPanel*
  * return the Building_BuildingPanel associated to the view
  */
 Building_BuildingPanel* Building_BuildingView::getB2bPanel() const
@@ -114,7 +120,7 @@ void Building_BuildingView::setB2bPanel(Building_BuildingPanel* b2bPanel)
 
 /**
  * @brief Building_BuildingView::getB2b
- * @return
+ * @return Building_Building*
  * return the Building_Building object associated to the view
  */
 Building_Building* Building_BuildingView::getB2b() const
@@ -124,7 +130,7 @@ Building_Building* Building_BuildingView::getB2b() const
 
 /**
  * @brief Building_BuildingView::getDistance
- * @return
+ * @return QString
  * get b2b distance in QString format
  */
 QString Building_BuildingView::getDistance() const
@@ -140,4 +146,15 @@ QString Building_BuildingView::getDistance() const
 bool Building_BuildingView::intersect() const
 {
     return buildingView1->intersects(*buildingView2);
+}
+
+
+BuildingView* Building_BuildingView::getBuilding1() const
+{
+    return buildingView1;
+}
+
+BuildingView* Building_BuildingView::getBuilding2() const
+{
+    return buildingView2;
 }

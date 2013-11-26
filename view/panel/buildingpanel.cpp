@@ -14,7 +14,18 @@ BuildingPanel::BuildingPanel():LocationPanel()
 
     addFloorButton = new QPushButton("Add Floor");
     layout->addRow(addFloorButton);
+
+    removeBuildingButton = new QPushButton("Remove Building");
+    layout->addRow(removeBuildingButton);
+
     readOnly =false;
+}
+
+BuildingPanel::~BuildingPanel()
+{
+    delete isAdminField;
+    delete addFloorButton;
+    delete removeBuildingButton;
 }
 
 void BuildingPanel::setIsAdmin(bool isAdmin)
@@ -25,12 +36,12 @@ void BuildingPanel::setIsAdmin(bool isAdmin)
         isAdminField->setCheckState(Qt::Unchecked);
 }
 
-QCheckBox* BuildingPanel::getIsAdminField()
+QCheckBox* BuildingPanel::getIsAdminField() const
 {
     return isAdminField;
 }
 
-QPushButton* BuildingPanel::getAddFloorButton()
+QPushButton* BuildingPanel::getAddFloorButton() const
 {
     return addFloorButton;
 }
@@ -45,7 +56,12 @@ void BuildingPanel::setUsersReadOnly()
     }
 }
 
-bool BuildingPanel::isReadOnly()
+bool BuildingPanel::isReadOnly() const
 {
     return readOnly;
+}
+
+QPushButton* BuildingPanel::getRemoveBuildingButton() const
+{
+    return removeBuildingButton;
 }

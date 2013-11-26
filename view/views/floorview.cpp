@@ -13,6 +13,11 @@ FloorView::FloorView(Floor* floor): floor(floor)
 {
 }
 
+FloorView::~FloorView()
+{
+    delete panel;
+}
+
 LocationPanel* FloorView::getFloorPanel() const
 {
     return panel;

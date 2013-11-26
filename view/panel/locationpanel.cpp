@@ -41,6 +41,15 @@ LocationPanel::LocationPanel(): QWidget()
     this->setLayout(layout);
 }
 
+LocationPanel::~LocationPanel()
+{
+    delete layout;
+    for(unsigned int i = 0; i< userNumberFields.size(); i++)
+    {
+        delete userNumberFields[i];
+    }
+}
+
 QSpinBox* LocationPanel::getUserNumberField(NUserType::UserType userType)
 {
     int index = userType;

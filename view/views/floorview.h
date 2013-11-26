@@ -18,6 +18,7 @@ class FloorView
 {
 public:
     FloorView(Floor* floor);
+    ~FloorView();
     LocationPanel* getFloorPanel() const;
     void setFloorPanel(LocationPanel* floorPanel);
     Floor* getFloor() const;

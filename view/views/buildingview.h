@@ -22,6 +22,7 @@
 class BuildingView: public QRect {
 public:
     BuildingView(std::string name);
+    ~BuildingView();
     Building* getBuilding();
     QString getName();
     QString getUsers();

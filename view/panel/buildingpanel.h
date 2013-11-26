@@ -16,14 +16,17 @@ class BuildingPanel : public LocationPanel
 {
 public:
     BuildingPanel();
+    ~BuildingPanel();
     void setIsAdmin(bool isAdmin);
-    QCheckBox* getIsAdminField();
-    QPushButton* getAddFloorButton();
+    QCheckBox* getIsAdminField() const;
+    QPushButton* getAddFloorButton() const;
+    QPushButton* getRemoveBuildingButton() const;
     void setUsersReadOnly();
-    bool isReadOnly();
+    bool isReadOnly() const;
 private:
     QCheckBox* isAdminField;
     QPushButton* addFloorButton;
+    QPushButton* removeBuildingButton;
     bool readOnly;
 };
 

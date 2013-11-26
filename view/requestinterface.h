@@ -40,6 +40,7 @@ public slots:
     void addFloor();
     void run();
     void setDistance(double distance);
+    void removeBuilding();
 private:
     Request request;
     void paintEvent(QPaintEvent *);
@@ -56,11 +57,13 @@ private:
 
     QPen defaultPen;
     QPen selectedPen;
+    QPen warningTextPen;
     QColor buildingColor;
     QColor floorColor;
     QColor buildingAdminColor;
     QColor floorAdminColor;
-    QColor warningTextColor;
+    QFont warningTextFont;
+    QFont defaultFont;
 };
 
 #endif // REQUESTINTERFACE_H

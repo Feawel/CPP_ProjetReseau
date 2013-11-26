@@ -36,6 +36,11 @@ Building_BuildingPanel::Building_BuildingPanel(): QWidget()
     this->setLayout(layout);
 }
 
+Building_BuildingPanel::~Building_BuildingPanel()
+{
+    delete distanceField;
+}
+
 
 QDoubleSpinBox* Building_BuildingPanel::getDistanceField() const
 {

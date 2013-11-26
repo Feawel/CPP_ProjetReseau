@@ -36,7 +36,7 @@ using namespace std;
  * @brief RequestInterface::RequestInterface
  */
 RequestInterface::RequestInterface() :
-    QMainWindow(), buildingColor(90,167,45), buildingAdminColor(255,124,124), floorColor(110,196,45),floorAdminColor(255,155,124), warningTextColor(255,0,0)
+    QMainWindow(), buildingColor(90,167,45), buildingAdminColor(255,124,124), floorColor(110,196,45),floorAdminColor(255,155,124)
 {
     // create the file menu
     QMenu *file = menuBar()->addMenu("&File");
@@ -78,9 +78,10 @@ RequestInterface::RequestInterface() :
     //open the window in maximized format
     showMaximized();
 
-    // definition of 2 types of pens : default and focus
+    // definition of pens : default, focus, warning text
     selectedPen.setWidth(3);
-
+    warningTextPen.setColor(QColor(255,0,0));
+    warningTextFont.setBold(true);
 }
 
 /**
@@ -101,6 +102,7 @@ void RequestInterface::addBuilding()
     QObject::connect(buildingPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
     QObject::connect(buildingPanel->getIsAdminField(), SIGNAL(clicked(bool)), this, SLOT(setIsAdmin(bool)));
     QObject::connect(buildingPanel->getAddFloorButton(), SIGNAL(clicked()), this, SLOT(addFloor()));
+    QObject::connect(buildingPanel->getRemoveBuildingButton(), SIGNAL(clicked()), this, SLOT(removeBuilding()));
 
     // create a b2b for each other building
     if(!buildingViews.empty())
@@ -112,13 +114,16 @@ void RequestInterface::addBuilding()
             b2bView->setB2bPanel(b2bPanel);
             QObject::connect(b2bPanel->getDistanceField(), SIGNAL(valueChanged(double)), this, SLOT(setDistance(double)));
             b2bViews.push_back(b2bView);
+            request.addBuilding_Building(b2bView->getB2b());
         }
     }
 
     // adding it to the building view array
     buildingViews.push_back(buildingView);
 
+    // ading building to the request
     request.addBuilding(buildingView->getBuilding());
+
     // update the window (call paint event)
     update();
 }
@@ -194,12 +199,19 @@ void RequestInterface::paintEvent(QPaintEvent *)
             painter.drawLine(line);
 
             // find the middle of the line and right the distance
-            QPoint mid((line.p2().x()+line.p1().x())/2, (line.p2().y()+line.p1().y())/2-2);
-            QString distance = currentB2bView->getDistance();
-            if(distance == QString("0"))
-                painter.setPen(warningTextColor);
-            painter.drawText(mid, distance);
+            // get the x average and the y average, offset 4 on y to place text above line
+            QPoint mid((line.p2().x()+line.p1().x())/2, (line.p2().y()+line.p1().y())/2-4);
+
+            // if distance == 0 set warning
+            double distance = currentB2bView->getB2b()->getDistance();
+            if(distance == 0)
+            {
+                painter.setFont(warningTextFont);
+                painter.setPen(warningTextPen);
+            }
+            painter.drawText(mid, currentB2bView->getDistance());
             painter.setPen(defaultPen);
+            painter.setFont(defaultFont);
         }
     }
 
@@ -393,4 +405,36 @@ void RequestInterface::run()
     Request *ptr(0);
     ptr=&request;
     NetworkBuilder builder(ptr);
+}
+
+void RequestInterface::removeBuilding()
+{
+    for(unsigned int i = 0; i <b2bViews.size(); i++)
+    {
+        if(b2bViews[i]->getBuilding1() == selectedBuildingView)
+        {
+            delete b2bViews[i];
+            b2bViews.erase(b2bViews.begin()+i);
+            request.removeBuilding_Building(i);
+        }
+        else if(b2bViews[i]->getBuilding2() == selectedBuildingView)
+        {
+            delete b2bViews[i];
+            b2bViews.erase(b2bViews.begin()+i);
+            request.removeBuilding_Building(i);
+        }
+    }
+
+    for(unsigned int i = 0; i< buildingViews.size(); i++)
+    {
+        if(buildingViews[i] == selectedBuildingView)
+        {
+            request.removeBuilding(i);
+            buildingViews.erase(buildingViews.begin()+i);
+            deleted = true;
+        }
+    }
+    delete selectedBuildingView;
+    formPanel->setWidget(defaultPanel);
+    update();
 }
