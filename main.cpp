@@ -42,10 +42,13 @@ int main(int argc, char *argv[])
 
     Building_Building b2b1 = Building_Building(&b1, &b2,0, true);
     b2b1.addExistingTechnology(NTechnology::WIFI);
-    b2b1.addExistingTechnology(NTechnology::INFRARED);
+
+    Building_Building b2b2 = Building_Building(&b3, &b2,0, true);
+    b2b2.addExistingTechnology(NTechnology::INFRARED);
 
     std::vector<Building_Building*> b2bs;
     b2bs.push_back(&b2b1);
+    b2bs.push_back(&b2b2);
     Request request = Request(bs, b2bs);
     Graph_generate graph_generate = Graph_generate(&request);
     graph_generate.graph_buildings_generate();

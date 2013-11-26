@@ -26,12 +26,46 @@ string createClusterName(int position)
 int findBInB2B(std::vector<Building*> buildings, Building* building)
 {
     for( int i = 0; i < buildings.size(); i++ ) {
-        //Je compare les batiments par leurs nom : ilfaut faire en sorte que les noms soient uniques.
         if( buildings[i]== building) {
             return i;
        }
     }
     return -1;
+}
+
+//Permet de déterminer la couleur d'un lien représentant une technologie.
+string getColorB2B(NTechnology::Technology* tech){
+    switch (*tech)
+    {
+    //WIFI
+    case 0:
+        return "blue3";
+    break;
+
+    //ETHERNET
+    case 1:
+        return "darkorange";
+    break;
+
+    //FIBER
+    case 2:
+        return "darkorchid";
+    break;
+
+    //INFRARED
+    case 3:
+        return "red";
+    break;
+
+    //TWISTEDPAIR
+    case 4:
+        return "deepskyblue4";
+    break;
+
+    default:
+        return "black";
+    break;
+}
 }
 
 Graph_generate::Graph_generate(Request* request):request(request)
@@ -49,7 +83,7 @@ void Graph_generate::graph_buildings_generate(){
     {
         myfile << "subgraph cluster_"<<ii << "{"<< endl;
         myfile << "label = \"" <<(*bs[ii]).getName() <<"\""<< endl;
-        myfile <<   "}"<< endl <<endl;
+        myfile <<  "}"<< endl <<endl;
     }
 
     for(int ii=0; ii < b2bs.size(); ii++)
@@ -67,7 +101,7 @@ void Graph_generate::graph_buildings_generate(){
 
             for(int it=0; it < techs.size(); it++)
             {
-                myfile << cluster1 << " -- " << cluster2 << "[label=\"" <<techs[it]<<"\"]"<<endl;
+                myfile << cluster1 << " -- " << cluster2 << "[color = \"" <<getColorB2B(&techs[it])<<"\"]"<<endl;
             }
         }
     }
