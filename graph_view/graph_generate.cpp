@@ -67,6 +67,19 @@ string getColorB2B(NTechnology::Technology* tech){
     break;
 }
 }
+void draw_location(ofstream& file, string* name, Location* location, string* label=NULL){
+    file << "subgraph cluster_"<<name << "{"<< endl;
+    Component comp = (location->getComponents()).front();
+    string IP =  comp.getAddress().toString();
+    file << "label = \"";
+    if(label==NULL){
+        file <<location->getName();
+    }else{
+        file << label;
+    }
+    file <<" \\n"  << IP  <<"\""<< endl;
+    file <<  "}"<< endl <<endl;
+}
 
 Graph_generate::Graph_generate(Request* request):request(request)
 {
@@ -79,6 +92,12 @@ void Graph_generate::graph_building_generate(Building* building){
     ofstream myfile;
     myfile.open (( file_name+".txt").c_str());
     myfile << "graph G {" << endl;
+
+    //On commence par dessiner le L2L3
+    Component L2L3 = (building->getComponents()).front();
+    string IP_L2L3 =  L2L3.getAddress().toString();
+    myfile << "label = \" L2L3" <<" \\n"  << IP_L2L3  <<"\""<< endl;
+    myfile <<  "}"<< endl <<endl;
 
     myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
     myfile << "legend[label = <<FONT color=\"red\">Infrared</FONT><BR/><FONT color=\"orange\">Ethernet</FONT><BR/><FONT color=\"darkorchid\">Fiber</FONT><BR/><FONT color=\"blue\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";
