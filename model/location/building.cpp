@@ -18,15 +18,14 @@ Building::Building(string name, bool admin) :
     Location(name), admin(admin) {
 }
 
-vector<Floor> Building::getFloors() {
+vector<Floor*> Building::getFloors() {
     return floors;
 }
 
 Floor* Building::addFloor() {
-    Floor newFloor(floors.size() + 1);
+    Floor* newFloor = new Floor(floors.size() + 1);
     floors.push_back(newFloor);
-    Floor *ptr(&newFloor);
-    return ptr;
+    return newFloor;
 }
 
 int Building::getFloorsNumber(){
@@ -48,9 +47,9 @@ Floor Building::getAdminFloor(){
      *On pourrait par exemple envisager :
      */
 
-    this->addFloor();
-    Floor adminFloor = this->getFloors().back();
-    return adminFloor;
+//    this->addFloor();
+//    Floor adminFloor = this->getFloors().back();
+//    return adminFloor;
      /*Dans ce cas on se charge nous meme d'ajouter la partie admin, qui sera présente
      *dans tout réseau.
      */

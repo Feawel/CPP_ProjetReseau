@@ -60,7 +60,8 @@ FloorView* BuildingView::addFloor()
     int fn = floorViews.size();
     if(height()<15 + (fn+1)* 90)
         setHeight(height()+90);
-    FloorView *floorView = new FloorView(building->addFloor());
+    Floor *floor(building->addFloor());
+    FloorView *floorView = new FloorView(floor);
     floorViews.push_back(floorView);
     return floorView;
 }

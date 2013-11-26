@@ -6,6 +6,9 @@
  */
 
 #include "floorview.h"
+#include <iostream>
+
+using namespace std;
 
 FloorView::FloorView(Floor* floor): floor(floor)
 {
@@ -28,5 +31,6 @@ Floor* FloorView::getFloor() const
 
 QString FloorView::getUsers() const
 {
+    //cout << floor->getUserNumbers()[0] <<endl;
     return "D: " + QString::number(floor->getUserNumber(NUserType::DEFAULT)) + " S: " +QString::number(floor->getUserNumber(NUserType::SUP))+" A: "+QString::number(floor->getUserNumber(NUserType::ADMIN));
 }

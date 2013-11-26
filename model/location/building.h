@@ -16,14 +16,14 @@ class Building: public Location {
 public:
     Building();
     Building(std::string name, bool admin = false);
-    std::vector<Floor> getFloors();
+    std::vector<Floor*> getFloors();
     Floor* addFloor();
     int getFloorsNumber();
     Floor getAdminFloor();
     bool isAdmin();
     void setAdmin(bool isAdmin);
 private:
-    std::vector<Floor> floors;
+    std::vector<Floor*> floors;
     bool admin;
 };
 
