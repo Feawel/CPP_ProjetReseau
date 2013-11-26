@@ -14,8 +14,8 @@ class Component {
 public:
 	Component();
 	Component(Address address);
-	Address getAddress() const;
-	void setAddress(Address adress);
+    Address getAddress() const;
+    void setAddress(Address adress);
 
 private:
 	Address address;

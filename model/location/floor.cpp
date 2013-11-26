@@ -15,3 +15,19 @@ Floor::Floor(int floorNumber) :
 int Floor::getFloorNumber() {
     return floorNumber;
 }
+
+Address Floor::setBroadcastAddress(Address newBroadcastAddress){
+    this->broadcastAddress = newBroadcastAddress;
+}
+
+Address Floor::setNetworkAddress(Address newNetworkAddress){
+    this->networkAddress = newNetworkAddress;
+}
+
+void Floor::getBroadcastAddress(){
+    return broadcastAddress;
+}
+
+void Floor::getNetworkAddress(){
+    return networkAddress;
+}
