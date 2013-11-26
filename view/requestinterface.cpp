@@ -27,6 +27,7 @@
 #include <QPalette>
 
 #include "requestinterface.h"
+#include "phases/networkbuilder.h"
 #include <vector>
 
 using namespace std;
@@ -38,11 +39,20 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
     // create the file menu
     QMenu *file = menuBar()->addMenu("&File");
 
-    // add qui action with shortcut Ctrl + Q
+    // add quit action with shortcut Ctrl + Q
     QAction *quit = new QAction("&Quit", this);
     file->addAction(quit);
     quit->setShortcut(QKeySequence("Ctrl+Q"));
     QObject::connect(quit, SIGNAL(triggered()), qApp, SLOT(quit()));
+
+    // create the action menu
+    QMenu *action = menuBar()->addMenu("&Action");
+
+    // add run action with shortcut Ctrl + R
+    QAction *run = new QAction("&Run", this);
+    action->addAction(run);
+    run->setShortcut(QKeySequence("Ctrl+R"));
+    QObject::connect(run, SIGNAL(triggered()), this, SLOT(run()));
 
     // create the central board
     QWidget *board = new QWidget;
@@ -348,4 +358,11 @@ void RequestInterface::addFloor()
     QObject::connect(floorPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
 
     update();
+}
+
+void RequestInterface::run()
+{
+    Request *ptr(0);
+    ptr=&request;
+    NetworkBuilder builder(ptr);
 }

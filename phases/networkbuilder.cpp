@@ -12,8 +12,13 @@ NetworkBuilder::NetworkBuilder()
 {
 }
 
+NetworkBuilder::NetworkBuilder(Request* request)
+{
+    this->request=request;
+}
 
-Request NetworkBuilder::getRequest() {
+
+Request* NetworkBuilder::getRequest() {
     return request;
 }
 

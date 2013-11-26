@@ -38,6 +38,7 @@ public slots:
     void setAdminUsers(int userNumber);
     void setIsAdmin(bool isAdmin);
     void addFloor();
+    void run();
 private:
     Request request;
     void paintEvent(QPaintEvent *);
@@ -51,8 +52,6 @@ private:
     FloorView *selectedFloor;
     QDockWidget *formPanel;
     DefaultPanel* defaultPanel;
-    //BuildingPanel *buildingPanel;
-    //Building_BuildingPanel *b2bPanel;
 
     QPen defaultPen;
     QPen selectedPen;

@@ -8,8 +8,8 @@ class NetworkBuilder
 {
     public:
         NetworkBuilder();
-        NetworkBuilder(Request request);
-        Request getRequest();
+        NetworkBuilder(Request* request);
+        Request* getRequest();
         void launchP1(Request request);
         void launchP2(std::vector<Building_Building> B2B);
         void launchP3(Request request);
@@ -17,7 +17,7 @@ class NetworkBuilder
 
 
     private:
-        Request request;
+        Request* request;
 
 
 };
