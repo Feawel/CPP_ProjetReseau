@@ -15,16 +15,17 @@
 class Building_Building {
 
 public:
-    Building_Building(Building *building1, Building *building2, float distance = 0,bool visibility=true);
+    Building_Building(Building *building1, Building *building2, double distance = 0,bool visibility=true);
     void addExistingTechnology(NTechnology::Technology technology);
-    float getDistance();
+    double getDistance();
     Building* getBuilding1();
     Building* getBuilding2();
-    float getVisibility();
+    bool getVisibility();
     std::vector<NTechnology::Technology> getExistingTechs();
+    void setDistance(double distance);
 
 private:
-    float distance;
+    double distance;
     Building *building1;
     Building *building2;
     bool visibility;

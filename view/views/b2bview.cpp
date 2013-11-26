@@ -101,3 +101,13 @@ void Building_BuildingView::setB2bPanel(Building_BuildingPanel* b2bPanel)
 {
     panel=b2bPanel;
 }
+
+Building_Building* Building_BuildingView::getB2b() const
+{
+    return b2b;
+}
+
+QString Building_BuildingView::getDistance() const
+{
+    return QString::number(b2b->getDistance());
+}

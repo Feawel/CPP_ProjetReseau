@@ -39,6 +39,7 @@ public slots:
     void setIsAdmin(bool isAdmin);
     void addFloor();
     void run();
+    void setDistance(double distance);
 private:
     Request request;
     void paintEvent(QPaintEvent *);

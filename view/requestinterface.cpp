@@ -77,7 +77,7 @@ RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), 
     showMaximized();
 
     // definition of 2 types of pens : default and focus
-    selectedPen.setWidth(5);
+    selectedPen.setWidth(3);
 
 }
 
@@ -108,6 +108,7 @@ void RequestInterface::addBuilding()
             Building_BuildingView *b2bView = new Building_BuildingView(buildingViews[i], buildingView);
             Building_BuildingPanel *b2bPanel = new Building_BuildingPanel;
             b2bView->setB2bPanel(b2bPanel);
+            QObject::connect(b2bPanel->getDistanceField(), SIGNAL(valueChanged(double)), this, SLOT(setDistance(double)));
             b2bViews.push_back(b2bView);
         }
     }
@@ -178,7 +179,10 @@ void RequestInterface::paintEvent(QPaintEvent *)
             painter.setPen(defaultPen);
 
         // get the line to draw
-        painter.drawLine(currentB2bView->getLine());
+        QLine line = currentB2bView->getLine();
+        painter.drawLine(line);
+        QPoint mid((line.p2().x()+line.p1().x())/2, (line.p2().y()+line.p1().y())/2-2);
+        painter.drawText(mid, currentB2bView->getDistance());
     }
 
     painter.end();
@@ -357,6 +361,12 @@ void RequestInterface::addFloor()
     QObject::connect(floorPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
     QObject::connect(floorPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
 
+    update();
+}
+
+void RequestInterface::setDistance(double distance)
+{
+    selectedB2bView->getB2b()->setDistance(distance);
     update();
 }
 
