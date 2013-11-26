@@ -20,10 +20,11 @@ class Building_BuildingView
 public:
     Building_BuildingView(BuildingView *buildingView1, BuildingView *buildingView2);
     QLine getLine() const;
-    Building_BuildingPanel* getB2bPanel();
+    Building_BuildingPanel* getB2bPanel() const;
     void setB2bPanel(Building_BuildingPanel* b2bPanel);
     Building_Building* getB2b() const;
     QString getDistance() const;
+    bool intersect() const;
 private:
     Building_Building *b2b;
     BuildingView* buildingView1;

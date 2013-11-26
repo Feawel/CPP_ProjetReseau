@@ -35,7 +35,9 @@ using namespace std;
 /**
  * @brief RequestInterface::RequestInterface
  */
-RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), buildingAdminColor(255,124,124), floorColor(110,196,45),floorAdminColor(255,155,124){
+RequestInterface::RequestInterface() :
+    QMainWindow(), buildingColor(90,167,45), buildingAdminColor(255,124,124), floorColor(110,196,45),floorAdminColor(255,155,124), warningTextColor(255,0,0)
+{
     // create the file menu
     QMenu *file = menuBar()->addMenu("&File");
 
@@ -184,10 +186,21 @@ void RequestInterface::paintEvent(QPaintEvent *)
             painter.setPen(defaultPen);
 
         // get the line to draw
-        QLine line = currentB2bView->getLine();
-        painter.drawLine(line);
-        QPoint mid((line.p2().x()+line.p1().x())/2, (line.p2().y()+line.p1().y())/2-2);
-        painter.drawText(mid, currentB2bView->getDistance());
+        // if there is an intersection between 2 building don't draw
+        if(!currentB2bView->intersect())
+        {
+            // draw the line
+            QLine line = currentB2bView->getLine();
+            painter.drawLine(line);
+
+            // find the middle of the line and right the distance
+            QPoint mid((line.p2().x()+line.p1().x())/2, (line.p2().y()+line.p1().y())/2-2);
+            QString distance = currentB2bView->getDistance();
+            if(distance == QString("0"))
+                painter.setPen(warningTextColor);
+            painter.drawText(mid, distance);
+            painter.setPen(defaultPen);
+        }
     }
 
     painter.end();

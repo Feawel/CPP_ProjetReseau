@@ -92,22 +92,52 @@ QLine Building_BuildingView::getLine() const
     return line;
 }
 
-Building_BuildingPanel* Building_BuildingView::getB2bPanel()
+/**
+ * @brief Building_BuildingView::getB2bPanel
+ * @return
+ * return the Building_BuildingPanel associated to the view
+ */
+Building_BuildingPanel* Building_BuildingView::getB2bPanel() const
 {
     return panel;
 }
 
+/**
+ * @brief Building_BuildingView::setB2bPanel
+ * @param b2bPanel
+ * set the Building_BuildingPanel associated to the view
+ */
 void Building_BuildingView::setB2bPanel(Building_BuildingPanel* b2bPanel)
 {
     panel=b2bPanel;
 }
 
+/**
+ * @brief Building_BuildingView::getB2b
+ * @return
+ * return the Building_Building object associated to the view
+ */
 Building_Building* Building_BuildingView::getB2b() const
 {
     return b2b;
 }
 
+/**
+ * @brief Building_BuildingView::getDistance
+ * @return
+ * get b2b distance in QString format
+ */
 QString Building_BuildingView::getDistance() const
 {
     return QString::number(b2b->getDistance());
+}
+
+/**
+ * @brief Building_BuildingView::intersect
+ * @return
+ * check if ther is an intersection between the 2 buildings
+ */
+bool Building_BuildingView::intersect() const
+{
+    return buildingView1->intersects(*buildingView2);
 }

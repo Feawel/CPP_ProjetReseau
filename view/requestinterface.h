@@ -60,6 +60,7 @@ private:
     QColor floorColor;
     QColor buildingAdminColor;
     QColor floorAdminColor;
+    QColor warningTextColor;
 };
 
 #endif // REQUESTINTERFACE_H
