@@ -106,7 +106,6 @@ void Graph_generate::graph_building_generate(Building* building){
 
     //Then we draw the floors.
     vector<Floor*> floors= building->getFloors();
-    myfile<< floors.size()<<endl;
     for(unsigned int ii=0; ii < floors.size(); ii++)
     {
         string name = int_to_string(ii);
@@ -114,7 +113,7 @@ void Graph_generate::graph_building_generate(Building* building){
         myfile << "cluster_L2L3 " << " -- " << "cluster_" << ii <<endl<<endl;
     }
 
-    myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
+    myfile << "graph [label=\"Map of " << building_name << "\" bgcolor=\"transparent\"]"<< endl;
     myfile << "legend[label = <<FONT color=\"red\">Infrared</FONT><BR/><FONT color=\"orange\">Ethernet</FONT><BR/><FONT color=\"darkorchid\">Fiber</FONT><BR/><FONT color=\"blue\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";
     myfile <<endl<< "}" << endl;
     myfile.close();
