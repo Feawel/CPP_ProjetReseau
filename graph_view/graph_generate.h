@@ -5,7 +5,8 @@ class Graph_generate
 {
 public:
     Graph_generate(Request* request);
-    void graph_buildings_generate();
+    void global_graph_generate();
+    void graph_building_generate(Building* building);
 private:
     Request* request;
 

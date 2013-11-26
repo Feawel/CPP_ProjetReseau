@@ -54,6 +54,6 @@ int main(int argc, char *argv[])
     b2bs.push_back(&b2b2);
     Request request = Request(bs, b2bs);
     Graph_generate graph_generate = Graph_generate(&request);
-    graph_generate.graph_buildings_generate();
+    graph_generate.global_graph_generate();
     return app.exec();
 }

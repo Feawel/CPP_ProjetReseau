@@ -71,7 +71,14 @@ string getColorB2B(NTechnology::Technology* tech){
 Graph_generate::Graph_generate(Request* request):request(request)
 {
 }
-void Graph_generate::graph_buildings_generate(){
+//Generates the graph for a given building.
+void Graph_generate::graph_building_generate(Building* building){
+
+
+}
+
+//Generates the graph for the full organization.
+void Graph_generate::global_graph_generate(){
     std::vector<Building*> bs =request->getBuildings();
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
 
@@ -82,9 +89,9 @@ void Graph_generate::graph_buildings_generate(){
     for(int ii=0; ii < bs.size(); ii++)
     {
         myfile << "subgraph cluster_"<<ii << "{"<< endl;
-        Component L2L3 = ((*bs[ii]).getComponents()).front();
+        Component L2L3 = (bs[ii]->getComponents()).front();
         string IP =  L2L3.getAddress().toString();
-        myfile << "label = \"" <<(*bs[ii]).getName() <<" \\n"  << IP  <<"\""<< endl;
+        myfile << "label = \"" <<bs[ii]->getName() <<" \\n"  << IP  <<"\""<< endl;
         myfile <<  "}"<< endl <<endl;
     }
 
@@ -110,7 +117,7 @@ void Graph_generate::graph_buildings_generate(){
 
     myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
     myfile << "legend[label = <<FONT color=\"red\">Infrared</FONT><BR/><FONT color=\"orange\">Ethernet</FONT><BR/><FONT color=\"darkorchid\">Fiber</FONT><BR/><FONT color=\"blue\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";
-    myfile << "}" << endl;
+    myfile <<endl<< "}" << endl;
     myfile.close();
 
 //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
