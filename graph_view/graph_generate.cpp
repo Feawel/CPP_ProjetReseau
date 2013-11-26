@@ -82,7 +82,7 @@ void Graph_generate::graph_buildings_generate(){
     for(int ii=0; ii < bs.size(); ii++)
     {
         myfile << "subgraph cluster_"<<ii << "{"<< endl;
-        myfile << "label = \"" <<(*bs[ii]).getName() <<"\""<< endl;
+        myfile << "label = \"" <<(*bs[ii]).getName() <<" \\nb. 192.168.0.2 \" "<< endl;
         myfile <<  "}"<< endl <<endl;
     }
 
