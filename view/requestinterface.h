@@ -9,6 +9,7 @@
 #define REQUESTINTERFACE_H
 
 #include <QtGui>
+#include <QString>
 #include <QMainWindow>
 #include <QGridLayout>
 #include <vector>
@@ -41,6 +42,7 @@ public slots:
     void run();
     void setDistance(double distance);
     void removeBuilding();
+    void setName(QString name);
 private:
     Request request;
     void paintEvent(QPaintEvent *);

@@ -10,12 +10,13 @@
 
 #include <QCheckBox>
 #include <QPushButton>
+#include <QLineEdit>
 #include "locationpanel.h"
 
 class BuildingPanel : public LocationPanel
 {
 public:
-    BuildingPanel();
+    BuildingPanel(std::string name);
     ~BuildingPanel();
     void setIsAdmin(bool isAdmin);
     QCheckBox* getIsAdminField() const;
@@ -23,10 +24,12 @@ public:
     QPushButton* getRemoveBuildingButton() const;
     void setUsersReadOnly();
     bool isReadOnly() const;
+    QLineEdit* getNameField() const;
 private:
     QCheckBox* isAdminField;
     QPushButton* addFloorButton;
     QPushButton* removeBuildingButton;
+    QLineEdit *nameField;
     bool readOnly;
 };
 
