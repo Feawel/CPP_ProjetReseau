@@ -108,6 +108,8 @@ void Graph_generate::graph_buildings_generate(){
         }
     }
 
+    myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
+    myfile << "legend[label = <<FONT color=\"red\">Infrared</FONT><BR/><FONT color=\"orange\">Ethernet</FONT><BR/><FONT color=\"darkorchid\">Fiber</FONT><BR/><FONT color=\"blue\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";
     myfile << "}" << endl;
     myfile.close();
 
