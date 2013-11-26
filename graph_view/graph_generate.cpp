@@ -14,6 +14,16 @@
 
 using namespace::std;
 
+string int_to_string(int i){
+    std::ostringstream oss;
+    // écrire un nombre dans le flux
+    oss << dynamic_cast<std::ostringstream&>(
+             std::ostringstream().flush() << i
+           ).str();
+    string result =string(oss.str());
+    return result;
+}
+
 string createClusterName(int position)
 {
     stringstream building1_stream;
@@ -120,11 +130,8 @@ void Graph_generate::global_graph_generate(){
 
     for(int ii=0; ii < bs.size(); ii++)
     {
-        myfile << "subgraph cluster_"<<ii << "{"<< endl;
-        Component L2L3 = (bs[ii]->getComponents()).front();
-        string IP =  L2L3.getAddress().toString();
-        myfile << "label = \"" <<bs[ii]->getName() <<" \\n"  << IP  <<"\""<< endl;
-        myfile <<  "}"<< endl <<endl;
+        string name = int_to_string(ii);
+        draw_location(myfile, &name , bs[ii]);
     }
 
     for(int ii=0; ii < b2bs.size(); ii++)
