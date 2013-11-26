@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     RequestInterface window ;
     window.show();
 
-    //mockup:
+    //mockup pour le graphe global:
     Building b1=Building("B1");
     Building b2=Building("B2");
     Building b3=Building("B3");
@@ -55,5 +55,14 @@ int main(int argc, char *argv[])
     Request request = Request(bs, b2bs);
     Graph_generate graph_generate = Graph_generate(&request);
     graph_generate.global_graph_generate();
+
+    //mockup pour le graphe du batiment B1:
+    Floor* f1= b1.addFloor();
+    f1->addComponent(Component(Address(10,0,1,0,0)));
+    Floor* f2= b2.addFloor();
+    f2->addComponent(Component(Address(10,0,1,1,0)));
+    Floor* f3= b3.addFloor();
+    f3->addComponent(Component(Address(10,0,1,2,0)));
+    graph_generate.graph_building_generate(&b1);
     return app.exec();
 }
