@@ -28,7 +28,25 @@ QString BuildingView::getName()
 
 QString BuildingView::getUsers()
 {
-    return "D: " + QString::number(building->getUserNumber(NUserType::DEFAULT)) + " S: " +QString::number(building->getUserNumber(NUserType::SUP))+" A: "+QString::number(building->getUserNumber(NUserType::ADMIN));
+    int def = 0;
+    int sup = 0;
+    int admin = 0;
+    if(panel->isReadOnly())
+    {
+        for(unsigned int i = 0 ;i< building->getFloors().size(); i++)
+        {
+            def += building->getFloors()[i]->getUserNumber(NUserType::DEFAULT);
+            sup += building->getFloors()[i]->getUserNumber(NUserType::SUP);
+            admin += building->getFloors()[i]->getUserNumber(NUserType::ADMIN);
+        }
+    }
+    else
+    {
+        def = building->getUserNumber(NUserType::DEFAULT);
+        sup = building->getUserNumber(NUserType::SUP);
+        admin = building->getUserNumber(NUserType::ADMIN);
+    }
+    return "D: " + QString::number(def) + " S: " +QString::number(sup)+" A: "+QString::number(admin);
 }
 
 QPoint BuildingView::getMidTop()
@@ -63,6 +81,8 @@ FloorView* BuildingView::addFloor()
     Floor *floor(building->addFloor());
     FloorView *floorView = new FloorView(floor);
     floorViews.push_back(floorView);
+
+    panel->setUsersReadOnly();
     return floorView;
 }
 

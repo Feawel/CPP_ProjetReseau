@@ -14,6 +14,7 @@ BuildingPanel::BuildingPanel():LocationPanel()
 
     addFloorButton = new QPushButton("Add Floor");
     layout->addRow(addFloorButton);
+    readOnly =false;
 }
 
 void BuildingPanel::setIsAdmin(bool isAdmin)
@@ -32,4 +33,19 @@ QCheckBox* BuildingPanel::getIsAdminField()
 QPushButton* BuildingPanel::getAddFloorButton()
 {
     return addFloorButton;
+}
+
+void BuildingPanel::setUsersReadOnly()
+{
+    readOnly = true;
+    for(unsigned int i = 0; i< userNumberFields.size(); i++)
+    {
+        userNumberFields[i]->setValue(0);
+        userNumberFields[i]->setEnabled(false);
+    }
+}
+
+bool BuildingPanel::isReadOnly()
+{
+    return readOnly;
 }

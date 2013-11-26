@@ -22,7 +22,6 @@ public:
     QSpinBox* getUserNumberField(NUserType::UserType userType);
 protected:
     QFormLayout* layout;
-private:
     std::vector<QSpinBox*> userNumberFields;
 
 

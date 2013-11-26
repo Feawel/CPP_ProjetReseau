@@ -19,9 +19,12 @@ public:
     void setIsAdmin(bool isAdmin);
     QCheckBox* getIsAdminField();
     QPushButton* getAddFloorButton();
+    void setUsersReadOnly();
+    bool isReadOnly();
 private:
     QCheckBox* isAdminField;
     QPushButton* addFloorButton;
+    bool readOnly;
 };
 
 #endif // BUILDING_H
