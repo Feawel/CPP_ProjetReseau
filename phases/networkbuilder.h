@@ -10,10 +10,10 @@ class NetworkBuilder
         NetworkBuilder();
         NetworkBuilder(Request* request);
         Request* getRequest();
-        void launchP1(Request request);
+        void launchP1();
         void launchP2(std::vector<Building_Building> B2B);
-        void launchP3(Request request);
-        void launchP4(Request request);
+        void launchP3();
+        void launchP4();
 
 
     private:

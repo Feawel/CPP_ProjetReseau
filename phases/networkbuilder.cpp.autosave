@@ -163,6 +163,7 @@ void NetworkBuilder::launchP4() {
 
             Switch tempSwitch;
             Address tempAddress(10,j,i,199,0);
+            tempSwitch.setAddress(tempAddress);
 
             floor[j].addComponent(tempSwitch);
 
