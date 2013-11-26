@@ -74,8 +74,8 @@ string getColorB2B(NTechnology::Technology* tech){
     break;
 }
 }
-void draw_location(ofstream& file, string* name, Location* location, string* label=NULL){
-    file << "subgraph cluster_"<<name << "{"<< endl;
+void draw_location(ofstream& file, string name, Location* location, string* label=NULL){
+    file << "subgraph cluster_"<< name << "{"<< endl;
     Component comp = (location->getComponents()).front();
     string IP =  comp.getAddress().toString();
     file << "label = \"";
@@ -128,7 +128,7 @@ void Graph_generate::global_graph_generate(){
     for(unsigned int ii=0; ii < bs.size(); ii++)
     {
         string name = int_to_string(ii);
-        draw_location(myfile, &name , bs[ii]);
+        draw_location(myfile,name , bs[ii]);
     }
 
     for(unsigned int ii=0; ii < b2bs.size(); ii++)
