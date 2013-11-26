@@ -156,23 +156,30 @@ void NetworkBuilder::launchP4() {
      */
 
     int i,j;
-    buildings = request->getBuildings();
+
+    vector<Building*> buildings = request->getBuildings();
     for(i=0; i < buildings.size() ;i++){
-        vector<Floor> floors = buildings[i]->getFloors();
+        vector<Floor*> floors = buildings[i]->getFloors();
         for(j=0; j < floors.size() ;j++){
+
 
             Switch tempSwitch;
             Address tempAddress(10,j,i,199,0);
             Address tempAddressBroadcast(10,j,i,255,0);
             Address tempAddressNetwork(10,j,i,0,24);
+            tempSwitch.setAddress(tempAddress);
 
 
+            floors[j]->addComponent(tempSwitch);
 
-            floor[j].addComponent(tempSwitch);
+
+            floors[j]->addComponent(tempSwitch);
+            floors[j]->setBroadcastAddress(tempAddressBroadcast);
+            floors[j]->setNetworkAddress(tempAddressNetwork);
 
 
         }
 
     }
+        }
 
-}

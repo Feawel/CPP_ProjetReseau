@@ -15,10 +15,10 @@ class Floor: public Location {
 public:
     Floor(int floorNumber);
 	int getFloorNumber();
-    Address setBroadcastAddress(Address newBroadcastAddress);
-    Address setNetworkAddress(Address newNetworkAddress);
-    void getBroadcastAddress();
-    void getNetworkAddress();
+    void setBroadcastAddress(Address newBroadcastAddress);
+    void setNetworkAddress(Address newNetworkAddress);
+    Address getBroadcastAddress();
+    Address getNetworkAddress();
 
 private:
 	int floorNumber;
