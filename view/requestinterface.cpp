@@ -35,7 +35,7 @@ using namespace std;
 /**
  * @brief RequestInterface::RequestInterface
  */
-RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), adminColor(255,124,124){
+RequestInterface::RequestInterface() : QMainWindow(), buildingColor(90,167,45), buildingAdminColor(255,124,124), floorColor(110,196,45),floorAdminColor(255,155,124){
     // create the file menu
     QMenu *file = menuBar()->addMenu("&File");
 
@@ -143,8 +143,9 @@ void RequestInterface::paintEvent(QPaintEvent *)
         painter.drawRect(*currentBuildingView);
 
         //add color
-        if(currentBuildingView->getBuilding()->isAdmin())
-            painter.fillRect(*currentBuildingView, adminColor);
+        bool isAdmin = currentBuildingView->getBuilding()->isAdmin();
+        if(isAdmin)
+            painter.fillRect(*currentBuildingView, buildingAdminColor);
         else
             painter.fillRect(*currentBuildingView, buildingColor);
 
@@ -157,7 +158,11 @@ void RequestInterface::paintEvent(QPaintEvent *)
                 painter.setPen(defaultPen);
             QRect rect(currentBuildingView->x()+15, currentBuildingView->y()+ 15 + j * 90, 120,75);
             painter.drawRect(rect);
-            painter.drawText(rect, Qt::AlignHCenter, "Floor");
+            if(isAdmin)
+                painter.fillRect(rect, floorAdminColor);
+            else
+                painter.fillRect(rect, floorColor);
+            painter.drawText(rect, Qt::AlignHCenter,currentBuildingView->getFloorViews()[j]->getName());
             painter.drawText(rect, Qt::AlignBottom + Qt::AlignCenter, currentBuildingView->getFloorViews()[j]->getUsers());
         }
 

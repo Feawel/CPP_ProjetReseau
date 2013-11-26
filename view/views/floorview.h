@@ -22,6 +22,7 @@ public:
     void setFloorPanel(LocationPanel* floorPanel);
     Floor* getFloor() const;
     QString getUsers() const;
+    QString getName() const;
 private:
     Floor* floor;
     LocationPanel* panel;

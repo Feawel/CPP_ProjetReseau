@@ -57,7 +57,9 @@ private:
     QPen defaultPen;
     QPen selectedPen;
     QColor buildingColor;
-    QColor adminColor;
+    QColor floorColor;
+    QColor buildingAdminColor;
+    QColor floorAdminColor;
 };
 
 #endif // REQUESTINTERFACE_H

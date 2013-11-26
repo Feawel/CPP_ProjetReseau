@@ -18,7 +18,7 @@ Building_BuildingPanel::Building_BuildingPanel(): QWidget()
 
     QGroupBox* existingTechsGroup = new QGroupBox;
     QVBoxLayout* existingTechsLayout = new QVBoxLayout;
-    QCheckBox* wifiCheck = new QCheckBox("Wifi:");
+    QCheckBox* wifiCheck = new QCheckBox("Wifi Bridge:");
     QCheckBox* infraredCheck = new QCheckBox("Infrared:");
     QCheckBox* fiberCheck = new QCheckBox("Fiber:");
     QCheckBox* twistedPairCheck = new QCheckBox("Twisted Pair:");
@@ -30,7 +30,7 @@ Building_BuildingPanel::Building_BuildingPanel(): QWidget()
     existingTechsGroup->setLayout(existingTechsLayout);
 
     QFormLayout *layout = new QFormLayout;
-    layout->addRow("Distance:", distanceField);
+    layout->addRow("Distance (m):", distanceField);
     layout->addRow("Existing technologies:", existingTechsGroup);
 
     this->setLayout(layout);
