@@ -53,3 +53,15 @@ std::string Location::getName() {
 void Location::setName(std::string name) {
     this->name = name;
 }
+
+
+bool Location::isUsersNull() const
+{
+    if(getUserNumber(NUserType::DEFAULT)!=0)
+        return false;
+    else if(getUserNumber(NUserType::SUP)!=0)
+        return false;
+    else if(getUserNumber(NUserType::ADMIN)!=0)
+        return false;
+    return true;
+}

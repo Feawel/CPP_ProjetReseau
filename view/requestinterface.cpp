@@ -160,7 +160,8 @@ void RequestInterface::paintEvent(QPaintEvent *)
         // add floors
         for(unsigned int j=0; j< currentBuildingView->getFloorViews().size(); j++)
         {
-            if(selectedFloor == currentBuildingView->getFloorViews()[j])
+            FloorView* currentFloorView(currentBuildingView->getFloorViews()[j]);
+            if(selectedFloor == currentFloorView)
                 painter.setPen(selectedPen);
             else
                 painter.setPen(defaultPen);
@@ -170,14 +171,29 @@ void RequestInterface::paintEvent(QPaintEvent *)
                 painter.fillRect(rect, floorAdminColor);
             else
                 painter.fillRect(rect, floorColor);
-            painter.drawText(rect, Qt::AlignHCenter,currentBuildingView->getFloorViews()[j]->getName());
-            painter.drawText(rect, Qt::AlignBottom + Qt::AlignCenter, currentBuildingView->getFloorViews()[j]->getUsers());
+            painter.drawText(rect, Qt::AlignHCenter,currentFloorView->getName());
+
+            if(currentFloorView->getFloor()->isUsersNull())
+            {
+                painter.setFont(warningTextFont);
+                painter.setPen(warningTextPen);
+            }
+            painter.drawText(rect, Qt::AlignBottom+Qt::AlignCenter, currentFloorView->getUsers());
+            painter.setFont(defaultFont);
+            painter.setPen(defaultPen);
         }
 
         //add name
         painter.drawText(*currentBuildingView,Qt::AlignHCenter,currentBuildingView->getName());
         //add users
+        if(currentBuildingView->getBuilding()->isUsersNull() && !currentBuildingView->getBuildingPanel()->isReadOnly())
+        {
+            painter.setFont(warningTextFont);
+            painter.setPen(warningTextPen);
+        }
         painter.drawText(*currentBuildingView, Qt::AlignBottom+Qt::AlignCenter, currentBuildingView->getUsers());
+        painter.setFont(defaultFont);
+        painter.setPen(defaultPen);
     }
 
     // foreach b2b view, add it on the board

@@ -27,6 +27,7 @@ public:
     void addComponent(Component newComponent);
     std::string getName();
     void setName(std::string name);
+    bool isUsersNull() const;
 
 private:
     std::vector<int> userNumbers;
