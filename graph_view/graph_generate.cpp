@@ -75,8 +75,9 @@ string getColorB2B(NTechnology::Technology* tech){
 }
 }
 
-void draw_location(ofstream& file, string name, Location* location, bool generate_label=true){
-    file << "subgraph cluster_"<< name << "{"<< endl;
+
+void draw_location_str(ofstream& file, string name, Location* location, bool generate_label=true){
+    file << "subgraph "<< name << "{"<< endl;
     Component comp = (location->getComponents()).front();
     string IP =  comp.getAddress().toString();
     file << "label = \"";
@@ -87,6 +88,11 @@ void draw_location(ofstream& file, string name, Location* location, bool generat
     }
     file <<" \\n"  << IP  <<"\""<< endl;
     file <<  "}"<< endl <<endl;
+}
+
+void draw_location(ofstream& file, int int_name, Location* location, bool generate_label=true){
+    string name = createClusterName(int_name);
+    draw_location_str(file, name, location,generate_label);
 }
 
 Graph_generate::Graph_generate(Request* request):request(request)
@@ -102,14 +108,13 @@ void Graph_generate::graph_building_generate(Building* building){
     myfile << "graph G {" << endl;
 
     //On commence par dessiner le L2L3
-    draw_location(myfile, "L2L3",building, false);
+    draw_location_str(myfile, "cluster_L2L3",building, false);
 
     //Then we draw the floors.
     vector<Floor*> floors= building->getFloors();
     for(unsigned int ii=0; ii < floors.size(); ii++)
     {
-        string name = int_to_string(ii);
-        draw_location(myfile,name , floors[ii]);
+        draw_location(myfile,ii , floors[ii]);
         myfile << "cluster_L2L3 " << " -- " << "cluster_" << ii <<endl<<endl;
     }
 
@@ -134,8 +139,7 @@ void Graph_generate::global_graph_generate(){
 
     for(unsigned int ii=0; ii < bs.size(); ii++)
     {
-        string name = int_to_string(ii);
-        draw_location(myfile,name , bs[ii]);
+        draw_location(myfile,ii , bs[ii]);
     }
 
     for(unsigned int ii=0; ii < b2bs.size(); ii++)
