@@ -7,17 +7,12 @@
 
 #include <QApplication>
 #include <QtGui>
-#include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
 #include <QObject>
 #include <QPainter>
-#include <QPolygon>
-#include <QString>
-#include <QMouseEvent>
 #include <sstream>
-#include <QDockWidget>
 #include <QFormLayout>
 #include <QLineEdit>
 #include <QWidget>
@@ -29,9 +24,11 @@
 
 #include "requestinterface.h"
 #include "phases/networkbuilder.h"
-#include <vector>
 
 using namespace std;
+
+int const SELECT_MARGIN = 5;
+
 
 /**
  * @brief RequestInterface::RequestInterface
@@ -61,17 +58,15 @@ RequestInterface::RequestInterface() :
     QWidget *board = new QWidget;
     setCentralWidget(board);
 
-    // create the form panel
+    // create the form panel (white background)
     formPanel = new QDockWidget("Form");
     formPanel->setAutoFillBackground(true);
     QPalette pal = formPanel->palette();
     pal.setColor( QPalette::Background, QColor( 255, 255, 255));
     formPanel->setPalette(pal);
-
-    //create building panel
     addDockWidget(Qt::RightDockWidgetArea, formPanel);
 
-    // create default panel
+    // create default panel, add create building button and link it to building creation
     defaultPanel = new DefaultPanel;
     QObject::connect(defaultPanel->getAddBuildingButton(), SIGNAL(clicked()), this, SLOT(addBuilding()));
     formPanel->setWidget(defaultPanel);
@@ -86,51 +81,6 @@ RequestInterface::RequestInterface() :
 }
 
 /**
- * @brief RequestInterface::addBuilding
- * create a building view on the board and create the building attached
- */
-void RequestInterface::addBuilding()
-{
-    std::ostringstream oss;
-    oss << (buildingViews.size()+1);
-
-    // create the new bulding view with name Building i
-    BuildingView *buildingView = new BuildingView("Building "+oss.str());
-    BuildingPanel *buildingPanel = new BuildingPanel("Building "+oss.str());
-    buildingView->setBuildingPanel(buildingPanel);
-    QObject::connect(buildingPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
-    QObject::connect(buildingPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
-    QObject::connect(buildingPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
-    QObject::connect(buildingPanel->getIsAdminField(), SIGNAL(clicked(bool)), this, SLOT(setIsAdmin(bool)));
-    QObject::connect(buildingPanel->getAddFloorButton(), SIGNAL(clicked()), this, SLOT(addFloor()));
-    QObject::connect(buildingPanel->getRemoveBuildingButton(), SIGNAL(clicked()), this, SLOT(removeBuilding()));
-    QObject::connect(buildingPanel->getNameField(), SIGNAL(textChanged(QString)), this, SLOT(setName(QString)));
-
-    // create a b2b for each other building
-    if(!buildingViews.empty())
-    {
-        for(unsigned int i = 0; i<buildingViews.size(); i++)
-        {
-            Building_BuildingView *b2bView = new Building_BuildingView(buildingViews[i], buildingView);
-            Building_BuildingPanel *b2bPanel = new Building_BuildingPanel;
-            b2bView->setB2bPanel(b2bPanel);
-            QObject::connect(b2bPanel->getDistanceField(), SIGNAL(valueChanged(double)), this, SLOT(setDistance(double)));
-            b2bViews.push_back(b2bView);
-            request.addBuilding_Building(b2bView->getB2b());
-        }
-    }
-
-    // adding it to the building view array
-    buildingViews.push_back(buildingView);
-
-    // ading building to the request
-    request.addBuilding(buildingView->getBuilding());
-
-    // update the window (call paint event)
-    update();
-}
-
-/**
  * @brief RequestInterface::paintEvent
  */
 void RequestInterface::paintEvent(QPaintEvent *)
@@ -141,20 +91,21 @@ void RequestInterface::paintEvent(QPaintEvent *)
     // painter creation
     QPainter painter(this);
 
-    // foreach building view, add it on the board
+    // foreach building view
     for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
         BuildingView *currentBuildingView  = buildingViews[i];
 
-        //check if the view is selected
+        // take selected pen if view has been selected
         if(currentBuildingView == selectedBuildingView)
             painter.setPen(selectedPen);
         else
             painter.setPen(defaultPen);
 
+        // draw the building
         painter.drawRect(*currentBuildingView);
 
-        //add color
+        // add color
         bool isAdmin = currentBuildingView->getBuilding()->isAdmin();
         if(isAdmin)
             painter.fillRect(*currentBuildingView, buildingAdminColor);
@@ -165,39 +116,57 @@ void RequestInterface::paintEvent(QPaintEvent *)
         for(unsigned int j=0; j< currentBuildingView->getFloorViews().size(); j++)
         {
             FloorView* currentFloorView(currentBuildingView->getFloorViews()[j]);
+
+            // take selected pen if view has been selected
             if(selectedFloor == currentFloorView)
                 painter.setPen(selectedPen);
             else
                 painter.setPen(defaultPen);
+
+            // get floor coordonates
             QRect rect(currentBuildingView->x()+15, currentBuildingView->y()+ 15 + j * 90, 120,75);
             painter.drawRect(rect);
+
+            // add color
             if(isAdmin)
                 painter.fillRect(rect, floorAdminColor);
             else
                 painter.fillRect(rect, floorColor);
+
+            // add floor name
             painter.drawText(rect, Qt::AlignHCenter,currentFloorView->getName());
 
+            // if all users are null set warning style and add an error in errors
             if(currentFloorView->getFloor()->isUsersNull())
             {
                 painter.setFont(warningTextFont);
                 painter.setPen(warningTextPen);
-                errors.push_back("The " + currentFloorView->getName().toStdString()+" in "+currentBuildingView->getName().toStdString()+ " doesn't have any user.");
+                errors.push_back(currentFloorView->getName().toStdString()+" in "+currentBuildingView->getName().toStdString()+ " doesn't have any user.");
             }
+
+            // add floor users
             painter.drawText(rect, Qt::AlignBottom+Qt::AlignCenter, currentFloorView->getUsers());
+
+            // reset pen and font
             painter.setFont(defaultFont);
             painter.setPen(defaultPen);
         }
 
         //add name
         painter.drawText(*currentBuildingView,Qt::AlignHCenter,currentBuildingView->getName());
-        //add users
+
+        // if all users are null set warning style and add an error in errors
         if(currentBuildingView->getBuilding()->isUsersNull() && !currentBuildingView->getBuildingPanel()->isReadOnly())
         {
             painter.setFont(warningTextFont);
             painter.setPen(warningTextPen);
-            errors.push_back("The "+currentBuildingView->getName().toStdString()+" doesn't have any user.");
+            errors.push_back(currentBuildingView->getName().toStdString()+" doesn't have any user.");
         }
+
+        // add building users
         painter.drawText(*currentBuildingView, Qt::AlignBottom+Qt::AlignCenter, currentBuildingView->getUsers());
+
+        // reset pen and font
         painter.setFont(defaultFont);
         painter.setPen(defaultPen);
     }
@@ -225,7 +194,7 @@ void RequestInterface::paintEvent(QPaintEvent *)
             // get the x average and the y average, offset 4 on y to place text above line
             QPoint mid((line.p2().x()+line.p1().x())/2, (line.p2().y()+line.p1().y())/2-4);
 
-            // if distance == 0 set warning
+            // if distance == 0 set warning style and add an error
             double distance = currentB2bView->getB2b()->getDistance();
             if(distance == 0)
             {
@@ -233,12 +202,15 @@ void RequestInterface::paintEvent(QPaintEvent *)
                 painter.setPen(warningTextPen);
                 errors.push_back("Distance between "+ currentB2bView->getBuilding1()->getName().toStdString() +" and "+currentB2bView->getBuilding2()->getName().toStdString()+" can't be null.");
             }
+
+            // draw distance
             painter.drawText(mid, currentB2bView->getDistance());
+
+            // reset pen and style
             painter.setPen(defaultPen);
             painter.setFont(defaultFont);
         }
     }
-
     painter.end();
 }
 
@@ -254,34 +226,37 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
     selectedB2bView = 0;
     selectedFloor = 0;
 
-    // hide bottom panel
+    // reset panel to default
     formPanel->setWidget(defaultPanel);
 
-    // check if the user select a building
+    // check if the user select a building or a floor
     for(unsigned int i = 0 ; i < buildingViews.size();i++)
     {
         BuildingView *currentBuildingView = buildingViews[i];
+        //check first floors
         for(unsigned int j =0; j < currentBuildingView->getFloorViews().size(); j++)
         {
             QRect rect(currentBuildingView->x()+15, currentBuildingView->y()+ 15 + j * 90, 120,75);
             if(rect.contains(event->pos()))
             {
+                // select the floor and add the panel
                 selectedFloor = currentBuildingView->getFloorViews()[j];
                 formPanel->setWidget(selectedFloor->getFloorPanel());
                 break;
             }
         }
 
+        // if no floor has been selected
         if(selectedFloor==0 && buildingViews[i]->contains(event->pos()))
         {
+            // select the building and add the panel
             selectedBuildingView = buildingViews[i];
-            // set the bottom panel to a building panel
             formPanel->setWidget(selectedBuildingView->getBuildingPanel());
             break;
         }
     }
 
-    // check if the user select a link b2b
+    // check if the user select a link b2b if no location has been selected
     if(selectedBuildingView==0 && selectedFloor == 0)
     {
         bool selected = false;
@@ -294,9 +269,11 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
             int ey=event->y();
 
             // split vertical line and other cases
+            // ex = line.p1().x() = line.p2().x() with SELECT_MARGIN of error
+            // line.p1().y() < ey < line.p2().y() or line.p2().y() < ey < line.p1().y() with SELECT_MARGIN of error
             if(line.p2().x()==line.p1().x())
             {
-                if(line.p1().x()-5 <= ex && ex <= line.p1().x()+5 && ((line.p1().y()-5 <= ey && line.p2().y()+5>= ey) || (line.p2().y()-5 <= ey && line.p1().y()+5>= ey)))
+                if(line.p1().x()-SELECT_MARGIN <= ex && ex <= line.p1().x()+SELECT_MARGIN && ((line.p1().y()-SELECT_MARGIN <= ey && line.p2().y()+SELECT_MARGIN>= ey) || (line.p2().y()-SELECT_MARGIN <= ey && line.p1().y()+SELECT_MARGIN>= ey)))
                 {
                     selected=true;
                 }
@@ -310,13 +287,14 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
                 float ly = la*ex+lb;
 
                 // check if ly and ey are close
-                if(ly-5<=ey && ey<=ly+5)
+                if(ly-SELECT_MARGIN<=ey && ey<=ly+SELECT_MARGIN)
                 {
                     selected =true;
                 }
             }
             if(selected)
             {
+                // select the b2b and add the panel
                 selectedB2bView = b2bViews[i];
                 formPanel->setWidget(selectedB2bView->getB2bPanel());
                 break;
@@ -331,7 +309,7 @@ void RequestInterface::mousePressEvent(QMouseEvent *event)
 /**
  * @brief RequestInterface::mouseMoveEvent
  * @param event
- * move the element
+ * move the element only for buildings
  */
 void RequestInterface::mouseMoveEvent(QMouseEvent *event)
 {
@@ -341,6 +319,54 @@ void RequestInterface::mouseMoveEvent(QMouseEvent *event)
         selectedBuildingView->moveTo(event->globalPos());
         update();
     }
+}
+
+/**
+ * @brief RequestInterface::addBuilding
+ * create a building view on the board and create the building attached, adding b2bView and b2b attached
+ */
+void RequestInterface::addBuilding()
+{
+
+    // create the new bulding view and building panel with name Building i
+    std::ostringstream oss;
+    oss << (buildingViews.size()+1);
+    BuildingView *buildingView = new BuildingView("Building "+oss.str());
+    BuildingPanel *buildingPanel = new BuildingPanel("Building "+oss.str());
+    buildingView->setBuildingPanel(buildingPanel);
+
+    // connect all panel actions to building view
+    QObject::connect(buildingPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
+    QObject::connect(buildingPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
+    QObject::connect(buildingPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
+    QObject::connect(buildingPanel->getIsAdminField(), SIGNAL(clicked(bool)), this, SLOT(setIsAdmin(bool)));
+    QObject::connect(buildingPanel->getAddFloorButton(), SIGNAL(clicked()), this, SLOT(addFloor()));
+    QObject::connect(buildingPanel->getRemoveBuildingButton(), SIGNAL(clicked()), this, SLOT(removeBuilding()));
+    QObject::connect(buildingPanel->getNameField(), SIGNAL(textChanged(QString)), this, SLOT(setName(QString)));
+
+    // create a b2b for each other building
+    if(!buildingViews.empty())
+    {
+        for(unsigned int i = 0; i<buildingViews.size(); i++)
+        {
+            //create the b2bView and the associate panel
+            Building_BuildingView *b2bView = new Building_BuildingView(buildingViews[i], buildingView);
+            Building_BuildingPanel *b2bPanel = new Building_BuildingPanel;
+            b2bView->setB2bPanel(b2bPanel);
+            b2bViews.push_back(b2bView);
+            request.addBuilding_Building(b2bView->getB2b());
+
+            //connect b2bPanel action to b2bView
+            QObject::connect(b2bPanel->getDistanceField(), SIGNAL(valueChanged(double)), this, SLOT(setDistance(double)));
+        }
+    }
+
+    // adding it to the building view array and to the request
+    buildingViews.push_back(buildingView);
+    request.addBuilding(buildingView->getBuilding());
+
+    // update the window (call paint event)
+    update();
 }
 
 void RequestInterface::setDefaultUsers(int userNumber)

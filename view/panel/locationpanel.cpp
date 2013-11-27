@@ -24,15 +24,9 @@ LocationPanel::LocationPanel(): QWidget()
     QGroupBox* cantUseTechsGroup = new QGroupBox;
     QVBoxLayout* cantUseTechsLayout = new QVBoxLayout;
     QCheckBox* wifiCheck = new QCheckBox("Wifi:");
-    QCheckBox* infraredCheck = new QCheckBox("Infrared:");
-    QCheckBox* fiberCheck = new QCheckBox("Fiber:");
     QCheckBox* ethernetCheck = new QCheckBox("Ethernet:");
-    QCheckBox* twistedPairCheck = new QCheckBox("Twisted Pair:");
     cantUseTechsLayout->addWidget(wifiCheck);
-    cantUseTechsLayout->addWidget(infraredCheck);
-    cantUseTechsLayout->addWidget(fiberCheck);
     cantUseTechsLayout->addWidget(ethernetCheck);
-    cantUseTechsLayout->addWidget(twistedPairCheck);
 
     cantUseTechsGroup->setLayout(cantUseTechsLayout);
 
