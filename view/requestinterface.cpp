@@ -54,6 +54,12 @@ RequestInterface::RequestInterface() :
     run->setShortcut(QKeySequence("Ctrl+R"));
     QObject::connect(run, SIGNAL(triggered()), this, SLOT(run()));
 
+    // add clean action with shortcut Ctrl + N
+    QAction *clean = new QAction("&Clean",this);
+    action->addAction(clean);
+    clean->setShortcut(QKeySequence("Ctrl+N"));
+    QObject::connect(clean, SIGNAL(triggered()), this, SLOT(clean()));
+
     // create the central board
     QWidget *board = new QWidget;
     setCentralWidget(board);
@@ -369,6 +375,11 @@ void RequestInterface::addBuilding()
     update();
 }
 
+/**
+ * @brief RequestInterface::setDefaultUsers
+ * @param userNumber
+ * set default user number for the selected location view
+ */
 void RequestInterface::setDefaultUsers(int userNumber)
 {
     Location *location;
@@ -384,6 +395,11 @@ void RequestInterface::setDefaultUsers(int userNumber)
     update();
 }
 
+/**
+ * @brief RequestInterface::setDefaultUsers
+ * @param userNumber
+ * set sup user number for the selected location view
+ */
 void RequestInterface::setSupUsers(int userNumber)
 {
     Location *location;
@@ -399,6 +415,11 @@ void RequestInterface::setSupUsers(int userNumber)
     update();
 }
 
+/**
+ * @brief RequestInterface::setDefaultUsers
+ * @param userNumber
+ * set admin user number for the selected location view
+ */
 void RequestInterface::setAdminUsers(int userNumber)
 {
     Location *location;
@@ -431,8 +452,13 @@ void RequestInterface::setIsAdmin(bool isAdmin)
     update();
 }
 
+/**
+ * @brief RequestInterface::addFloor
+ * add a floor to the selected building
+ */
 void RequestInterface::addFloor()
 {
+    // create the view and the associate panel
     FloorView *floorView = selectedBuildingView->addFloor();
     LocationPanel *floorPanel = new LocationPanel;
     floorView->setFloorPanel(floorPanel);
@@ -444,12 +470,22 @@ void RequestInterface::addFloor()
     update();
 }
 
+/**
+ * @brief RequestInterface::setDistance
+ * @param distance
+ * set the distance to the selected b2b
+ */
 void RequestInterface::setDistance(double distance)
 {
     selectedB2bView->getB2b()->setDistance(distance);
     update();
 }
 
+/**
+ * @brief RequestInterface::displayErrors
+ * @return string
+ * construct a string with all error messages
+ */
 string RequestInterface::displayErrors() const
 {
     string message;
@@ -461,9 +497,13 @@ string RequestInterface::displayErrors() const
     return message;
 }
 
-
+/**
+ * @brief RequestInterface::run
+ * run the builder
+ */
 void RequestInterface::run()
 {
+    // check if there is errors
     if(errors.empty())
     {
         Request *ptr(0);
@@ -476,8 +516,13 @@ void RequestInterface::run()
     }
 }
 
+/**
+ * @brief RequestInterface::removeBuilding
+ * remove the selected building
+ */
 void RequestInterface::removeBuilding()
 {
+    // remove all b2b adajacents to the building
     for(unsigned int i = 0; i <b2bViews.size(); i++)
     {
         if(b2bViews[i]->getBuilding1() == selectedBuildingView)
@@ -494,6 +539,7 @@ void RequestInterface::removeBuilding()
         }
     }
 
+    // search the building in the request and in the buildingviews array
     for(unsigned int i = 0; i< buildingViews.size(); i++)
     {
         if(buildingViews[i] == selectedBuildingView)
@@ -502,13 +548,54 @@ void RequestInterface::removeBuilding()
             buildingViews.erase(buildingViews.begin()+i);
         }
     }
+
+    // delete building
     delete selectedBuildingView;
+
+    // reset panel
     formPanel->setWidget(defaultPanel);
     update();
 }
 
+/**
+ * @brief RequestInterface::setName
+ * @param name
+ * et the selected building name
+ */
 void RequestInterface::setName(QString name)
 {
     selectedBuildingView->getBuilding()->setName(name.toStdString());
+    update();
+}
+
+/**
+ * @brief RequestInterface::clean
+ * delete all buildings
+ */
+void RequestInterface::clean()
+{
+    // remove all b2b
+    for(unsigned int i = 0; i <b2bViews.size(); i++)
+    {
+        delete b2bViews[i];
+    }
+
+    // remove all buildings
+    for(unsigned int i = 0; i< buildingViews.size(); i++)
+    {
+        delete buildingViews[i];
+    }
+
+    // reset views array
+    buildingViews.clear();;
+    b2bViews.clear();
+
+    // deselect all
+    selectedB2bView=0;
+    selectedBuildingView=0;
+    selectedFloor=0;
+
+    //reset panel
+    formPanel->setWidget(defaultPanel);
     update();
 }

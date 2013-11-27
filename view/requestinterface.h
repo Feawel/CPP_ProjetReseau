@@ -44,6 +44,7 @@ public slots:
     void setDistance(double distance);
     void removeBuilding();
     void setName(QString name);
+    void clean();
 private:
     Request request;
     void paintEvent(QPaintEvent *);
@@ -64,8 +65,8 @@ private:
     QPen selectedPen;
     QPen warningTextPen;
     QColor buildingColor;
-    QColor floorColor;
     QColor buildingAdminColor;
+    QColor floorColor;
     QColor floorAdminColor;
     QFont warningTextFont;
     QFont defaultFont;
