@@ -25,6 +25,7 @@
 #include <QLine>
 #include <QCheckBox>
 #include <QPalette>
+#include <QMessageBox>
 
 #include "requestinterface.h"
 #include "phases/networkbuilder.h"
@@ -134,6 +135,9 @@ void RequestInterface::addBuilding()
  */
 void RequestInterface::paintEvent(QPaintEvent *)
 {
+    // reset errors messages
+    errors.clear();
+
     // painter creation
     QPainter painter(this);
 
@@ -177,6 +181,7 @@ void RequestInterface::paintEvent(QPaintEvent *)
             {
                 painter.setFont(warningTextFont);
                 painter.setPen(warningTextPen);
+                errors.push_back("The " + currentFloorView->getName().toStdString()+" in "+currentBuildingView->getName().toStdString()+ " doesn't have any user.");
             }
             painter.drawText(rect, Qt::AlignBottom+Qt::AlignCenter, currentFloorView->getUsers());
             painter.setFont(defaultFont);
@@ -190,6 +195,7 @@ void RequestInterface::paintEvent(QPaintEvent *)
         {
             painter.setFont(warningTextFont);
             painter.setPen(warningTextPen);
+            errors.push_back("The "+currentBuildingView->getName().toStdString()+" doesn't have any user.");
         }
         painter.drawText(*currentBuildingView, Qt::AlignBottom+Qt::AlignCenter, currentBuildingView->getUsers());
         painter.setFont(defaultFont);
@@ -417,13 +423,29 @@ void RequestInterface::setDistance(double distance)
     update();
 }
 
+string RequestInterface::displayErrors() const
+{
+    string message;
+    for(unsigned int i = 0; i< errors.size(); i++)
+    {
+        message+=errors[i];
+        message+="\n";
+    }
+    return message;
+}
+
+
 void RequestInterface::run()
 {
-    if(request.checkData())
+    if(errors.empty())
     {
         Request *ptr(0);
         ptr=&request;
         NetworkBuilder builder(ptr);
+    }
+    else
+    {
+        QMessageBox::critical(this, QString::fromStdString("More information needed"), QString::fromStdString(displayErrors()));
     }
 }
 

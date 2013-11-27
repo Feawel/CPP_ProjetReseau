@@ -32,6 +32,7 @@ class RequestInterface: public QMainWindow {
     Q_OBJECT
 public:
     RequestInterface();
+    std::string displayErrors() const;
 public slots:
     void addBuilding();
     void setDefaultUsers(int userNumber);
@@ -48,6 +49,8 @@ private:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
+
+    std::vector<std::string> errors;
 
     std::vector<BuildingView*> buildingViews;
     std::vector<Building_BuildingView*> b2bViews;
