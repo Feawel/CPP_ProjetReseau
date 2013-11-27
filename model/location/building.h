@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "floor.h"
+#include "building_building.h"
 
 class Building: public Location {
 
@@ -23,6 +24,7 @@ public:
     Floor getAdminFloor();
     bool isAdmin();
     void setAdmin(bool isAdmin);
+    std::vector<Building_Building*> getB2bs(std::vector<Building_Building*> b2bs) const;
 private:
     std::vector<Floor*> floors;
     bool admin;

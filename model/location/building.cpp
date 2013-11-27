@@ -67,3 +67,21 @@ void Building::setAdmin(bool isAdmin)
 {
     admin=isAdmin;
 }
+
+/**
+ * @brief Building::getB2bs
+ * @param b2bs
+ * @return all b2b adjacents to current building
+ */
+vector<Building_Building*> Building::getB2bs(vector<Building_Building*> b2bs) const
+{
+    vector<Building_Building*> currentB2bs;
+    for(unsigned int i = 0; i< b2bs.size(); i++)
+    {
+        if(b2bs[i]->getbuilding1()==*this)
+            currentB2bs.push_back(b2bs[i]);
+        else if(b2bs[i]->getbuilding2()==*this)
+            currentB2bs.push_back(b2bs[i]);
+    }
+    return currentB2bs;
+}

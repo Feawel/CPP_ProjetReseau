@@ -53,7 +53,7 @@ void Request::generateGraphText(){
     Building b2=Building("B2");
     Building b3=Building("B3");
 
-    std::vector<Building*> bs;
+    vector<Building*> bs;
     bs.push_back(&b1);
     bs.push_back(&b2);
     bs.push_back(&b3);
@@ -64,7 +64,7 @@ void Request::generateGraphText(){
     }
 
     ofstream myfile;
-    std::cout << '\n';
+    cout << '\n';
     myfile.open ("example.txt");
     myfile << "Writing this to a file.\n";
     myfile.close();

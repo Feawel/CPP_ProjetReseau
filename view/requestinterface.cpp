@@ -419,9 +419,12 @@ void RequestInterface::setDistance(double distance)
 
 void RequestInterface::run()
 {
-    Request *ptr(0);
-    ptr=&request;
-    NetworkBuilder builder(ptr);
+    if(request.checkData())
+    {
+        Request *ptr(0);
+        ptr=&request;
+        NetworkBuilder builder(ptr);
+    }
 }
 
 void RequestInterface::removeBuilding()
