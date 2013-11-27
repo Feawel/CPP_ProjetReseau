@@ -7,6 +7,7 @@ public:
     Graph_generate(Request* request);
     void global_graph_generate();
     void graph_building_generate(Building* building);
+    void graph_generate_all();
 private:
     Request* request;
 

@@ -98,6 +98,17 @@ void draw_location(ofstream& file, int int_name, Location* location, bool genera
 Graph_generate::Graph_generate(Request* request):request(request)
 {
 }
+
+
+void Graph_generate::graph_generate_all(){
+    global_graph_generate();
+    std::vector<Building*> bs =request->getBuildings();
+    for(unsigned int ii=0; ii < bs.size(); ii++)
+    {
+        graph_building_generate(bs[ii]);
+    }
+}
+
 //Generates the graph for a given building.
 void Graph_generate::graph_building_generate(Building* building){
     string building_name=building->getName();
@@ -116,6 +127,36 @@ void Graph_generate::graph_building_generate(Building* building){
     {
         draw_location(myfile,ii , floors[ii]);
         myfile << "cluster_L2L3 " << " -- " << "cluster_" << ii <<endl<<endl;
+    }
+
+    std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
+    for(unsigned int ii=0; ii < b2bs.size(); ii++)
+    {
+        Building_Building* building_Building=b2bs[ii];
+        vector<NTechnology::Technology> techs = building_Building->getExistingTechs();
+        if(techs.size()>0){
+            Building* building1=building_Building->getBuilding1();
+            Building* building2=building_Building->getBuilding2();
+
+            if(building1 == building ||  building2 == building  ){
+                Building* building_to_build =NULL;
+                if(building1 == building){
+                    building_to_build = building2;
+                }else{
+                    building_to_build = building1;
+
+                }
+                stringstream name_connected_building_stream;
+                name_connected_building_stream << "cluster_building_connected_" << ii;
+                string name_connected_building = name_connected_building_stream.str();
+                draw_location_str(myfile,name_connected_building, building_to_build);
+
+                for(unsigned int it=0; it < techs.size(); it++)
+                {
+                    myfile << name_connected_building << " -- " << "cluster_L2L3 " << "[color = \"" <<getColorB2B(&techs[it])<<"\"]"<<endl;
+                }
+            }
+        }
     }
 
     myfile << "graph [label=\"Map of " << building_name << "\" bgcolor=\"transparent\"]"<< endl;
