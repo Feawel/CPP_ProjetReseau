@@ -231,6 +231,7 @@ void RequestInterface::paintEvent(QPaintEvent *)
             {
                 painter.setFont(warningTextFont);
                 painter.setPen(warningTextPen);
+                errors.push_back("Distance between "+ currentB2bView->getBuilding1()->getName().toStdString() +" and "+currentB2bView->getBuilding2()->getName().toStdString()+" can't be null.");
             }
             painter.drawText(mid, currentB2bView->getDistance());
             painter.setPen(defaultPen);
