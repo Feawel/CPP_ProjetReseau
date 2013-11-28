@@ -8,6 +8,7 @@
 
 
 #include <sstream>
+#include <typeinfo>
 #include "networkbuilder.h"
 #include "model/component/backbone.h"
 #include "model/component/switch.h"
@@ -137,26 +138,7 @@ void NetworkBuilder::launchP2() {
 
 void NetworkBuilder::launchP3() {
     /*
-     *Phase III : Liaisons intra-batiment
-        Différents récepteurs possibles
-                Routeur FAI (bat admin)
-                Switch L2/3 (autres batiments)
-                Récepteur toit (IR ou Pont Wifi)
-                Récepteur sous sol (fibre ou cable)
-        Création d’un Local Technique pour chaque étage
-                Entre chaque local fibre optique multimode
-                2,5 prises ethernet/personne pour chaque étage
-     */
-
-
-
-
-
-}
-
-void NetworkBuilder::launchP4() {
-    /*
-     *Phase IV : Sous réseaux intra-bâtiment
+     *Phase III : Sous réseaux intra-bâtiment
         Pour chaque étage i, bâtiment j
                 Mise en place d’un L2
                 Adresse du switch : 10.j.i.199
@@ -250,6 +232,20 @@ void NetworkBuilder::launchP4() {
         }
 
     }
+
  }
+
+void NetworkBuilder::launchP4() {
+    /*
+     *Phase III : Ajouts généraux pour permettre une génération facile du graphe
+     *  Variable next_hop
+     *  ?
+     */
+
+
+
+
+
+}
 
 
