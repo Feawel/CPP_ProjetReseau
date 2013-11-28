@@ -8,8 +8,8 @@
 #include "floor.h"
 using namespace std;
 
-Floor::Floor(int floorNumber) :
-    Location("Floor"), floorNumber(floorNumber) {
+Floor::Floor(string name, int floorNumber) :
+    Location(name), floorNumber(floorNumber) {
 }
 
 int Floor::getFloorNumber() {

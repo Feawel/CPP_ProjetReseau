@@ -13,15 +13,15 @@
 class Floor: public Location {
 
 public:
-    Floor(int floorNumber);
-	int getFloorNumber();
+    Floor(std::string name, int floorNumber);
+    int getFloorNumber();
     void setBroadcastAddress(Address newBroadcastAddress);
     void setNetworkAddress(Address newNetworkAddress);
     Address getBroadcastAddress();
     Address getNetworkAddress();
 
 private:
-	int floorNumber;
+    int floorNumber;
     Address broadcastAddress;
     Address networkAddress;
 

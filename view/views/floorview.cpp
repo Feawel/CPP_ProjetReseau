@@ -40,5 +40,5 @@ QString FloorView::getUsers() const
 
 QString FloorView::getName() const
 {
-    return "Floor " + QString::number(floor->getFloorNumber());
+    return QString::fromStdString(floor->getName());
 }

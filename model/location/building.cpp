@@ -5,8 +5,8 @@
  *      Author: MOULIN
  */
 
-#include <vector>
 #include "building.h"
+#include <sstream>
 
 using namespace std;
 
@@ -31,7 +31,9 @@ vector<Floor*> Building::getFloors() {
 }
 
 Floor* Building::addFloor() {
-    Floor* newFloor = new Floor(floors.size() + 1);
+    std::ostringstream oss;
+    oss << "Floor " << (floors.size() + 1);
+    Floor* newFloor = new Floor(oss.str(),floors.size() + 1);
     floors.push_back(newFloor);
     return newFloor;
 }
@@ -67,21 +69,3 @@ void Building::setAdmin(bool isAdmin)
 {
     admin=isAdmin;
 }
-
-///**
-// * @brief Building::getB2bs
-// * @param b2bs
-// * @return all b2b adjacents to current building
-// */
-//vector<Building_Building*> Building::getB2bs(vector<Building_Building*> b2bs) const
-//{
-//    vector<Building_Building*> currentB2bs;
-//    for(unsigned int i = 0; i< b2bs.size(); i++)
-//    {
-//        if(b2bs[i]->getbuilding1()==*this)
-//            currentB2bs.push_back(b2bs[i]);
-//        else if(b2bs[i]->getbuilding2()==*this)
-//            currentB2bs.push_back(b2bs[i]);
-//    }
-//    return currentB2bs;
-//}
