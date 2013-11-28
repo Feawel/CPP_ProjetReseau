@@ -74,7 +74,7 @@ void NetworkBuilder::launchP1() {
     }
 }
 
-void NetworkBuilder::launchP2(vector<Building_Building> B2B) {
+void NetworkBuilder::launchP2() {
     /*
      *Phase II : Technologies de liaison inter-batiments
         Définition des distances B2B
@@ -85,6 +85,8 @@ void NetworkBuilder::launchP2(vector<Building_Building> B2B) {
 
      */
 
+    vector<Building_Building*> B2B = request->getBuilding_Buildings();
+
     int i;
 
     //Tableau de Link qui contiendra les liens entre les batiments et les technologies associées
@@ -92,25 +94,25 @@ void NetworkBuilder::launchP2(vector<Building_Building> B2B) {
 
     for (i=0;i<B2B.size();i++){
 
-        vector<NTechnology::Technology> existingTechs = B2B[i].getExistingTechs();
+        vector<NTechnology::Technology> existingTechs = B2B[i]->getExistingTechs();
 
         if(existingTechs.empty()){
-            if (B2B[i].getDistance() < 0.5 && B2B[i].getVisibility() == true) {
-                    B2B[i].addExistingTechnology(NTechnology::WIFI);
+            if (B2B[i]->getDistance() < 0.5 && B2B[i]->getVisibility() == true) {
+                    B2B[i]->addExistingTechnology(NTechnology::WIFI);
 
                 }
-                else if (B2B[i].getDistance() < 3 && B2B[i].getVisibility() == true){
-                    B2B[i].addExistingTechnology(NTechnology::INFRARED);
+                else if (B2B[i]->getDistance() < 3 && B2B[i]->getVisibility() == true){
+                    B2B[i]->addExistingTechnology(NTechnology::INFRARED);
                 }
                 else {
-                    B2B[i].addExistingTechnology(NTechnology::FIBER);
+                    B2B[i]->addExistingTechnology(NTechnology::FIBER);
                 }
-            NTechnology::Technology addedTech = B2B[i].getExistingTechs().front();
-            Link newLink(&B2B[i].getBuilding1()->getComponents().front(), &B2B[i].getBuilding2()->getComponents().front(), addedTech);
+            NTechnology::Technology addedTech = B2B[i]->getExistingTechs().front();
+            Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), addedTech);
             tabLinks[i] = newLink;
         }
         else{
-            Link newLink(&B2B[i].getBuilding1()->getComponents().front(), &B2B[i].getBuilding2()->getComponents().front(), existingTechs.front());
+            Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), existingTechs.front());
             tabLinks[i] = newLink;
         }
 
