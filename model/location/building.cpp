@@ -8,6 +8,7 @@
 
 #include "building.h"
 #include <sstream>
+#include <typeinfo>
 
 using namespace std;
 
@@ -33,8 +34,8 @@ vector<Floor*> Building::getFloors() {
 
 Floor* Building::addFloor() {
     std::ostringstream oss;
-    oss << "Floor " << (floors.size() + 1);
-    Floor* newFloor = new Floor(oss.str(),floors.size() + 1);
+    oss << "Floor " << (floors.size());
+    Floor* newFloor = new Floor(oss.str(),floors.size());
     floors.push_back(newFloor);
     return newFloor;
 }

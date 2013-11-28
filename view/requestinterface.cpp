@@ -443,12 +443,48 @@ void RequestInterface::setAdminUsers(int userNumber)
 void RequestInterface::setIsAdmin(bool isAdmin)
 {
     // only one building can be admin, put all other to non-admin
+    // search previous admin building
     for(unsigned int i = 0 ; i< buildingViews.size(); i++)
     {
-        buildingViews[i]->getBuilding()->setAdmin(false);
+        BuildingView *currentbuildingView = buildingViews[i];
+        if(currentbuildingView!=selectedBuildingView && currentbuildingView->getBuilding()->isAdmin())
+        {
+            // set to non-admin
+            currentbuildingView->getBuilding()->setAdmin(false);
+            currentbuildingView->getBuildingPanel()->getIsAdminField()->setChecked(false);
+            for(unsigned int j = 0; j< currentbuildingView->getFloorViews().size(); j++)
+            {
+                // set all floor admin number to 0 and field admin number to readonly
+                FloorView *currentFloorView = currentbuildingView->getFloorViews()[j];
+                currentFloorView->getFloor()->setUserNumber(NUserType::ADMIN,0);
+                currentFloorView->getFloorPanel()->getUserNumberField(NUserType::ADMIN)->setEnabled(false);
+                currentFloorView->getFloorPanel()->getUserNumberField(NUserType::ADMIN)->setValue(0);
+            }
+
+            //set building admin number to 0 and admin number field to read only
+            currentbuildingView->getBuilding()->setUserNumber(NUserType::ADMIN,0);
+            currentbuildingView->getBuildingPanel()->getUserNumberField(NUserType::ADMIN)->setEnabled(false);
+            currentbuildingView->getBuildingPanel()->getUserNumberField(NUserType::ADMIN)->setValue(0);
+
+            // stop search, only one building can be admin
+            break;
+        }
     }
 
+    //set buiding to admin
     selectedBuildingView->getBuilding()->setAdmin(isAdmin);
+    unsigned int size =selectedBuildingView->getFloorViews().size();
+
+    // set building admin user number field to editable only if ther is no floors
+    if(size == 0)
+        selectedBuildingView->getBuildingPanel()->getUserNumberField(NUserType::ADMIN)->setEnabled(true);
+
+    for(unsigned int i = 0; i< size; i++)
+    {
+        // set all floor field admin number to editable
+        selectedBuildingView->getFloorViews()[i]->getFloorPanel()->getUserNumberField(NUserType::ADMIN)->setEnabled(true);
+    }
+
     update();
 }
 
@@ -462,6 +498,11 @@ void RequestInterface::addFloor()
     FloorView *floorView = selectedBuildingView->addFloor();
     LocationPanel *floorPanel = new LocationPanel;
     floorView->setFloorPanel(floorPanel);
+
+    if(selectedBuildingView->getBuilding()->isAdmin())
+    {
+        floorPanel->getUserNumberField(NUserType::ADMIN)->setEnabled(true);
+    }
 
     QObject::connect(floorPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
     QObject::connect(floorPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));

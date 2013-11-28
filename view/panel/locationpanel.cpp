@@ -17,6 +17,9 @@ LocationPanel::LocationPanel(): QWidget()
     layout->addRow("Sup user number",supUserNumberField);
     layout->addRow("Admin user number",adminUserNumberField);
 
+    // editable only on an admin building
+    adminUserNumberField->setEnabled(false);
+
     userNumberFields.push_back(defaultUserNumberField);
     userNumberFields.push_back(supUserNumberField);
     userNumberFields.push_back(adminUserNumberField);
