@@ -35,13 +35,13 @@ void NetworkBuilder::launchP1() {
 
     vector<Building*> buildings = request->getBuildings();
 
-    for (i=1; i <= buildings.size(); ++i) {
-
-        Building building;
-        Address addressBuilding(10,10,i,i,NULL);
+    for (i=0; i < buildings.size(); ++i) {
 
 
-        if (building.isAdmin()) {
+        Address addressBuilding(10,10,i+1,i+1,0);
+
+
+        if (buildings[i]->isAdmin()) {
             /*
             On se trouve dans le batiment admin, on définit les éléments à ajouter
             soit un routeur, un firewall au niveau du batiment et un firewall
@@ -53,10 +53,10 @@ void NetworkBuilder::launchP1() {
 
             router.setAddress(addressBuilding);
 
-            building.addComponent(router);
-            building.addComponent(firewallBuilding);
+            buildings[i]->addComponent(router);
+            buildings[i]->addComponent(firewallBuilding);
 
-            Floor adminFloor = building.getAdminFloor();
+            Floor adminFloor = buildings[i]->getAdminFloor();
             adminFloor.addComponent(firewallFloor);
 
 
@@ -66,10 +66,9 @@ void NetworkBuilder::launchP1() {
             Switch switchBuilding;
             switchBuilding.setAddress(addressBuilding);
 
-            building.addComponent(switchBuilding);
+            buildings[i]->addComponent(switchBuilding);
         }
 
-        buildings[i-1] = &building;
 
     }
 }
@@ -167,9 +166,9 @@ void NetworkBuilder::launchP4() {
 
 
             Switch tempSwitch;
-            Address tempAddress(10,j,i,199,0);
-            Address tempAddressBroadcast(10,j,i,255,0);
-            Address tempAddressNetwork(10,j,i,0,24);
+            Address tempAddress(10,j+1,i+1,199,0);
+            Address tempAddressBroadcast(10,j+1,i+1,255,0);
+            Address tempAddressNetwork(10,j+1,i+1,0,24);
             tempSwitch.setAddress(tempAddress);
 
 
