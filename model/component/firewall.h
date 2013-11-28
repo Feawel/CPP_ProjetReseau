@@ -9,16 +9,20 @@
 #define FIREWALL_H_
 
 #include "model/component/component.h"
-#include "phases/request.h"
+
 
 class Firewall: public Component {
 public:
     Firewall();
     std::string getRules() const;
-    void setRules(Request request);
+    void setRules(std::string newRules);
+
+    void setPublicAddress(Address newPublicAddress);
+    Address getPublicAddress() const;
 
 private:
     std::string rules;
+    Address publicAddress;
 };
 
 #endif /* FIREWALL_H_ */

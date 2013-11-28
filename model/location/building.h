@@ -10,6 +10,8 @@
 
 #include <vector>
 #include "floor.h"
+#include "model/component/firewall.h"
+
 
 class Building: public Location {
 
@@ -20,9 +22,11 @@ public:
     std::vector<Floor*> getFloors();
     Floor* addFloor();
     int getFloorsNumber();
-    Floor getAdminFloor();
+    Firewall* getFirewall(std::vector<Component> components);
     bool isAdmin();
     void setAdmin(bool isAdmin);
+    void addSpecialSection(Floor* newSpecialSection);
+
 private:
     std::vector<Floor*> floors;
     bool admin;

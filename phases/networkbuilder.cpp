@@ -1,3 +1,13 @@
+/*
+ *
+ * networkbuilder.cpp
+ *
+ *  Created on: 15 nov. 2013
+ *      Author: Jonathan BANON
+ */
+
+
+#include <sstream>
 #include "networkbuilder.h"
 #include "model/component/backbone.h"
 #include "model/component/switch.h"
@@ -35,6 +45,10 @@ void NetworkBuilder::launchP1() {
 
     vector<Building*> buildings = request->getBuildings();
 
+    //Définition de 2 adresses publiques (minimum pour faire un réseau)
+    Address publicAddress1(190,39,43,140,31);
+    Address publicAddress2(190,39,43,141,31);
+
     for (i=0; i < buildings.size(); ++i) {
 
 
@@ -51,13 +65,12 @@ void NetworkBuilder::launchP1() {
             Firewall firewallBuilding;
             Firewall firewallFloor;
 
-            router.setAddress(addressBuilding);
+            router.setAddress(publicAddress1);
+            firewallBuilding.setAddress(addressBuilding);
+            firewallBuilding.setPublicAddress(publicAddress2);
 
             buildings[i]->addComponent(router);
             buildings[i]->addComponent(firewallBuilding);
-
-            Floor adminFloor = buildings[i]->getAdminFloor();
-            adminFloor.addComponent(firewallFloor);
 
 
 
@@ -89,7 +102,7 @@ void NetworkBuilder::launchP2() {
     int i;
 
     //Tableau de Link qui contiendra les liens entre les batiments et les technologies associées
-    vector<Link> tabLinks;
+    vector<Link> linksBetweenBuildings;
 
     for (i=0;i<B2B.size();i++){
 
@@ -108,11 +121,11 @@ void NetworkBuilder::launchP2() {
                 }
             NTechnology::Technology addedTech = B2B[i]->getExistingTechs().front();
             Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), addedTech);
-            tabLinks[i] = newLink;
+            linksBetweenBuildings[i] = newLink;
         }
         else{
             Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), existingTechs.front());
-            tabLinks[i] = newLink;
+            linksBetweenBuildings[i] = newLink;
         }
 
 
@@ -161,7 +174,10 @@ void NetworkBuilder::launchP4() {
 
     vector<Building*> buildings = request->getBuildings();
     for(i=0; i < buildings.size() ;i++){
+
+
         vector<Floor*> floors = buildings[i]->getFloors();
+
         for(j=0; j < floors.size() ;j++){
 
 
@@ -175,10 +191,48 @@ void NetworkBuilder::launchP4() {
             floors[j]->addComponent(tempSwitch);
 
 
-
             floors[j]->addComponent(tempSwitch);
             floors[j]->setBroadcastAddress(tempAddressBroadcast);
             floors[j]->setNetworkAddress(tempAddressNetwork);
+
+            if(buildings[i]->isAdmin())
+            {
+                //Définition des règles des firewalls
+                //Le premier bloque l'accès aux serveurs privés
+                //pour les "default user"
+
+                vector<Component> components = buildings[i]->getComponents();
+                Firewall* buildingFirewall = buildings[i]->getFirewall(components);
+                buildingFirewall->setRules("A principalement une action de NAT/PAT. On peut également définir des règles pour bloquer l'accès internet de certains utilisateurs.' ");
+
+
+                //Ajout d'un étage (cela peut correspondre à une pièce, un sous-sol etc...)
+                //pour abriter les serveurs privés (destinés aux USERS_SUP)
+                Firewall privateServersFirewall;
+                privateServersFirewall.setRules("Bloque les adresses 10.i.j.x, i et j correspondant à tous les étages et tous les batiments, et x < 200.");
+                Floor privateServersFloor("Private Server Floor", -1);
+                privateServersFloor.addComponent(privateServersFirewall);
+                buildings[i]->addSpecialSection(&privateServersFloor);
+
+                //Ajout d'un étage (cela peut correspondre à une pièce, un sous-sol, une cave etc...)
+                //pour abriter la section ADMIN (destinés aux USERS_ADMIN)
+                Firewall adminFloorFirewall;
+
+                // créer un flux de sortie
+                std::ostringstream oss;
+                // écrire un nombre dans le flux
+                oss << i+1;
+                // récupérer une chaîne de caractères
+                std::string stringNumBuilding = oss.str();
+
+                adminFloorFirewall.setRules("Bloque les adresses sources autre que 10."+stringNumBuilding+".0.x, x < 200.");
+                Floor adminFloor("Admin Floor", -2);
+                adminFloor.addComponent(adminFloorFirewall);
+                buildings[i]->addSpecialSection(&adminFloor);
+
+
+
+            }
 
 
         }
