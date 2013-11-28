@@ -24,6 +24,7 @@
 
 #include "requestinterface.h"
 #include "phases/networkbuilder.h"
+#include "txt_generation/txtgenerator.h"
 
 using namespace std;
 
@@ -550,6 +551,8 @@ void RequestInterface::run()
         Request *ptr(0);
         ptr=&request;
         NetworkBuilder builder(ptr);
+        TxtGenerator txtGenerator(ptr);
+        txtGenerator.generateDoc();
     }
     else
     {

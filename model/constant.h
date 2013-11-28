@@ -8,6 +8,14 @@
 #ifndef CONSTANT_H_
 #define CONSTANT_H_
 
+#include <string>
+
+class Constant
+{
+public:
+    static std::string numberToString(int number);
+};
+
 namespace NTechnology {
 
 typedef enum {

@@ -22,7 +22,10 @@ SOURCES += \
     view/views/buildingview.cpp \
     view/views/b2bview.cpp \
     view/views/floorview.cpp \
-    graph_view/graph_generate.cpp
+    graph_view/graph_generate.cpp \
+    txt_generation/table.cpp \
+    txt_generation/txtgenerator.cpp \
+    model/constant.cpp
 
 QT += widgets
 
@@ -50,4 +53,6 @@ HEADERS += \
     view/views/buildingview.h \
     view/views/b2bview.h \
     view/views/floorview.h \
-    graph_view/graph_generate.h
+    graph_view/graph_generate.h \
+    txt_generation/table.h \
+    txt_generation/txtgenerator.h
