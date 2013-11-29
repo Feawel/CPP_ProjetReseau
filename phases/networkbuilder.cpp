@@ -103,8 +103,57 @@ void NetworkBuilder::launchP2() {
 
     vector<Building_Building*> B2BFull = request->getBuilding_Buildings();
 
+    //On filtre le vector building_building afin de n'avoir que les liaisons avec technologies pré-existantes
+    //auxquelles on rajoute les liaisons nécessaires pour que chaque batiment soit connecté à au moins un autre.
+    vector<Building_Building*> B2BTemp =  vector<Building_Building*>() ;
+    vector<Building_Building*> listBuildingWithTech = vector<Building_Building*>();
 
-    vector<Building_Building*> B2B = B2BFull;
+    //On récupère dans un premier temps les liaisons existantes
+    for(unsigned int i=0;i<B2BFull.size();i++){
+        if(B2BFull[i]->existTech()){
+            B2BTemp.push_back(B2BFull[i]);
+            listBuildingWithTech.push_back(B2BFull[i]);
+        }
+        else{
+            B2BTemp.push_back(0);
+        }
+    }
+
+    //On cherche ensuite les batiments connectés à aucun autre
+    for(unsigned int i = 0; i < B2BTemp.size(); i++){
+        if(B2BTemp[i] == 0){
+            Building* building1 = B2BTemp[i]->getBuilding1();
+            Building* building2 = B2BTemp[i]->getBuilding1();
+            bool hasB1 = false, hasB2 = false;
+            for(unsigned int j = 0; j < listBuildingWithTech.size(); j++){
+                Building* buildingTest1 = listBuildingWithTech[j]->getBuilding1();
+                Building* buildingTest2 = listBuildingWithTech[j]->getBuilding2();
+
+                if(hasB1 == true && hasB2 == true)
+                    break;
+                if(((building1 == buildingTest1) || (building1 == buildingTest2)) && ((building2 == buildingTest1) || (building2 == buildingTest2))){
+                    break;
+                }
+                else if(building1 == buildingTest1 || building1 == buildingTest2){
+                    hasB1 = true;
+                }
+                else if(building2 == buildingTest1 || building2 == buildingTest2){
+                    hasB2 = true;
+                }
+
+                if(j == (listBuildingWithTech.size() - 1)){
+                    listBuildingWithTech.push_back(B2BFull[i]);
+                }
+            }
+
+        }
+
+
+    }
+
+
+
+    vector<Building_Building*> B2B = listBuildingWithTech;
 
 
     NTechnology::Technology addedTech;
