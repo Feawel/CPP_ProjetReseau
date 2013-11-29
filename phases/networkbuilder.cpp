@@ -41,9 +41,8 @@ void NetworkBuilder::launchP1() {
     Address address(10,10,0,0,16);
     Backbone backbone;
 
+    //Backbone à communiquer pour la suite !!
     backbone.setAddress(address);
-
-    unsigned int i;
 
     vector<Building*> buildings = request->getBuildings();
 
@@ -51,7 +50,7 @@ void NetworkBuilder::launchP1() {
     Address publicAddress1(190,39,43,140,31);
     Address publicAddress2(190,39,43,141,31);
 
-    for (i=0; i < buildings.size(); ++i) {
+    for (unsigned int i=0; i < buildings.size(); ++i) {
 
 
         Address addressBuilding(10,10,i+1,i+1,0);
@@ -101,34 +100,47 @@ void NetworkBuilder::launchP2() {
 
     vector<Building_Building*> B2B = request->getBuilding_Buildings();
 
-    unsigned int i;
-
     //Tableau de Link qui contiendra les liens entre les batiments et les technologies associées
     vector<Link> linksBetweenBuildings;
+    NTechnology::Technology addedTech;
+    for (unsigned int i=0;i<B2B.size();i++){
+        if(B2B[i]->existingTech()){
 
-    for (i=0;i<B2B.size();i++){
-
-        vector<NTechnology::Technology> existingTechs = B2B[i]->getExistingTechs();
-
-        if(existingTechs.empty()){
             if (B2B[i]->getDistance() < 0.5 && B2B[i]->getVisibility() == true) {
-                    B2B[i]->addExistingTechnology(NTechnology::WIFI);
-
+                    addedTech = NTechnology::WIFI;
                 }
                 else if (B2B[i]->getDistance() < 3 && B2B[i]->getVisibility() == true){
-                    B2B[i]->addExistingTechnology(NTechnology::INFRARED);
+                    addedTech = NTechnology::INFRARED;
                 }
                 else {
-                    B2B[i]->addExistingTechnology(NTechnology::FIBER);
+                    addedTech = NTechnology::FIBER;
                 }
-            NTechnology::Technology addedTech = B2B[i]->getExistingTechs().front();
+
             Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), addedTech);
             linksBetweenBuildings[i] = newLink;
         }
         else{
-            Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), existingTechs.front());
-            linksBetweenBuildings[i] = newLink;
+            vector<bool> existingTechs = B2B[i]->getExistingTechs();
+            if(existingTechs[NTechnology::FIBER] == true)
+            {
+                addedTech = NTechnology::FIBER;
+            }
+            else if(existingTechs[NTechnology::TWISTEDPAIR] == true)
+            {
+                addedTech = NTechnology::TWISTEDPAIR;
+            }
+            else if(existingTechs[NTechnology::INFRARED] == true)
+            {
+                addedTech = NTechnology::INFRARED;
+            }
+            else if(existingTechs[NTechnology::WIFI] == true)
+            {
+                addedTech = NTechnology::WIFI;
+            }
+
         }
+        Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), addedTech);
+        linksBetweenBuildings[i] = newLink;
 
 
     }
@@ -152,16 +164,14 @@ void NetworkBuilder::launchP3() {
         Définition des règles du firewall
      */
 
-    unsigned int i,j;
-
 
     vector<Building*> buildings = request->getBuildings();
-    for(i=0; i < buildings.size() ;i++){
+    for(unsigned int i=0; i < buildings.size() ;i++){
 
 
         vector<Floor*> floors = buildings[i]->getFloors();
 
-        for(j=0; j < floors.size() ;j++){
+        for(unsigned int j=0; j < floors.size() ;j++){
 
 
             Switch tempSwitch;
