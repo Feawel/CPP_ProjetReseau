@@ -171,6 +171,13 @@ void NetworkBuilder::launchP3() {
 
         vector<Floor*> floors = buildings[i]->getFloors();
 
+        //Si aucun étage n'est défini, on en rajoute un correspondant à la section (ou réseau) au sein duquel évoluent les personens présentes dans ce batiment.
+        if(floors.empty())
+        {
+            Floor buildingFloor("Section Builing", 0);
+            buildings[i]->addSpecialSection(&buildingFloor);
+            vector<Floor*> floors = buildings[i]->getFloors();
+        }
         for(unsigned int j=0; j < floors.size() ;j++){
 
 
@@ -187,6 +194,7 @@ void NetworkBuilder::launchP3() {
             floors[j]->addComponent(tempSwitch);
             floors[j]->setBroadcastAddress(tempAddressBroadcast);
             floors[j]->setNetworkAddress(tempAddressNetwork);
+
 
             if(buildings[i]->isAdmin())
             {
