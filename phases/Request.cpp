@@ -103,3 +103,32 @@ void Request::generateGraphText(){
     myfile << "Writing this to a file.\n";
     myfile.close();
 }
+
+/**
+ * @brief Request::checkData
+ * @return error message
+ * check if the request has data ok for process
+ */
+string Request::checkData()
+{
+    // check if there is at least 2 buildings
+    if(buildings.size()<2)
+        return "You need to define at least 2 buildings";
+
+    // check if there is an admin building
+    bool hasAdmin;
+    for(unsigned int i = 0; i<buildings.size(); i++ )
+    {
+        if(buildings[i]->isAdmin())
+        {
+            hasAdmin =true;
+            break;
+        }
+    }
+
+    if(!hasAdmin)
+        return "You need to define an admin building";
+
+    // return "", no error
+    return "";
+}

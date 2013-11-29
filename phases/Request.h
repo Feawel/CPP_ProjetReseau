@@ -25,6 +25,7 @@ public:
     void removeBuilding_Building(int id);
     void generateGraphText();
     void setBuilding_Buildings(std::vector<Building_Building*> newBuilding_buildings);
+    std::string checkData();
 
 private:
     std::vector<Building*> buildings;

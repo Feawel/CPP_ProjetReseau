@@ -556,30 +556,40 @@ string RequestInterface::displayErrors() const
  */
 void RequestInterface::run()
 {
-    // check if there is errors
+    // check if there is errors (errors found during paint)
     if(errors.empty())
     {
-        QString folder = QFileDialog::getExistingDirectory(this);
+        // chek if data can be proced
+        string error = request.checkData();
+        if(!error.empty())
+        {
+            QMessageBox::warning(this, QString::fromStdString("More information needed"), QString::fromStdString(error));
+        }
+        else
+        {
+            // porcess
+            QString folder = QFileDialog::getExistingDirectory(this);
 
-        TxtGenerator txtGenerator(folder.toStdString());
-        txtGenerator.generateInitialDataTable(request);
+            TxtGenerator txtGenerator(folder.toStdString());
+            txtGenerator.generateInitialDataTable(request);
 
-        Request *ptr(0);
-        ptr=&request;
-        NetworkBuilder builder(ptr);
-        builder.launchP1();
-        builder.launchP2();
-        builder.launchP3();
-        builder.launchP4();
+            Request *ptr(0);
+            ptr=&request;
+            NetworkBuilder builder(ptr);
+            builder.launchP1();
+            builder.launchP2();
+            builder.launchP3();
+            builder.launchP4();
 
-        Graph_generate graph_generate = Graph_generate(ptr, folder.toStdString());
-        graph_generate.graph_generate_all();
+            Graph_generate graph_generate = Graph_generate(ptr, folder.toStdString());
+            graph_generate.graph_generate_all();
 
-        txtGenerator.publishDoc();
+            txtGenerator.publishDoc();
+        }
     }
     else
     {
-        QMessageBox::critical(this, QString::fromStdString("More information needed"), QString::fromStdString(displayErrors()));
+        QMessageBox::warning(this, QString::fromStdString("More information needed"), QString::fromStdString(displayErrors()));
     }
 }
 
