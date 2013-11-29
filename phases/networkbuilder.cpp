@@ -15,7 +15,6 @@
 #include "model/component/router.h"
 #include "phases/request.h"
 #include "model/component/firewall.h"
-#include "model/link.h"
 #include "model/constant.h"
 
 
@@ -103,13 +102,15 @@ void NetworkBuilder::launchP2() {
 
      */
 
-    vector<Building_Building*> B2B = request->getBuilding_Buildings();
+    vector<Building_Building*> B2BFull = request->getBuilding_Buildings();
 
-    //Tableau de Link qui contiendra les liens entre les batiments et les technologies associées
-    vector<Link*> linksBetweenBuildings;
+
+    vector<Building_Building*> B2B = B2BFull;
+
+
     NTechnology::Technology addedTech;
     for (unsigned int i=0;i<B2B.size();i++){
-        if(B2B[i]->existTech()){
+        if(!B2B[i]->existTech()){
 
             if (B2B[i]->getDistance() < 0.5 && B2B[i]->getVisibility() == true) {
                     addedTech = NTechnology::WIFI;
@@ -121,10 +122,7 @@ void NetworkBuilder::launchP2() {
                     addedTech = NTechnology::FIBER;
                 }
 
-            Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), addedTech);
-            Link* ptr(0);
-            ptr = &newLink;
-            linksBetweenBuildings[i] = ptr;
+
         }
         else{
             vector<bool> existingTechs = B2B[i]->getExistingTechs();
@@ -146,15 +144,10 @@ void NetworkBuilder::launchP2() {
             }
 
         }
-        Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), addedTech);
-        Link* ptr(0);
-        ptr = &newLink;
-        linksBetweenBuildings[i] = ptr;
 
-
+    B2B[i]->setAppliedTechnology(addedTech);
     }
-
-    request->setLinks(linksBetweenBuildings);
+    request->setBuilding_Buildings(B2B);
 
 
 

@@ -12,7 +12,6 @@
 #include <iostream>
 #include "../model/location/building.h"
 #include "../model/location/building_building.h"
-#include "model/link.h"
 
 class Request{
 
@@ -23,16 +22,14 @@ public:
     void addBuilding(Building* newBuilding);
     void removeBuilding(int id);
     std::vector<Building_Building*> getBuilding_Buildings();
-    void addBuilding_Building(Building_Building* newBuilding_Buildings);
+    void addBuilding_Building(Building_Building* newBuilding_Building);
     void removeBuilding_Building(int id);
     void generateGraphText();
-    void setLinks(std::vector<Link*> newLinks);
-    std::vector<Link*> getLinks() const;
+    void setBuilding_Buildings(std::vector<Building_Building*> newBuilding_buildings);
 
 private:
     std::vector<Building*> buildings;
     std::vector<Building_Building*> building_buildings;
-    std::vector<Link*> links;
 };
 
 #endif /* defined(__NetworkBuilder__Request__) */

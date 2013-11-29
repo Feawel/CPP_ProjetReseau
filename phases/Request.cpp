@@ -16,7 +16,7 @@
 #include <fstream>
 using namespace std;
 
-Request::Request() : buildings(0), building_buildings(0), links(0)
+Request::Request() : buildings(0), building_buildings(0)
 {
 }
 
@@ -63,8 +63,8 @@ vector<Building_Building*> Request::getBuilding_Buildings() {
  * @param newBuilding_Buildings
  * add one building_building to the request
  */
-void Request::addBuilding_Building(Building_Building* newBuilding_Buildings) {
-    building_buildings.push_back(newBuilding_Buildings);
+void Request::addBuilding_Building(Building_Building* newBuilding_Building) {
+    building_buildings.push_back(newBuilding_Building);
 }
 
 /**
@@ -76,21 +76,8 @@ void Request::removeBuilding_Building(int id) {
     building_buildings.erase(building_buildings.begin()+id);
 }
 
-/**
- * @brief Request::setLinks
- * @param newLinks
- * set a vector of Link in the Request object
- */
-void Request::setLinks(std::vector<Link*> newLinks){
-    links = newLinks;
-}
-
-/**
- * @brief Request::getLinks
- * @return a vector of pointer on link
- */
-std::vector<Link*> Request::getLinks() const{
-    return links;
+void Request::setBuilding_Buildings(std::vector<Building_Building*> newBuilding_buildings){
+    building_buildings = newBuilding_buildings;
 }
 
 
