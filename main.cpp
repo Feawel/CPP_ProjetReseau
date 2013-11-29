@@ -44,10 +44,10 @@ int main(int argc, char *argv[])
     bs.push_back(&b3);
 
     Building_Building b2b1 = Building_Building(&b1, &b2,0, true);
-    b2b1.addExistingTechnology(NTechnology::WIFI);
+    b2b1.setExistingTechnology(NTechnology::WIFI, true);
 
     Building_Building b2b2 = Building_Building(&b3, &b2,0, true);
-    b2b2.addExistingTechnology(NTechnology::INFRARED);
+    b2b2.setExistingTechnology(NTechnology::INFRARED, true);
 
     std::vector<Building_Building*> b2bs;
     b2bs.push_back(&b2b1);

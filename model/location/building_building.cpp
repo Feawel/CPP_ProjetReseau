@@ -8,7 +8,7 @@
 
 Building_Building::Building_Building(Building *building1, Building *building2,
         double distance, bool visibility) :
-    building1(building1), building2(building2), distance(distance), visibility(visibility), existingTechsSize(4), existingTechs(existingTechsSize,false)
+    building1(building1), building2(building2), distance(distance), visibility(visibility), existingTechs(4,false)
 {
 }
 
@@ -49,7 +49,7 @@ void Building_Building::setDistance(double distance)
     this->distance=distance;
 }
 
-bool Building_Building::existingTechs() const
+bool Building_Building::existTechs() const
 {
    return existingTechs[NTechnology::FIBER] || existingTechs[NTechnology::TWISTEDPAIR] || existingTechs[NTechnology::WIFI] || existingTechs[NTechnology::INFRARED];
 }

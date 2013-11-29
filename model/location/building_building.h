@@ -24,9 +24,7 @@ public:
     std::vector<bool> getExistingTechs() const;
     bool isExistingTechs(NTechnology::Technology technology) const;
     void setDistance(double distance);
-    bool existingTechs() const;
-
-    static const unsigned int existingTechsSize;
+    bool existTechs() const;
 
 private:
     double distance;
