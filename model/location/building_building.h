@@ -25,6 +25,8 @@ public:
     bool isExistingTechs(NTechnology::Technology technology) const;
     void setDistance(double distance);
     bool existTech() const;
+    void setAppliedTechnology(NTechnology::Technology technology);
+    NTechnology::Technology getAppliedTechnology() const;
 
 private:
     double distance;
@@ -32,6 +34,7 @@ private:
     Building *building2;
     bool visibility;
     std::vector<bool> existingTechs;
+    NTechnology::Technology appliedTechnology;
 };
 
 #endif /* BUILDING_BUILDING_H_ */

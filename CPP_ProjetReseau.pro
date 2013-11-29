@@ -1,6 +1,5 @@
 SOURCES += \
     model/address.cpp \
-    model/link.cpp \
     model/location/location.cpp \
     model/location/floor.cpp \
     model/location/building_building.cpp \
@@ -32,7 +31,6 @@ QT += widgets
 HEADERS += \
     model/address.h \
     model/constant.h \
-    model/link.h \
     model/location/location.h \
     model/location/floor.h \
     model/location/building_building.h \

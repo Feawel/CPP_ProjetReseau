@@ -53,3 +53,13 @@ bool Building_Building::existTech() const
 {
    return existingTechs[NTechnology::FIBER] || existingTechs[NTechnology::TWISTEDPAIR] || existingTechs[NTechnology::WIFI] || existingTechs[NTechnology::INFRARED];
 }
+
+NTechnology::Technology Building_Building::getAppliedTechnology() const
+{
+    return appliedTechnology;
+}
+
+void Building_Building::setAppliedTechnology(NTechnology::Technology techonoly)
+{
+    appliedTechnology=techonoly;
+}

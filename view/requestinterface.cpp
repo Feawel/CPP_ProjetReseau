@@ -691,6 +691,7 @@ void RequestInterface::setUseWifi(bool use)
     if(selectedBuildingView != 0)
     {
         location = selectedBuildingView->getBuilding();
+        //if()
     }
     else
     {
