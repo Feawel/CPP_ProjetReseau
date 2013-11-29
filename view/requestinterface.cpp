@@ -571,8 +571,8 @@ void RequestInterface::run()
 
         Graph_generate graph_generate = Graph_generate(ptr, folder.toStdString());
         graph_generate.graph_generate_all();
-        TxtGenerator txtGenerator(ptr, folder.toStdString());
-        txtGenerator.generateDoc();
+        //TxtGenerator txtGenerator(ptr, folder.toStdString());
+        //txtGenerator.generateDoc();
     }
     else
     {

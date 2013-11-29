@@ -12,13 +12,13 @@
 
 class Component {
 public:
-	Component();
-	Component(Address address);
+    Component();
+    Component(Address address);
     Address getAddress() const;
-    void setAddress(Address adress);
+    void setAddress(Address newAdress);
 
 private:
-	Address address;
+    Address address;
 };
 
 #endif /* COMPONENT_H_ */

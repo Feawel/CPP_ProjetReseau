@@ -65,7 +65,7 @@ std::vector<bool> Location::getUseTechs() {
  * @brief Location::getComponents
  * @return all components of the location (vector)
  */
-vector<Component> Location::getComponents() {
+vector<Component*> Location::getComponents() {
     return components;
 }
 
@@ -74,7 +74,7 @@ vector<Component> Location::getComponents() {
  * @param newComponent
  * add a component on the location
  */
-void Location::addComponent(Component newComponent) {
+void Location::addComponent(Component* newComponent) {
     components.push_back(newComponent);
 }
 

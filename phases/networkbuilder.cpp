@@ -63,23 +63,22 @@ void NetworkBuilder::launchP1() {
             soit un routeur, un firewall au niveau du batiment et un firewall
             pour l'étage admin
             */
-            Router router;
-            Firewall firewallBuilding;
-            Firewall firewallFloor;
+            Router* router = new Router;
+            Firewall* firewallBuilding = new Firewall;
 
-            router.setAddress(publicAddress1);
-            firewallBuilding.setAddress(addressBuilding);
-            firewallBuilding.setPublicAddress(publicAddress2);
+            router->setAddress(publicAddress1);
+            firewallBuilding->setAddress(addressBuilding);
+            firewallBuilding->setPublicAddress(publicAddress2);
 
-            buildings[i]->addComponent(router);
             buildings[i]->addComponent(firewallBuilding);
+            buildings[i]->addComponent(router);
 
 
 
         }
         else{
-            Switch switchBuilding;
-            switchBuilding.setAddress(addressBuilding);
+            Switch* switchBuilding = new Switch;
+            switchBuilding->setAddress(addressBuilding);
 
             buildings[i]->addComponent(switchBuilding);
         }
@@ -188,11 +187,11 @@ void NetworkBuilder::launchP3() {
         for(unsigned int j=0; j < floors.size() ;j++){
 
 
-            Switch tempSwitch;
+            Switch* tempSwitch = new Switch;
             Address tempAddress(10,j,i+1,199,0);
             Address tempAddressBroadcast(10,j,i+1,255,0);
             Address tempAddressNetwork(10,j,i+1,0,24);
-            tempSwitch.setAddress(tempAddress);
+            tempSwitch->setAddress(tempAddress);
 
 
             floors[j]->addComponent(tempSwitch);
@@ -242,45 +241,46 @@ void NetworkBuilder::launchP3() {
                 //Définition des règles des firewalls
 
                 //Le premier a principalement une action de NAT/PAT"
-                vector<Component> components = buildings[i]->getComponents();
-                Firewall* buildingFirewall = buildings[i]->getFirewall(components);
+                vector<Component*> components = buildings[i]->getComponents();
+                Firewall* buildingFirewall(0);
+                buildingFirewall=(Firewall*)components[0];
                 buildingFirewall->setRules("A principalement une action de NAT/PAT. On peut également définir des règles pour bloquer l'accès internet de certains utilisateurs.' ");
 
 
                 //Ajout d'un étage (cela peut correspondre à une pièce, un sous-sol etc...)
                 //pour abriter les serveurs privés (destinés aux USERS_SUP)
-                Firewall privateServersFirewall;
-                privateServersFirewall.setRules("Bloque les adresses 10.i.j.x, i et j correspondant à tous les étages et tous les batiments, et x < 200.");
+                Firewall* privateServersFirewall = new Firewall;
+                privateServersFirewall->setRules("Bloque les adresses 10.i.j.x, i et j correspondant à tous les étages et tous les batiments, et x < 200.");
 
                 //Ajout d'un switch pour connecter cette section au réseau
-                Switch privateServersSwitch;
+                Switch* privateServersSwitch = new Switch;
                 Address privateServersAddressSwitch(10,i,floors.size(),0,24);
-                privateServersSwitch.setAddress(privateServersAddressSwitch);
+                privateServersSwitch->setAddress(privateServersAddressSwitch);
 
-                Floor privateServersFloor("Private Server Floor", -1);
-                privateServersFloor.addComponent(privateServersFirewall);
-                privateServersFloor.addComponent(privateServersSwitch);
+                Floor* privateServersFloor= new Floor("Private Server Floor", -1);
+                privateServersFloor->addComponent(privateServersFirewall);
+                privateServersFloor->addComponent(privateServersSwitch);
 
-                buildings[i]->addSpecialSection(&privateServersFloor);
+                buildings[i]->addSpecialSection(privateServersFloor);
 
                 //Ajout d'un étage (cela peut correspondre à une pièce, un sous-sol, une cave etc...)
                 //pour abriter la section ADMIN (destinés aux USERS_ADMIN)
-                Firewall adminFloorFirewall;
+                Firewall* adminFloorFirewall = new Firewall;
 
                 // on transforme l'int du num building en string pour la concaténation
                 std::string stringNumBuilding = Constant::numberToString(i+1);
-                adminFloorFirewall.setRules("Bloque les adresses sources autre que 10."+stringNumBuilding+".0.x, x < 200.");
+                adminFloorFirewall->setRules("Bloque les adresses sources autre que 10."+stringNumBuilding+".0.x, x < 200.");
 
                 //Ajout d'un switch pour connecter cette section au réseau
-                Switch adminSwitch;
+                Switch* adminSwitch = new Switch;
                 Address adminAddressSwitch(10,i,floors.size()+1,0,24);
-                adminSwitch.setAddress(adminAddressSwitch);
+                adminSwitch->setAddress(adminAddressSwitch);
 
-                Floor adminFloor("Admin Floor", -2);
-                adminFloor.addComponent(adminFloorFirewall);
-                adminFloor.addComponent(adminSwitch);
+                Floor* adminFloor= new Floor("Admin Floor", -2);
+                adminFloor->addComponent(adminFloorFirewall);
+                adminFloor->addComponent(adminSwitch);
 
-                buildings[i]->addSpecialSection(&adminFloor);
+                buildings[i]->addSpecialSection(adminFloor);
 
 
 

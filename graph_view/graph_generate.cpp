@@ -71,8 +71,8 @@ string getColorB2B(NTechnology::Technology* tech){
 
 void draw_location_str(ofstream& file, string name, Location* location, bool generate_label=true){
     file << "subgraph "<< name << "{"<< endl;
-    Component comp = (location->getComponents()).front();
-    string IP =  comp.getAddress().toString();
+    Component* comp = (location->getComponents()).front();
+    string IP =  comp->getAddress().toString();
     file << "label = \"";
     if(generate_label){
         file <<location->getName();
@@ -158,7 +158,7 @@ void Graph_generate::graph_building_generate(Building* building){
     myfile.close();
 
     //  Génére le graphe en png avec un appel système, nécessite graphviz.
-    system (("fdp.exe -Tpng "+file_name+".txt >"+file_name+".png").c_str());
+ //   system (("fdp.exe -Tpng "+file_name+".txt >"+file_name+".png").c_str());
 }
 
 //Generates the graph for the full organization.
@@ -198,5 +198,5 @@ void Graph_generate::global_graph_generate(){
     myfile.close();
 
 //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
-    system (("cd \"C:\\Program Files (x86)\\Graphviz2.34\\bin\";fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
+   // system (("cd \"C:\\Program Files (x86)\\Graphviz2.34\\bin\";fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
 }

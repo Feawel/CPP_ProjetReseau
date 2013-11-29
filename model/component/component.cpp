@@ -20,12 +20,12 @@ Component::Component(Address address): address(address)
 
 Address Component::getAddress() const
 {
-	return address;
+    return address;
 }
 
-void Component::setAddress(Address address)
+void Component::setAddress(Address newAddress)
 {
-	this->address=address;
+    address=newAddress;
 }
 
 
