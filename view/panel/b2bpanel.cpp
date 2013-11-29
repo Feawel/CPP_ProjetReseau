@@ -15,7 +15,6 @@ Building_BuildingPanel::Building_BuildingPanel(): QWidget()
 {
     distanceField = new QDoubleSpinBox;
 
-    existingTechFields(4);
     QGroupBox* existingTechsGroup = new QGroupBox;
     QVBoxLayout* existingTechsLayout = new QVBoxLayout;
 
