@@ -122,8 +122,8 @@ void NetworkBuilder::launchP2() {
     //On cherche ensuite les batiments connectés à aucun autre
     for(unsigned int i = 0; i < B2BTemp.size(); i++){
         if(B2BTemp[i] == 0){
-            Building* building1 = B2BTemp[i]->getBuilding1();
-            Building* building2 = B2BTemp[i]->getBuilding1();
+            Building* building1 = B2BFull[i]->getBuilding1();
+            Building* building2 = B2BFull[i]->getBuilding2();
             bool hasB1 = false, hasB2 = false;
             for(unsigned int j = 0; j < listBuildingWithTech.size(); j++){
                 Building* buildingTest1 = listBuildingWithTech[j]->getBuilding1();
