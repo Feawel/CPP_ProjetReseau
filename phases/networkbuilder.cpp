@@ -15,7 +15,6 @@
 #include "model/component/router.h"
 #include "phases/request.h"
 #include "model/component/firewall.h"
-#include "model/link.h"
 #include "model/constant.h"
 
 

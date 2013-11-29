@@ -12,7 +12,6 @@
 #include <iostream>
 #include "../model/location/building.h"
 #include "../model/location/building_building.h"
-#include "model/link.h"
 
 class Request{
 
