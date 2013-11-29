@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Jonathan Banon. All rights reserved.
 //
 
-#include "Request.h"
+#include "request.h"
 #include <vector>
 #include "../model/location/building.h"
 #include "../model/location/building_building.h"
@@ -16,7 +16,7 @@
 #include <fstream>
 using namespace std;
 
-Request::Request() : buildings(0), building_buildings(0)
+Request::Request() : buildings(0), building_buildings(0), links(0)
 {
 }
 
@@ -75,6 +75,25 @@ void Request::addBuilding_Building(Building_Building* newBuilding_Buildings) {
 void Request::removeBuilding_Building(int id) {
     building_buildings.erase(building_buildings.begin()+id);
 }
+
+/**
+ * @brief Request::setLinks
+ * @param newLinks
+ * set a vector of Link in the Request object
+ */
+void Request::setLinks(std::vector<Link*> newLinks){
+    links = newLinks;
+}
+
+/**
+ * @brief Request::getLinks
+ * @return a vector of pointer on link
+ */
+std::vector<Link*> Request::getLinks() const{
+    return links;
+}
+
+
 
 /**
  * @brief Request::generateGraphText
