@@ -104,7 +104,7 @@ void NetworkBuilder::launchP2() {
     vector<Link> linksBetweenBuildings;
     NTechnology::Technology addedTech;
     for (unsigned int i=0;i<B2B.size();i++){
-        if(B2B[i]->existingTech()){
+        if(B2B[i]->existTech()){
 
             if (B2B[i]->getDistance() < 0.5 && B2B[i]->getVisibility() == true) {
                     addedTech = NTechnology::WIFI;
