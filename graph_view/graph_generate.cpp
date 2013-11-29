@@ -14,13 +14,6 @@
 
 using namespace::std;
 
-string int_to_string(int i){
-
-    std::ostringstream oss;
-    oss << i;
-    return oss.str();
-}
-
 string createClusterName(int position)
 {
     stringstream building1_stream;
