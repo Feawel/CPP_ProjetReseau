@@ -49,7 +49,7 @@ void Building_Building::setDistance(double distance)
     this->distance=distance;
 }
 
-bool Building_Building::existTechs() const
+bool Building_Building::existTech() const
 {
    return existingTechs[NTechnology::FIBER] || existingTechs[NTechnology::TWISTEDPAIR] || existingTechs[NTechnology::WIFI] || existingTechs[NTechnology::INFRARED];
 }
