@@ -106,7 +106,7 @@ void NetworkBuilder::launchP2() {
     vector<Building_Building*> B2B = request->getBuilding_Buildings();
 
     //Tableau de Link qui contiendra les liens entre les batiments et les technologies associées
-    vector<Link> linksBetweenBuildings;
+    vector<Link*> linksBetweenBuildings;
     NTechnology::Technology addedTech;
     for (unsigned int i=0;i<B2B.size();i++){
         if(B2B[i]->existTech()){
@@ -122,7 +122,9 @@ void NetworkBuilder::launchP2() {
                 }
 
             Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), addedTech);
-            linksBetweenBuildings[i] = newLink;
+            Link* ptr(0);
+            ptr = &newLink;
+            linksBetweenBuildings[i] = ptr;
         }
         else{
             vector<bool> existingTechs = B2B[i]->getExistingTechs();
@@ -145,10 +147,14 @@ void NetworkBuilder::launchP2() {
 
         }
         Link newLink(&B2B[i]->getBuilding1()->getComponents().front(), &B2B[i]->getBuilding2()->getComponents().front(), addedTech);
-        linksBetweenBuildings[i] = newLink;
+        Link* ptr(0);
+        ptr = &newLink;
+        linksBetweenBuildings[i] = ptr;
 
 
     }
+
+    request->setLinks(linksBetweenBuildings);
 
 
 
