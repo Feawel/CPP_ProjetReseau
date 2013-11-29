@@ -16,7 +16,6 @@
 class Building: public Location {
 
 public:
-    Building();
     ~Building();
     Building(std::string name, bool admin = false);
     std::vector<Floor*> getFloors();

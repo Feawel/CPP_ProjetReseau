@@ -12,10 +12,6 @@
 
 using namespace std;
 
-Building::Building() :
-    Location(), floors(0) {
-}
-
 Building::~Building()
 {
     for(unsigned int i = 0; i< floors.size(); i++)

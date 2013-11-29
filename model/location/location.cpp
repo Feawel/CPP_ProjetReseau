@@ -9,13 +9,13 @@
 #include "../component/component.h"
 using namespace std;
 
-Location::Location() :
-        userNumbers(3, 0), name("") {
+Location::Location(string name) :
+    userNumbers(3, 0), name(name), useTechs(5,true) {
+    useTechs[NTechnology::FIBER]=false;
+    useTechs[NTechnology::TWISTEDPAIR]=false;
+    useTechs[NTechnology::INFRARED]=false;
 }
 
-Location::Location(string name) :
-        userNumbers(3, 0), name(name) {
-}
 
 /**
  * @brief Location::getUserNumbers
@@ -46,19 +46,19 @@ void Location::setUserNumber(NUserType::UserType userType, unsigned int userNumb
 }
 
 /**
- * @brief Location::cantUseTechnology
+ * @brief Location::setUseTechnology
  * @param technology
  */
-void Location::cantUseTechnology(NTechnology::Technology technology) {
-    cantUseTechs.push_back(technology);
+void Location::setUseTechnology(NTechnology::Technology technology, bool use) {
+    useTechs[technology]=use;
 }
 
 /**
- * @brief Location::getCantUseTechs
+ * @brief Location::getUseTechs
  * @return
  */
-std::vector<NTechnology::Technology> Location::getCantUseTechs() {
-    return cantUseTechs;
+std::vector<bool> Location::getUseTechs() {
+    return useTechs;
 }
 
 /**
