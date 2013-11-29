@@ -20,10 +20,6 @@ Request::Request() : buildings(0), building_buildings(0)
 {
 }
 
-Request::Request(std::vector<Building*> b,std::vector<Building_Building*> b2b) : buildings(b), building_buildings(b2b)
-{
-}
-
 /**
  * @brief Request::getBuildings
  * @return array with all the buildings created by the user

@@ -17,7 +17,6 @@ class Request{
 
 public:
     Request();
-    Request(std::vector<Building*> b,std::vector<Building_Building*> b2b);
     std::vector<Building*> getBuildings();
     void addBuilding(Building* newBuilding);
     void removeBuilding(int id);
