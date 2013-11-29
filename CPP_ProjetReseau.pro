@@ -56,3 +56,6 @@ HEADERS += \
     graph_view/graph_generate.h \
     txt_generation/table.h \
     txt_generation/txtgenerator.h
+
+OTHER_FILES += \
+    fdp.exe
