@@ -16,6 +16,7 @@
 #include "phases/request.h"
 #include "model/component/firewall.h"
 #include "model/link.h"
+#include "model/constant.h"
 
 
 using namespace std;
@@ -42,7 +43,7 @@ void NetworkBuilder::launchP1() {
 
     backbone.setAddress(address);
 
-    int i;
+    unsigned int i;
 
     vector<Building*> buildings = request->getBuildings();
 
@@ -100,7 +101,7 @@ void NetworkBuilder::launchP2() {
 
     vector<Building_Building*> B2B = request->getBuilding_Buildings();
 
-    int i;
+    unsigned int i;
 
     //Tableau de Link qui contiendra les liens entre les batiments et les technologies associées
     vector<Link> linksBetweenBuildings;
@@ -151,7 +152,7 @@ void NetworkBuilder::launchP3() {
         Définition des règles du firewall
      */
 
-    int i,j;
+    unsigned int i,j;
 
 
     vector<Building*> buildings = request->getBuildings();
@@ -208,9 +209,7 @@ void NetworkBuilder::launchP3() {
                 Firewall adminFloorFirewall;
 
                 // on transforme l'int du num building en string pour la concaténation
-                std::ostringstream oss;
-                oss << i+1;
-                std::string stringNumBuilding = oss.str();
+                std::string stringNumBuilding = Constant::numberToString(i+1);
                 adminFloorFirewall.setRules("Bloque les adresses sources autre que 10."+stringNumBuilding+".0.x, x < 200.");
 
                 //Ajout d'un switch pour connecter cette section au réseau
