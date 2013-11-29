@@ -92,7 +92,7 @@ FloorView* BuildingView::addFloor()
     FloorView *floorView = new FloorView(floor);
     floorViews.push_back(floorView);
 
-    panel->setUsersReadOnly();
+    panel->disableFields();
     return floorView;
 }
 

@@ -22,7 +22,7 @@ public:
     QCheckBox* getIsAdminField() const;
     QPushButton* getAddFloorButton() const;
     QPushButton* getRemoveBuildingButton() const;
-    void setUsersReadOnly();
+    void disableFields();
     bool isReadOnly() const;
     QLineEdit* getNameField() const;
 private:

@@ -52,7 +52,7 @@ QPushButton* BuildingPanel::getAddFloorButton() const
     return addFloorButton;
 }
 
-void BuildingPanel::setUsersReadOnly()
+void BuildingPanel::disableFields()
 {
     readOnly = true;
     for(unsigned int i = 0; i< userNumberFields.size(); i++)
@@ -60,6 +60,8 @@ void BuildingPanel::setUsersReadOnly()
         userNumberFields[i]->setValue(0);
         userNumberFields[i]->setEnabled(false);
     }
+    useTechFields[NTechnology::WIFI]->setEnabled(false);
+    useTechFields[NTechnology::ETHERNET]->setEnabled(false);
 }
 
 bool BuildingPanel::isReadOnly() const
