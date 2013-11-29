@@ -691,30 +691,47 @@ void RequestInterface::setExistingInfra(bool exist)
 void RequestInterface::setUseWifi(bool use)
 {
     Location *location;
+    LocationPanel *panel;
     if(selectedBuildingView != 0)
     {
         location = selectedBuildingView->getBuilding();
-        //if()
+        panel = selectedBuildingView->getBuildingPanel();
     }
     else
     {
         location = selectedFloor->getFloor();
+        panel = selectedFloor->getFloorPanel();
     }
-    location->setUseTechnology(NTechnology::WIFI, use);
-    update();
+
+    if(!use && !location->getUseTechs()[NTechnology::ETHERNET])
+    {
+        QMessageBox::warning(this, QString::fromStdString("I can't do that !"), QString::fromStdString("This element need to have at least 1 technology !"));
+        panel->getUseTechField(NTechnology::WIFI)->setChecked(true);
+    }
+    else
+        location->setUseTechnology(NTechnology::WIFI, use);
 }
 
 void RequestInterface::setUseEthenet(bool use)
 {
     Location *location;
+    LocationPanel *panel;
     if(selectedBuildingView != 0)
     {
         location = selectedBuildingView->getBuilding();
+        panel = selectedBuildingView->getBuildingPanel();
     }
     else
     {
         location = selectedFloor->getFloor();
+        panel = selectedFloor->getFloorPanel();
     }
-    location->setUseTechnology(NTechnology::ETHERNET, use);
-    update();
+
+    if(!use && !location->getUseTechs()[NTechnology::WIFI])
+    {
+        QMessageBox::warning(this, QString::fromStdString("I can't do that !"), QString::fromStdString("This element need to have at least 1 technology !"));
+        panel->getUseTechField(NTechnology::ETHERNET)->setChecked(true);
+    }
+    else
+        location->setUseTechnology(NTechnology::ETHERNET, use);
 }
