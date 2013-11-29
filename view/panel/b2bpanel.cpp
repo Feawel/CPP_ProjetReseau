@@ -8,12 +8,16 @@
 #include <QFormLayout>
 #include <QVBoxLayout>
 #include <QGroupBox>
+#include <limits>
 
 #include "b2bpanel.h"
+
+using namespace std;
 
 Building_BuildingPanel::Building_BuildingPanel(): QWidget()
 {
     distanceField = new QDoubleSpinBox;
+    distanceField->setMaximum(numeric_limits<double>::max());
 
     QGroupBox* existingTechsGroup = new QGroupBox;
     QVBoxLayout* existingTechsLayout = new QVBoxLayout;
@@ -37,7 +41,7 @@ Building_BuildingPanel::Building_BuildingPanel(): QWidget()
     existingTechsGroup->setLayout(existingTechsLayout);
 
     QFormLayout *layout = new QFormLayout;
-    layout->addRow("Distance (m):", distanceField);
+    layout->addRow("Distance (km):", distanceField);
     layout->addRow("Existing technologies:", existingTechsGroup);
 
     this->setLayout(layout);

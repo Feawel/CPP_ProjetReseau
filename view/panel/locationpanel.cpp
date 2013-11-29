@@ -6,15 +6,23 @@
  */
 #include "locationpanel.h"
 #include <QVBoxLayout>
+#include <limits>
+
+using namespace std;
 
 LocationPanel::LocationPanel(): QWidget()
 {
     layout = new QFormLayout;
     QSpinBox* defaultUserNumberField= new QSpinBox;
-    QSpinBox* supUserNumberField= new QSpinBox;
-    QSpinBox* adminUserNumberField= new QSpinBox;
+    defaultUserNumberField->setMaximum(numeric_limits<int>::max());
     layout->addRow("Default user number",defaultUserNumberField);
+
+    QSpinBox* supUserNumberField= new QSpinBox;
+    supUserNumberField->setMaximum(numeric_limits<int>::max());
     layout->addRow("Sup user number",supUserNumberField);
+
+    QSpinBox* adminUserNumberField= new QSpinBox;
+    adminUserNumberField->setMaximum(numeric_limits<int>::max());
     layout->addRow("Admin user number",adminUserNumberField);
 
     // editable only on an admin building
