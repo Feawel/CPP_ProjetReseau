@@ -179,21 +179,20 @@ void Graph_generate::global_graph_generate(){
     for(unsigned int ii=0; ii < b2bs.size(); ii++)
     {
         Building_Building* building_Building=b2bs[ii];
-//        vector<NTechnology::Technology> techs = building_Building->getExistingTechs();
-//        if(techs.size()>0){
-//            Building* building1=building_Building->getBuilding1();
-//            int positionBuilding1= findBInB2B(bs, building1);
-//            string cluster1= createClusterName(positionBuilding1);
+        NTechnology::Technology tech = building_Building->getAppliedTechnology();
 
-//            Building* building2=building_Building->getBuilding2();
-//            int positionBuilding2= findBInB2B(bs, building2);
-//            string cluster2= createClusterName(positionBuilding2);
+        Building* building1=building_Building->getBuilding1();
+        int positionBuilding1= findBInB2B(bs, building1);
+        string cluster1= createClusterName(positionBuilding1);
 
-//            for(unsigned int it=0; it < techs.size(); it++)
-//            {
-//                myfile << cluster1 << " -- " << cluster2 << "[color = \"" <<getColorB2B(&techs[it])<<"\"]"<<endl;
-//            }
-//        }
+        Building* building2=building_Building->getBuilding2();
+        int positionBuilding2= findBInB2B(bs, building2);
+        string cluster2= createClusterName(positionBuilding2);
+
+        for(unsigned int it=0; it < techs.size(); it++)
+        {
+            myfile << cluster1 << " -- " << cluster2 << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
+        }
     }
 
     myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
