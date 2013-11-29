@@ -561,6 +561,9 @@ void RequestInterface::run()
     {
         QString folder = QFileDialog::getExistingDirectory(this);
 
+        TxtGenerator txtGenerator(folder.toStdString());
+        txtGenerator.generateInitialDataTable(request);
+
         Request *ptr(0);
         ptr=&request;
         NetworkBuilder builder(ptr);
@@ -571,8 +574,8 @@ void RequestInterface::run()
 
         Graph_generate graph_generate = Graph_generate(ptr, folder.toStdString());
         graph_generate.graph_generate_all();
-        //TxtGenerator txtGenerator(ptr, folder.toStdString());
-        //txtGenerator.generateDoc();
+
+        txtGenerator.publishDoc();
     }
     else
     {

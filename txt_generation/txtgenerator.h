@@ -2,15 +2,17 @@
 #define TXTGENERATOR_H
 
 #include "phases/Request.h"
+#include "table.h"
 
 class TxtGenerator
 {
 public:
-    TxtGenerator(Request *request, std::string folder);
-    void generateDoc();
+    TxtGenerator(std::string folder);
+    void generateInitialDataTable(Request request);
+    void publishDoc();
 private:
-    Request *request;
     std::string folder;
+    Table initialTable;
 };
 
 #endif // TXTGENERATOR_H

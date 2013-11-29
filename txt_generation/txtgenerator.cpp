@@ -1,21 +1,21 @@
 #include "txtgenerator.h"
-#include "table.h"
 #include "model/constant.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
-TxtGenerator::TxtGenerator(Request *request, std::string folder): request(request), folder(folder)
+static const unsigned int BUILDING_TABLE_ROW_COUNT = 7;
+
+TxtGenerator::TxtGenerator(std::string folder): folder(folder),
+    initialTable(BUILDING_TABLE_ROW_COUNT)
 {
 
 }
 
-void TxtGenerator::generateDoc()
+void TxtGenerator::generateInitialDataTable(Request request)
 {
-    static const unsigned int BUILDING_TABLE_ROW_COUNT = 7;
 
-    Table table(BUILDING_TABLE_ROW_COUNT);
 
     vector<string> header(BUILDING_TABLE_ROW_COUNT);
     header[0]="Building";
@@ -26,11 +26,11 @@ void TxtGenerator::generateDoc()
     header[5]="Ethernet";
     header[6]="Wifi";
 
-    table.addLine(header);
+    initialTable.addLine(header);
 
-    for(unsigned int i = 0; i< request->getBuildings().size(); i++)
+    for(unsigned int i = 0; i< request.getBuildings().size(); i++)
     {
-        Building* currentBuilding = request->getBuildings()[i];
+        Building* currentBuilding = request.getBuildings()[i];
         for(unsigned int j = 0; j<currentBuilding->getFloors().size(); j++ )
         {
             vector<string> line(BUILDING_TABLE_ROW_COUNT);
@@ -45,8 +45,8 @@ void TxtGenerator::generateDoc()
                 line[5]="No";
             line[6]="Yes";
             if(!currentFloor->getUseTechs()[NTechnology::WIFI])
-                line[6]="Yes";
-            table.addLine(line);
+                line[6]="No";
+            initialTable.addLine(line);
         }
         if(currentBuilding->getFloors().empty())
         {
@@ -61,11 +61,14 @@ void TxtGenerator::generateDoc()
                 line[5]="No";
             line[6]="Yes";
             if(!currentBuilding->getUseTechs()[NTechnology::WIFI])
-                line[6]="Yes";
-            table.addLine(line);
+                line[6]="No";
+            initialTable.addLine(line);
         }
     }
+}
 
+void TxtGenerator::publishDoc()
+{
     ofstream file((folder + "/readme.txt").c_str());
-    table.generateTable(file);
+    initialTable.generateTable(file);
 }
