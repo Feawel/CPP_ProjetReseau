@@ -21,6 +21,7 @@
 #include <QCheckBox>
 #include <QPalette>
 #include <QMessageBox>
+#include <QFileDialog>
 
 #include "requestinterface.h"
 #include "phases/networkbuilder.h"
@@ -548,10 +549,12 @@ void RequestInterface::run()
     // check if there is errors
     if(errors.empty())
     {
+        QString folder = QFileDialog::getExistingDirectory(this);
+
         Request *ptr(0);
         ptr=&request;
         NetworkBuilder builder(ptr);
-        TxtGenerator txtGenerator(ptr);
+        TxtGenerator txtGenerator(ptr, folder.toStdString());
         txtGenerator.generateDoc();
     }
     else

@@ -6,10 +6,11 @@
 class TxtGenerator
 {
 public:
-    TxtGenerator(Request *request);
+    TxtGenerator(Request *request, std::string folder);
     void generateDoc();
 private:
     Request *request;
+    std::string folder;
 };
 
 #endif // TXTGENERATOR_H

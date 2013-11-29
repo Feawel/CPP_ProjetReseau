@@ -6,7 +6,7 @@
 
 using namespace std;
 
-TxtGenerator::TxtGenerator(Request *request): request(request)
+TxtGenerator::TxtGenerator(Request *request, std::string folder): request(request), folder(folder)
 {
 
 }
@@ -50,6 +50,6 @@ void TxtGenerator::generateDoc()
         }
     }
 
-    ofstream file("readme.txt");
+    ofstream file((folder + "/readme.txt").c_str());
     table.generateTable(file);
 }

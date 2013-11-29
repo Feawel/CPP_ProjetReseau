@@ -95,7 +95,7 @@ void draw_location(ofstream& file, int int_name, Location* location, bool genera
     draw_location_str(file, name, location,generate_label);
 }
 
-Graph_generate::Graph_generate(Request* request):request(request)
+Graph_generate::Graph_generate(Request* request, string folder):request(request), folder(folder)
 {
 }
 
