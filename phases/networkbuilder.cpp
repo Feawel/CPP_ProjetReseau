@@ -214,14 +214,21 @@ void NetworkBuilder::launchP3() {
             unsigned int NB_USER_SUP = floors[j]->getUserNumber(NUserType::SUP);
             unsigned int NB_USER_TOT = NB_USER_DEFAULT + NB_USER_SUP;
 
+
+            vector<bool> useTechs = floors[j]->getUseTechs();
+
+            unsigned int NB_ADDED_FLOORS;
             //Nombre d'étages à ajouter dans le cas ETHERNET seul
-            unsigned int NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/100);
+            if(useTechs[NTechnology::ETHERNET] == true && useTechs[NTechnology::WIFI == false])
+                NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/100);
 
             //Nombre d'étages à ajouter dans le cas ETHERNET + WIFI
-            //unsigned int NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/70);
+            else if(useTechs[NTechnology::ETHERNET] == true && useTechs[NTechnology::WIFI == true])
+                NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/70);
 
             //Nombre d'étages à ajouter dans le cas WIFI seul
-            //unsigned int NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/250);
+            else
+                NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/250);
 
 
             for(unsigned int k = 0; k < NB_ADDED_FLOORS; k++){
