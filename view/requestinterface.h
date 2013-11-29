@@ -45,6 +45,10 @@ public slots:
     void removeBuilding();
     void setName(QString name);
     void clean();
+    void setExistingFiber(bool exist);
+    void setExistingTwisted(bool exist);
+    void setExistingWifi(bool exist);
+    void setExistingInfra(bool exist);
 private:
     Request request;
     void paintEvent(QPaintEvent *);

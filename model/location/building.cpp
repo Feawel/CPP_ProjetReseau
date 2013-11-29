@@ -28,31 +28,55 @@ Building::Building(string name, bool admin) :
     Location(name), admin(admin) {
 }
 
+/**
+ * @brief Building::getFloors
+ * @return all floors (array) for the current building
+ */
 vector<Floor*> Building::getFloors() {
     return floors;
 }
 
+/**
+ * @brief Building::addFloor
+ * @return the newFloor (ptr)
+ * create a floor in the current building
+ */
 Floor* Building::addFloor() {
-    std::ostringstream oss;
-    oss << "Floor " << (floors.size());
-    Floor* newFloor = new Floor(oss.str(),floors.size());
+    Floor* newFloor = new Floor("Floor "+Constant::numberToString(floors.size()),floors.size());
     floors.push_back(newFloor);
     return newFloor;
 }
 
+/**
+ * @brief Building::addSpecialSection
+ * @param newSpecialSection
+ * add a virtual floor for admin section and private serveurs
+ */
 void Building::addSpecialSection(Floor* newSpecialSection){
     floors.push_back(newSpecialSection);
 }
 
+/**
+ * @brief Building::getFloorsNumber
+ * @return number of floors
+ */
 int Building::getFloorsNumber(){
     return floors.size();
 }
 
+/**
+ * @brief Building::isAdmin
+ * @return if the building is an admin one
+ */
 bool Building::isAdmin(){
     return admin;
 }
 
-//Retourne un pointeur sur le firewall du building
+/**
+ * @brief Building::getFirewall
+ * @param components
+ * @return ptr on building firewall
+ */
 Firewall* Building::getFirewall(vector<Component> components){
     for(int k=0; k<components.size();k++){
         if(typeid(components[k]) == typeid(Firewall)){
@@ -61,6 +85,11 @@ Firewall* Building::getFirewall(vector<Component> components){
     }
 }
 
+/**
+ * @brief Building::setAdmin
+ * @param isAdmin
+ * set building admin status to isAdmin
+ */
 void Building::setAdmin(bool isAdmin)
 {
     admin=isAdmin;

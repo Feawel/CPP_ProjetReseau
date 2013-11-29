@@ -339,8 +339,9 @@ void RequestInterface::addBuilding()
     // create the new bulding view and building panel with name Building i
     std::ostringstream oss;
     oss << (buildingViews.size()+1);
-    BuildingView *buildingView = new BuildingView("Building "+oss.str());
-    BuildingPanel *buildingPanel = new BuildingPanel("Building "+oss.str());
+    string name("Building "+Constant::numberToString(buildingViews.size()+1));
+    BuildingView *buildingView = new BuildingView(name);
+    BuildingPanel *buildingPanel = new BuildingPanel(name);
     buildingView->setBuildingPanel(buildingPanel);
 
     // connect all panel actions to building view
@@ -366,6 +367,10 @@ void RequestInterface::addBuilding()
 
             //connect b2bPanel action to b2bView
             QObject::connect(b2bPanel->getDistanceField(), SIGNAL(valueChanged(double)), this, SLOT(setDistance(double)));
+            QObject::connect(b2bPanel->getExistingTechCheck(NTechnology::FIBER), SIGNAL(clicked(bool)), this, SLOT(setExistingFiber(bool)));
+            QObject::connect(b2bPanel->getExistingTechCheck(NTechnology::TWISTEDPAIR), SIGNAL(clicked(bool)), this, SLOT(setExistingTwisted(bool)));
+            QObject::connect(b2bPanel->getExistingTechCheck(NTechnology::WIFI), SIGNAL(clicked(bool)), this, SLOT(setExistingWifi(bool)));
+            QObject::connect(b2bPanel->getExistingTechCheck(NTechnology::INFRARED), SIGNAL(clicked(bool)), this, SLOT(setExistingInfra(bool)));
         }
     }
 
@@ -646,3 +651,25 @@ void RequestInterface::clean()
     formPanel->setWidget(defaultPanel);
     update();
 }
+
+
+void RequestInterface::setExistingFiber(bool exist)
+{
+    selectedB2bView->getB2b()->setExistingTechnology(NTechnology::FIBER, exist);
+}
+
+void RequestInterface::setExistingTwisted(bool exist)
+{
+    selectedB2bView->getB2b()->setExistingTechnology(NTechnology::TWISTEDPAIR, exist);
+}
+
+void RequestInterface::setExistingWifi(bool exist)
+{
+    selectedB2bView->getB2b()->setExistingTechnology(NTechnology::WIFI, exist);
+}
+
+void RequestInterface::setExistingInfra(bool exist)
+{
+    selectedB2bView->getB2b()->setExistingTechnology(NTechnology::INFRARED, exist);
+}
+

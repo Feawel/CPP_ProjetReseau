@@ -17,16 +17,15 @@ public:
 };
 
 namespace NTechnology {
-
-typedef enum {
-    WIFI, ETHERNET, FIBER, INFRARED, TWISTEDPAIR
-} Technology;
+    typedef enum {
+        FIBER = 0, TWISTEDPAIR = 1, WIFI = 2, INFRARED = 3, ETHERNET = 4
+    } Technology;
 }
 
 namespace NUserType
 {
-typedef enum {
-    DEFAULT = 0, SUP = 1, ADMIN = 2
-} UserType;
+    typedef enum {
+        DEFAULT = 0, SUP = 1, ADMIN = 2
+    } UserType;
 }
 #endif /* CONSTANT_H_ */

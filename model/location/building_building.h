@@ -16,20 +16,24 @@ class Building_Building {
 
 public:
     Building_Building(Building *building1, Building *building2, double distance = 0,bool visibility=true);
-    void addExistingTechnology(NTechnology::Technology technology);
-    double getDistance();
-    Building* getBuilding1();
-    Building* getBuilding2();
-    bool getVisibility();
-    std::vector<NTechnology::Technology> getExistingTechs();
+    void setExistingTechnology(NTechnology::Technology technology, bool exist);
+    double getDistance() const;
+    Building* getBuilding1() const;
+    Building* getBuilding2() const;
+    bool getVisibility() const;
+    std::vector<bool> getExistingTechs() const;
+    bool isExistingTechs(NTechnology::Technology technology) const;
     void setDistance(double distance);
+    bool existingTechs() const;
+
+    static const unsigned int existingTechsSize;
 
 private:
     double distance;
     Building *building1;
     Building *building2;
     bool visibility;
-    std::vector<NTechnology::Technology> existingTechs;
+    std::vector<bool> existingTechs;
 };
 
 #endif /* BUILDING_BUILDING_H_ */

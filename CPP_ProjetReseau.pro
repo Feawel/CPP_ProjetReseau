@@ -57,5 +57,4 @@ HEADERS += \
     txt_generation/table.h \
     txt_generation/txtgenerator.h
 
-OTHER_FILES += \
-    fdp.exe
+OTHER_FILES +=
