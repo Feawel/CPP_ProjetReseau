@@ -24,29 +24,61 @@ Request::Request(std::vector<Building*> b,std::vector<Building_Building*> b2b) :
 {
 }
 
+/**
+ * @brief Request::getBuildings
+ * @return array with all the buildings created by the user
+ */
 vector<Building*> Request::getBuildings() {
     return buildings;
 }
 
+/**
+ * @brief Request::addBuilding
+ * @param newBuilding
+ * add one building to the request
+ */
 void Request::addBuilding(Building* newBuilding) {
     buildings.push_back(newBuilding);
 }
 
+/**
+ * @brief Request::removeBuilding
+ * @param id
+ * erase one building of the request
+ */
 void Request::removeBuilding(int id) {
     buildings.erase(buildings.begin()+id);
 }
 
+/**
+ * @brief Request::getBuilding_Buildings
+ * @return array of building_building between all the buildings defined by the user
+ */
 vector<Building_Building*> Request::getBuilding_Buildings() {
     return building_buildings;
 }
 
+/**
+ * @brief Request::addBuilding_Building
+ * @param newBuilding_Buildings
+ * add one building_building to the request
+ */
 void Request::addBuilding_Building(Building_Building* newBuilding_Buildings) {
     building_buildings.push_back(newBuilding_Buildings);
 }
 
+/**
+ * @brief Request::removeBuilding_Building
+ * @param id
+ * erase one building_building of the request
+ */
 void Request::removeBuilding_Building(int id) {
     building_buildings.erase(building_buildings.begin()+id);
 }
+
+/**
+ * @brief Request::generateGraphText
+ */
 void Request::generateGraphText(){
     //mockup:
     Building b1=Building("B1");

@@ -36,7 +36,9 @@ Request* NetworkBuilder::getRequest() {
 }
 
 
-
+/**
+ * @brief NetworkBuilder::launchP1
+ */
 void NetworkBuilder::launchP1() {
     Address address(10,10,0,0,16);
     Backbone backbone;
@@ -87,6 +89,9 @@ void NetworkBuilder::launchP1() {
     }
 }
 
+/**
+ * @brief NetworkBuilder::launchP2
+ */
 void NetworkBuilder::launchP2() {
     /*
      *Phase II : Technologies de liaison inter-batiments
@@ -149,6 +154,9 @@ void NetworkBuilder::launchP2() {
 
 }
 
+/**
+ * @brief NetworkBuilder::launchP3
+ */
 void NetworkBuilder::launchP3() {
     /*
      *Phase III : Sous réseaux intra-bâtiment
@@ -195,6 +203,33 @@ void NetworkBuilder::launchP3() {
             floors[j]->setBroadcastAddress(tempAddressBroadcast);
             floors[j]->setNetworkAddress(tempAddressNetwork);
 
+            //Vérification du nombre d'USER_SUP : pas plus de 1 pour 4 USER_DEFAULT
+
+
+
+            /*Ajout d'étages en fonction du nombre d'utilisateurs sur chaque étage*/
+
+            //Calcul du nombre d'utilisateurs par étage
+            unsigned int NB_USER_DEFAULT = floors[j]->getUserNumber(NUserType::DEFAULT);
+            unsigned int NB_USER_SUP = floors[j]->getUserNumber(NUserType::SUP);
+            unsigned int NB_USER_TOT = NB_USER_DEFAULT + NB_USER_SUP;
+
+            //Nombre d'étages à ajouter dans le cas ETHERNET seul
+            unsigned int NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/100);
+
+            //Nombre d'étages à ajouter dans le cas ETHERNET + WIFI
+            //unsigned int NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/70);
+
+            //Nombre d'étages à ajouter dans le cas WIFI seul
+            //unsigned int NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/250);
+
+
+            for(unsigned int k = 0; k < NB_ADDED_FLOORS; k++){
+                Floor* addedFloor = buildings[i]->addFloor();
+                std::string stringNumFloor = Constant::numberToString(j);
+                std::string stringNumSection = Constant::numberToString(k+2);
+                addedFloor->setName("Etage " + stringNumFloor +" - Section " + stringNumSection);
+            }
 
             if(buildings[i]->isAdmin())
             {
