@@ -189,10 +189,7 @@ void Graph_generate::global_graph_generate(){
         int positionBuilding2= findBInB2B(bs, building2);
         string cluster2= createClusterName(positionBuilding2);
 
-        for(unsigned int it=0; it < techs.size(); it++)
-        {
-            myfile << cluster1 << " -- " << cluster2 << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
-        }
+        myfile << cluster1 << " -- " << cluster2 << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
     }
 
     myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
