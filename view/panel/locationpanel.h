@@ -20,10 +20,12 @@ class LocationPanel: public QWidget {
 public:
     LocationPanel();
     ~LocationPanel();
-    QSpinBox* getUserNumberField(NUserType::UserType userType);
+    QSpinBox* getUserNumberField(NUserType::UserType userType) const;
+    QCheckBox* getUseTechField(NTechnology::Technology technology) const;
 protected:
     QFormLayout* layout;
     std::vector<QSpinBox*> userNumberFields;
+    std::vector<QCheckBox*> useTechFields;
 
 
 };

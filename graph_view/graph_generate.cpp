@@ -202,5 +202,5 @@ void Graph_generate::global_graph_generate(){
     myfile.close();
 
 //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
-    system (("fdp.exe -Tpng "+file_name+".txt >"+file_name+".png").c_str());
+    system (("cd \"C:\\Program Files (x86)\\Graphviz2.34\\bin\";fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
 }

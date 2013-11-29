@@ -10,7 +10,7 @@
 
 using namespace std;
 
-LocationPanel::LocationPanel(): QWidget()
+LocationPanel::LocationPanel(): QWidget(), useTechFields(5)
 {
     layout = new QFormLayout;
     QSpinBox* defaultUserNumberField= new QSpinBox;
@@ -32,16 +32,22 @@ LocationPanel::LocationPanel(): QWidget()
     userNumberFields.push_back(supUserNumberField);
     userNumberFields.push_back(adminUserNumberField);
 
-    QGroupBox* cantUseTechsGroup = new QGroupBox;
-    QVBoxLayout* cantUseTechsLayout = new QVBoxLayout;
+    QGroupBox* useTechsGroup = new QGroupBox;
+    QVBoxLayout* useTechsLayout = new QVBoxLayout;
+
     QCheckBox* wifiCheck = new QCheckBox("Wifi:");
+    useTechsLayout->addWidget(wifiCheck);
+    useTechFields[NTechnology::WIFI]=wifiCheck;
+    wifiCheck->setChecked(true);
+
     QCheckBox* ethernetCheck = new QCheckBox("Ethernet:");
-    cantUseTechsLayout->addWidget(wifiCheck);
-    cantUseTechsLayout->addWidget(ethernetCheck);
+    ethernetCheck->setChecked(true);
+    useTechFields[NTechnology::ETHERNET]=ethernetCheck;
+    useTechsLayout->addWidget(ethernetCheck);
 
-    cantUseTechsGroup->setLayout(cantUseTechsLayout);
+    useTechsGroup->setLayout(useTechsLayout);
 
-    layout->addRow("Can't use technologies:", cantUseTechsGroup);
+    layout->addRow("Use technologies:", useTechsGroup);
 
     this->setLayout(layout);
 }
@@ -55,10 +61,13 @@ LocationPanel::~LocationPanel()
     }
 }
 
-QSpinBox* LocationPanel::getUserNumberField(NUserType::UserType userType)
+QSpinBox* LocationPanel::getUserNumberField(NUserType::UserType userType) const
 {
     int index = userType;
     return userNumberFields[index];
 }
 
-
+QCheckBox* LocationPanel::getUseTechField(NTechnology::Technology technology) const
+{
+    return useTechFields[technology];
+}

@@ -49,6 +49,8 @@ public slots:
     void setExistingTwisted(bool exist);
     void setExistingWifi(bool exist);
     void setExistingInfra(bool exist);
+    void setUseWifi(bool use);
+    void setUseEthenet(bool use);
 private:
     Request request;
     void paintEvent(QPaintEvent *);

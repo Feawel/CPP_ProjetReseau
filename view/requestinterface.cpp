@@ -29,7 +29,7 @@
 
 using namespace std;
 
-int const SELECT_MARGIN = 5;
+static unsigned int const SELECT_MARGIN = 5;
 
 
 /**
@@ -352,6 +352,8 @@ void RequestInterface::addBuilding()
     QObject::connect(buildingPanel->getAddFloorButton(), SIGNAL(clicked()), this, SLOT(addFloor()));
     QObject::connect(buildingPanel->getRemoveBuildingButton(), SIGNAL(clicked()), this, SLOT(removeBuilding()));
     QObject::connect(buildingPanel->getNameField(), SIGNAL(textChanged(QString)), this, SLOT(setName(QString)));
+    QObject::connect(buildingPanel->getUseTechField(NTechnology::WIFI), SIGNAL(clicked(bool)), this, SLOT(setUseWifi(bool)));
+    QObject::connect(buildingPanel->getUseTechField(NTechnology::ETHERNET), SIGNAL(clicked(bool)), this, SLOT(setUseEthenet(bool)));
 
     // create a b2b for each other building
     if(!buildingViews.empty())
@@ -514,6 +516,8 @@ void RequestInterface::addFloor()
     QObject::connect(floorPanel->getUserNumberField(NUserType::DEFAULT),SIGNAL(valueChanged(int)),this,SLOT(setDefaultUsers(int)));
     QObject::connect(floorPanel->getUserNumberField(NUserType::SUP),SIGNAL(valueChanged(int)),this,SLOT(setSupUsers(int)));
     QObject::connect(floorPanel->getUserNumberField(NUserType::ADMIN),SIGNAL(valueChanged(int)),this,SLOT(setAdminUsers(int)));
+    QObject::connect(floorPanel->getUseTechField(NTechnology::WIFI), SIGNAL(clicked(bool)), this, SLOT(setUseWifi(bool)));
+    QObject::connect(floorPanel->getUseTechField(NTechnology::ETHERNET), SIGNAL(clicked(bool)), this, SLOT(setUseEthenet(bool)));
 
     update();
 }
@@ -673,3 +677,32 @@ void RequestInterface::setExistingInfra(bool exist)
     selectedB2bView->getB2b()->setExistingTechnology(NTechnology::INFRARED, exist);
 }
 
+void RequestInterface::setUseWifi(bool use)
+{
+    Location *location;
+    if(selectedBuildingView != 0)
+    {
+        location = selectedBuildingView->getBuilding();
+    }
+    else
+    {
+        location = selectedFloor->getFloor();
+    }
+    location->setUseTechnology(NTechnology::WIFI, use);
+    update();
+}
+
+void RequestInterface::setUseEthenet(bool use)
+{
+    Location *location;
+    if(selectedBuildingView != 0)
+    {
+        location = selectedBuildingView->getBuilding();
+    }
+    else
+    {
+        location = selectedFloor->getFloor();
+    }
+    location->setUseTechnology(NTechnology::ETHERNET, use);
+    update();
+}
