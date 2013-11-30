@@ -91,7 +91,24 @@ string getColorB2B(NTechnology::Technology* tech){
     break;
 }
 }
-
+//Draw a cluster with a name and a label in a ofstream file.
+void draw_cluster_str(ofstream& file, string name, string legend){
+    string name_no_underscore = replace_spaces_by_underscores(name);
+    file << "subgraph "<< name_no_underscore << "{"<< endl
+         << "label = \""
+         << label
+         <<  "}"<< endl <<endl;
+}
+string generate_label(string line1, string line2, string line3=NULL){
+    stringstream label_stream;
+    label_stream << line1 << " \\n";
+    label_stream << line2 ;
+    if(line3!=NULL){
+        label_stream << " \\n" << line3 ;
+    }
+    string cluster_name = label_stream.str();
+    return cluster_name;
+}
 
 void draw_location_str(ofstream& file, string name, Location* location, bool generate_label=true){
     string name_no_underscore = replace_spaces_by_underscores(name);
@@ -141,7 +158,10 @@ void Graph_generate::graph_building_generate(Building* building){
            << "label = \"" << building_name << "\"" << endl;
 
     //We start by drawing the L2L3
-    draw_location_str(myfile, "cluster_L2L3",building, false);
+    if(building->isAdmin()){
+        draw_location_str(myfile, "Firewall",building, false);
+        draw_location_str(myfile, "cluster_L2L3",building, false);
+    }
 
     //Then we draw the floors.
     vector<Floor*> floors= building->getFloors();
