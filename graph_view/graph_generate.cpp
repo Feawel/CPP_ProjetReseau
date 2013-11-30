@@ -14,6 +14,17 @@
 
 using namespace::std;
 
+string replace_space_by_underscores(string str){
+    char space = ' ';
+    for(unsigned int i = 0; i < str.size(); i++){
+        if(str[i] == space){
+               str[i] = '_';
+        }
+    return str;
+    }
+}
+
+
 string createClusterName(int position)
 {
     stringstream building1_stream;
@@ -110,6 +121,18 @@ void Graph_generate::graph_building_generate(Building* building){
     ofstream myfile;
     myfile.open (( file_name+".txt").c_str());
     myfile << "graph G {" << endl;
+
+//    myfile << "subgraph_bui "<< name << "{"<< endl;
+//    Component* comp = (location->getComponents()).front();
+//    string IP =  comp->getAddress().toString();
+//    file << "label = \"";
+//    if(generate_label){
+//        file <<location->getName();
+//    }else{
+//        file << name;
+//    }
+//    file <<" \\n"  << IP  <<"\""<< endl;
+//    file <<  "}"<< endl <<endl;
 
     //On commence par dessiner le L2L3
     draw_location_str(myfile, "cluster_L2L3",building, false);
