@@ -26,7 +26,6 @@ using namespace::std;
 //    string output = "cluster_445";
 //    TS_ASSERT_EQUALS(create_cluster_name(input), output);
 //}
-
 string replace_spaces_by_underscores(string str){
     char space = ' ';
     for(unsigned int i = 0; i < str.size(); i++){
@@ -92,37 +91,40 @@ string getColorB2B(NTechnology::Technology* tech){
 }
 }
 //Draw a cluster with a name and a label in a ofstream file.
-void draw_cluster_str(ofstream& file, string name, string legend){
+void draw_cluster(ofstream& file, string name, string legend){
     string name_no_underscore = replace_spaces_by_underscores(name);
     file << "subgraph "<< name_no_underscore << "{"<< endl
          << "label = \""
-         << label
+         << legend <<"\""
          <<  "}"<< endl <<endl;
 }
-string generate_label(string line1, string line2, string line3=NULL){
+//Generates the label with mininum two lines.
+string generate_label(string line1, string line2, string line3=""){
     stringstream label_stream;
     label_stream << line1 << " \\n";
     label_stream << line2 ;
-    if(line3!=NULL){
+    if( line3 != ""){
         label_stream << " \\n" << line3 ;
     }
     string cluster_name = label_stream.str();
     return cluster_name;
 }
 
-void draw_location_str(ofstream& file, string name, Location* location, bool generate_label=true){
-    string name_no_underscore = replace_spaces_by_underscores(name);
-    file << "subgraph "<< name_no_underscore << "{"<< endl;
+void draw_location_str(ofstream& file, string name, Location* location, bool create_label=true){
+    //we create the first line with name.
+    string label_line1;
+    if(create_label){
+        label_line1=location->getName();
+    }else{
+        label_line1= name;
+    }
+    //We create the line 2 with the IP address:
     Component* comp = (location->getComponents()).front();
     string IP =  comp->getAddress().toString();
-    file << "label = \"";
-    if(generate_label){
-        file <<location->getName();
-    }else{
-        file << name_no_underscore;
-    }
-    file <<" \\n"  << IP  <<"\""<< endl;
-    file <<  "}"<< endl <<endl;
+    string label_line2=IP;
+
+    string label= generate_label(label_line1,label_line2);
+    draw_cluster(file,name,label);
 }
 
 void draw_location(ofstream& file, int int_name, Location* location, bool generate_label=true){
