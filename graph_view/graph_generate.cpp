@@ -116,26 +116,18 @@ void Graph_generate::graph_generate_all(){
 
 //Generates the graph for a given building.
 void Graph_generate::graph_building_generate(Building* building){
-    string building_name=replace_spaces_by_underscores(building->getName());
-    string file_name ="graph_building_"+building_name;
+    string building_name=(building->getName());
+    string file_name ="graph_building_"+replace_spaces_by_underscores(building_name);
 
     ofstream myfile;
     myfile.open (( file_name+".txt").c_str());
     myfile << "graph G {" << endl;
 
-//    myfile << "subgraph_bui "<< name << "{"<< endl;
-//    Component* comp = (location->getComponents()).front();
-//    string IP =  comp->getAddress().toString();
-//    file << "label = \"";
-//    if(generate_label){
-//        file <<location->getName();
-//    }else{
-//        file << name;
-//    }
-//    file <<" \\n"  << IP  <<"\""<< endl;
-//    file <<  "}"<< endl <<endl;
+    //Creating the big box for the building.
+    myfile << "subgraph_"<< replace_spaces_by_underscores(building_name) << "{"<< endl
+           << "label = \"" << building_name << "\"" << endl;
 
-    //On commence par dessiner le L2L3
+    //We start by drawing the L2L3
     draw_location_str(myfile, "cluster_L2L3",building, false);
 
     //Then we draw the floors.
@@ -145,6 +137,8 @@ void Graph_generate::graph_building_generate(Building* building){
         draw_location(myfile,ii , floors[ii]);
         myfile << "cluster_L2L3 " << " -- " << "cluster_" << ii <<endl<<endl;
     }
+    myfile <<  "}"<< endl <<endl;
+    //The things after won't by in the building, they will be outside the box.
 
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
     for(unsigned int ii=0; ii < b2bs.size(); ii++)
