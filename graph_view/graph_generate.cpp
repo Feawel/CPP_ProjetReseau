@@ -123,34 +123,30 @@ void Graph_generate::graph_building_generate(Building* building){
     }
 
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
-//    for(unsigned int ii=0; ii < b2bs.size(); ii++)
-//    {
-//        Building_Building* building_Building=b2bs[ii];
-//        vector<NTechnology::Technology> techs = building_Building->getExistingTechs();
-//        if(techs.size()>0){
-//            Building* building1=building_Building->getBuilding1();
-//            Building* building2=building_Building->getBuilding2();
+    for(unsigned int ii=0; ii < b2bs.size(); ii++)
+    {
+    Building_Building* building_Building=b2bs[ii];
+    NTechnology::Technology tech = building_Building->getAppliedTechnology();
+        Building* building1=building_Building->getBuilding1();
+        Building* building2=building_Building->getBuilding2();
 
-//            if(building1 == building ||  building2 == building  ){
-//                Building* building_to_build =NULL;
-//                if(building1 == building){
-//                    building_to_build = building2;
-//                }else{
-//                    building_to_build = building1;
+        if(building1 == building ||  building2 == building  ){
+            Building* building_to_build =NULL;
+            if(building1 == building){
+                building_to_build = building2;
+            }else{
+                building_to_build = building1;
 
-//                }
-//                stringstream name_connected_building_stream;
-//                name_connected_building_stream << "cluster_building_connected_" << ii;
-//                string name_connected_building = name_connected_building_stream.str();
-//                draw_location_str(myfile,name_connected_building, building_to_build);
+            }
+            stringstream name_connected_building_stream;
+            name_connected_building_stream << "cluster_building_connected_" << ii;
+            string name_connected_building = name_connected_building_stream.str();
+            draw_location_str(myfile,name_connected_building, building_to_build);
 
-//                for(unsigned int it=0; it < techs.size(); it++)
-//                {
-//                    myfile << name_connected_building << " -- " << "cluster_L2L3 " << "[color = \"" <<getColorB2B(&techs[it])<<"\"]"<<endl;
-//                }
-//            }
-//        }
-//    }
+            myfile << name_connected_building << " -- " << "cluster_L2L3 "
+                   << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
+        }
+    }
 
     myfile << "graph [label=\"Map of " << building_name << "\" bgcolor=\"transparent\"]"<< endl;
     myfile << "legend[label = <<FONT color=\"red\">Infrared</FONT><BR/><FONT color=\"orange\">Ethernet</FONT><BR/><FONT color=\"darkorchid\">Fiber</FONT><BR/><FONT color=\"blue\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";
@@ -158,7 +154,7 @@ void Graph_generate::graph_building_generate(Building* building){
     myfile.close();
 
     //  Génére le graphe en png avec un appel système, nécessite graphviz.
- //   system (("fdp.exe -Tpng "+file_name+".txt >"+file_name+".png").c_str());
+    system (("fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
 }
 
 //Generates the graph for the full organization.
@@ -198,5 +194,5 @@ void Graph_generate::global_graph_generate(){
     myfile.close();
 
 //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
-   // system (("cd \"C:\\Program Files (x86)\\Graphviz2.34\\bin\";fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
+    system (("fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
 }
