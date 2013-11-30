@@ -13,6 +13,19 @@
 //This function generates the name of a cluster from the number of the building.
 
 using namespace::std;
+//tests:
+//void test_replace_spaces_by_underscores(void)
+//{
+//    string input = "plop plop";
+//    string output = "plop_plop";
+//    TS_ASSERT_EQUALS(replace_spaces_by_underscores(input), output);
+//}
+//void test_create_cluster_name(void)
+//{
+//    int input = 445;
+//    string output = "cluster_445";
+//    TS_ASSERT_EQUALS(create_cluster_name(input), output);
+//}
 
 string replace_spaces_by_underscores(string str){
     char space = ' ';
@@ -25,7 +38,7 @@ string replace_spaces_by_underscores(string str){
 }
 
 
-string createClusterName(int position)
+string create_cluster_name(int position)
 {
     stringstream building1_stream;
     building1_stream << "cluster_" << position;
@@ -50,31 +63,31 @@ string getColorB2B(NTechnology::Technology* tech){
     {
     //WIFI
     case 0:
-        return "blue3";
+        return "blue";
     break;
 
     //ETHERNET
     case 1:
-        return "darkorange";
+        return "black";
     break;
 
     //FIBER
     case 2:
-        return "darkorchid";
+        return "red";
     break;
 
     //INFRARED
     case 3:
-        return "red";
+        return "purple";
     break;
 
     //TWISTEDPAIR
     case 4:
-        return "deepskyblue4";
+        return "yellow";
     break;
 
     default:
-        return "black";
+        return "darkorange";
     break;
 }
 }
@@ -96,7 +109,7 @@ void draw_location_str(ofstream& file, string name, Location* location, bool gen
 }
 
 void draw_location(ofstream& file, int int_name, Location* location, bool generate_label=true){
-    string name = createClusterName(int_name);
+    string name = create_cluster_name(int_name);
     draw_location_str(file, name, location,generate_label);
 }
 
@@ -138,7 +151,7 @@ void Graph_generate::graph_building_generate(Building* building){
         myfile << "cluster_L2L3 " << " -- " << "cluster_" << ii <<endl<<endl;
     }
     myfile <<  "}"<< endl <<endl;
-    //The things after won't by in the building, they will be outside the box.
+    //The things after won't be in the building, they will be outside the box.
 
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
     for(unsigned int ii=0; ii < b2bs.size(); ii++)
@@ -197,11 +210,11 @@ void Graph_generate::global_graph_generate(){
 
         Building* building1=building_Building->getBuilding1();
         int positionBuilding1= findBInB2B(bs, building1);
-        string cluster1= createClusterName(positionBuilding1);
+        string cluster1= create_cluster_name(positionBuilding1);
 
         Building* building2=building_Building->getBuilding2();
         int positionBuilding2= findBInB2B(bs, building2);
-        string cluster2= createClusterName(positionBuilding2);
+        string cluster2= create_cluster_name(positionBuilding2);
 
         myfile << cluster1 << " -- " << cluster2 << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
     }

@@ -13,6 +13,7 @@ public:
 private:
     Request* request;
     std::string folder;
+    const std::string legend = "<<FONT color=\"purple\">Infrared</FONT><BR/><FONT color=\"black\">Ethernet</FONT><BR/><FONT color=\"red\">Fiber</FONT><BR/><FONT color=\"yellow\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";
 
 };
 
