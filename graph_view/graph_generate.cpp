@@ -14,7 +14,7 @@
 
 using namespace::std;
 
-string replace_space_by_underscores(string str){
+string replace_spaces_by_underscores(string str){
     char space = ' ';
     for(unsigned int i = 0; i < str.size(); i++){
         if(str[i] == space){
@@ -81,14 +81,15 @@ string getColorB2B(NTechnology::Technology* tech){
 
 
 void draw_location_str(ofstream& file, string name, Location* location, bool generate_label=true){
-    file << "subgraph "<< name << "{"<< endl;
+    string name_no_underscore = replace_spaces_by_underscores(name);
+    file << "subgraph "<< name_no_underscore << "{"<< endl;
     Component* comp = (location->getComponents()).front();
     string IP =  comp->getAddress().toString();
     file << "label = \"";
     if(generate_label){
         file <<location->getName();
     }else{
-        file << name;
+        file << name_no_underscore;
     }
     file <<" \\n"  << IP  <<"\""<< endl;
     file <<  "}"<< endl <<endl;
@@ -115,7 +116,7 @@ void Graph_generate::graph_generate_all(){
 
 //Generates the graph for a given building.
 void Graph_generate::graph_building_generate(Building* building){
-    string building_name=building->getName();
+    string building_name=replace_spaces_by_underscores(building->getName());
     string file_name ="graph_building_"+building_name;
 
     ofstream myfile;
