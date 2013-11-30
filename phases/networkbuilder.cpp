@@ -34,6 +34,17 @@ Request* NetworkBuilder::getRequest() {
     return request;
 }
 
+int contains(vector<Building*> buildings, Building* building)
+{
+    for(unsigned int i = 0; i< buildings.size(); i++)
+    {
+        if(building == buildings[i])
+            return i;
+    }
+    return -1;
+}
+
+
 
 /**
  * @brief NetworkBuilder::launchP1
@@ -102,58 +113,100 @@ void NetworkBuilder::launchP2() {
      */
 
     vector<Building_Building*> B2BFull = request->getBuilding_Buildings();
+    vector<Building*> buildingsFull = request->getBuildings();
+
+    // on créé une liste de tableaux contenant les B2B d'un bâtiment
+    vector<vector<Building_Building*> > buildingB2Bs(buildingsFull.size());
+    for(unsigned int i = 0; i< B2BFull.size(); i++)
+    {
+        Building* building1 = B2BFull[i]->getBuilding1();
+        Building* building2 = B2BFull[i]->getBuilding2();
+        // on récupère la position du building1 dans B2BFull et on ajoute à cette position
+        // dans buildingB2BS le B2B
+        buildingB2Bs[contains(buildingsFull,building1)].push_back(B2BFull[i]);
+        // on récupère la position du building2 dans B2BFull et on ajoute à cette position
+        // dans buildingB2BS le B2B
+        buildingB2Bs[contains(buildingsFull,building2)].push_back(B2BFull[i]);
+    }
+
 
     //On filtre le vector building_building afin de n'avoir que les liaisons avec technologies pré-existantes
     //auxquelles on rajoute les liaisons nécessaires pour que chaque batiment soit connecté à au moins un autre.
-    vector<Building_Building*> B2BTemp =  vector<Building_Building*>() ;
-    vector<Building_Building*> listBuildingWithTech = vector<Building_Building*>();
+    vector<Building_Building*> B2BTemp(B2BFull);
+    vector<Building*> listBuildingWithTech(buildingsFull.size());
 
-    //On récupère dans un premier temps les liaisons existantes
-    for(unsigned int i=0;i<B2BFull.size();i++){
-        if(B2BFull[i]->existTech()){
-            B2BTemp.push_back(B2BFull[i]);
-            listBuildingWithTech.push_back(B2BFull[i]);
+    //On récupère dans un premier temps les liaisons existantes avec des techs
+    // On met les abtiemtn dans listBuildingWithTech
+    // On met les pointeurs des autres dans B2BTemp à 0
+    for(unsigned int i=0;i<B2BTemp.size();i++){
+        if(!B2BTemp[i]->existTech()){
+            listBuildingWithTech[contains(buildingsFull, B2BTemp[i]->getBuilding1())]=B2BTemp[i]->getBuilding1();
+            listBuildingWithTech[contains(buildingsFull, B2BTemp[i]->getBuilding2())]=B2BTemp[i]->getBuilding2();
         }
-        else{
-            B2BTemp.push_back(0);
+        else
+        {
+            B2BTemp[i]=0;
         }
     }
 
-    //On cherche ensuite les batiments connectés à aucun autre
-    for(unsigned int i = 0; i < B2BTemp.size(); i++){
-        if(B2BTemp[i] == 0){
-            Building* building1 = B2BFull[i]->getBuilding1();
-            Building* building2 = B2BFull[i]->getBuilding2();
-            bool hasB1 = false, hasB2 = false;
-            for(unsigned int j = 0; j < listBuildingWithTech.size(); j++){
-                Building* buildingTest1 = listBuildingWithTech[j]->getBuilding1();
-                Building* buildingTest2 = listBuildingWithTech[j]->getBuilding2();
+    // si on a trouvé aucune techno on ajoute seulement le building admin dans listBuildingWithTech
+    for(unsigned int  i = 0; i< buildingsFull.size(); i++)
+    {
+        if(buildingsFull[i]->isAdmin())
+        {
+            listBuildingWithTech[i]=buildingsFull[i];
+            break;
+        }
+    }
 
-                if(hasB1 == true && hasB2 == true)
-                    break;
-                if(((building1 == buildingTest1) || (building1 == buildingTest2)) && ((building2 == buildingTest1) || (building2 == buildingTest2))){
-                    break;
-                }
-                else if(building1 == buildingTest1 || building1 == buildingTest2){
-                    hasB1 = true;
-                }
-                else if(building2 == buildingTest1 || building2 == buildingTest2){
-                    hasB2 = true;
-                }
+    //On cherche ensuite les batiments connectés à aucun autre (0 dans listBuildingWithTech)
+    for(unsigned int i = 0; i < listBuildingWithTech.size(); i++){
+        if(listBuildingWithTech[i] == 0){
+            // on récupère dans la table d'origine le bâtiment
+            Building* currentBuilding = buildingsFull[i];
 
-                if(j == (listBuildingWithTech.size() - 1)){
-                    listBuildingWithTech.push_back(B2BFull[i]);
+            // on récupère les B2B de ce bâtiment
+            vector<Building_Building*> currentB2Bs = buildingB2Bs[i];
+
+            // on parcours les liens qui arrivent à ce bâtiment
+            // on sélectionne le plus court qui atteint un bâtiment de listBuildingWithTech
+
+            double min=0;
+            unsigned int minIndex =-1;
+            for(unsigned int j = 0; j< currentB2Bs.size(); j++)
+            {
+                // on récupère l'autre batiment
+                Building* otherBuilding;
+                if(currentB2Bs[j]->getBuilding1()!=currentBuilding)
+                    otherBuilding=currentB2Bs[j]->getBuilding1();
+                else
+                    otherBuilding=currentB2Bs[j]->getBuilding2();
+
+                // si l'autre batiment est dans listBuildingWithTech on renregistre la distance
+                int k = contains(listBuildingWithTech, otherBuilding);
+                if(k>0)
+                {
+                    double dist=currentB2Bs[k]->getDistance();
+                    if(min == 0 || min > dist)
+                    {
+                            min = dist;
+                            minIndex = j;
+                    }
                 }
             }
 
+            B2BTemp.push_back(currentB2Bs[minIndex]);
+            listBuildingWithTech[i]=currentBuilding;
         }
-
-
     }
 
-
-
-    vector<Building_Building*> B2B = listBuildingWithTech;
+    // on créé une liste de B2B en retirant tous les pointeurs à 0
+    vector<Building_Building*> B2B;
+    for(unsigned int i = 0; i<B2BTemp.size(); i++)
+    {
+        if(B2BTemp[i]!=0)
+            B2B.push_back(B2BTemp[i]);
+    }
 
 
     NTechnology::Technology addedTech;
