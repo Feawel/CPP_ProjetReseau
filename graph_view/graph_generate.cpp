@@ -100,10 +100,12 @@ void draw_cluster(ofstream& file, string name, string legend){
 }
 
 //Generates the labege with mininum two lines.
-string generate_label(string line1, string line2, string line3=""){
+string generate_label(string line1, string line2="", string line3=""){
     stringstream label_stream;
-    label_stream << line1 << " \\n";
-    label_stream << line2 ;
+    label_stream << line1;
+    if( line2 != ""){
+        label_stream << " \\n" << line2 ;
+    }
     if( line3 != ""){
         label_stream << " \\n" << line3 ;
     }
@@ -199,14 +201,12 @@ void Graph_generate::graph_building_generate(Building* building){
 
         //If it's a special floor (with servers)
         }else if(component_number==2){
-            Firewall* firewall_floor = (Firewall*) (floor->getComponents())[0];
-            string IP_firewall_floor = firewall_floor->getPublicAddress().toString();
 
             stringstream firewall_label_stream;
-            firewall_label_stream << "FW floor " << ii;
+            firewall_label_stream << "FW " << floor->getName();
             string firewall_label = firewall_label_stream.str();
 
-            string label =generate_label(firewall_label, IP_firewall_floor) ;
+            string label =generate_label(firewall_label) ;
             stringstream firewall_stream;
             firewall_stream << "cluster_firewall_special_floor" << ii;
             string firewall_name = firewall_stream.str();
@@ -216,7 +216,7 @@ void Graph_generate::graph_building_generate(Building* building){
             Switch* switch_floor= (Switch*)building->getComponents()[1];
             string IP_router =  switch_floor->getAddress().toString();
 
-            label =generate_label("Router",IP_router) ;
+            label =generate_label(floor->getName(),IP_router) ;
 
             stringstream L2L3_name_stream;
             L2L3_name_stream << "cluster_L2L3_special_floor" << ii;
@@ -261,7 +261,7 @@ void Graph_generate::graph_building_generate(Building* building){
     }
 
     myfile << "graph [label=\"Map of " << building_name << "\" bgcolor=\"transparent\"]"<< endl;
-    myfile << "legend[label = <<FONT color=\"red\">Infrared</FONT><BR/><FONT color=\"orange\">Ethernet</FONT><BR/><FONT color=\"darkorchid\">Fiber</FONT><BR/><FONT color=\"blue\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";
+    myfile << this->legend;
     myfile <<endl<< "}" << endl;
     myfile.close();
 
@@ -301,7 +301,7 @@ void Graph_generate::global_graph_generate(){
     }
 
     myfile << "graph [label=\"Global map\" bgcolor=\"transparent\"]"<< endl;
-    myfile << "legend[label = <<FONT color=\"red\">Infrared</FONT><BR/><FONT color=\"orange\">Ethernet</FONT><BR/><FONT color=\"darkorchid\">Fiber</FONT><BR/><FONT color=\"blue\">Twisted pair</FONT><BR/><FONT color=\"blue\">Wifi</FONT>>]";
+    myfile << this->legend;
     myfile <<endl<< "}" << endl;
     myfile.close();
 
