@@ -182,7 +182,7 @@ void NetworkBuilder::launchP2() {
 
                 // si l'autre batiment est dans listBuildingWithTech on renregistre la distance
                 int k = contains(listBuildingWithTech, otherBuilding);
-                if(k>0)
+                if(k>=0)
                 {
                     double dist=currentB2Bs[k]->getDistance();
                     if(min == 0 || min > dist)
