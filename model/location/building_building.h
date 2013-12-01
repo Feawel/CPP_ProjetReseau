@@ -15,7 +15,7 @@
 class Building_Building {
 
 public:
-    Building_Building(Building *building1, Building *building2, double distance = 0,bool visibility=true);
+    Building_Building(Building *building1, Building *building2, double distance = 0,bool visibility=false);
     void setExistingTechnology(NTechnology::Technology technology, bool exist);
     double getDistance() const;
     Building* getBuilding1() const;

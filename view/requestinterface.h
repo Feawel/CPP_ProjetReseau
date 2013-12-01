@@ -51,6 +51,7 @@ public slots:
     void setExistingInfra(bool exist);
     void setUseWifi(bool use);
     void setUseEthenet(bool use);
+    void setVisibility(bool visibility);
 private:
     Request request;
     void paintEvent(QPaintEvent *);

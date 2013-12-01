@@ -68,3 +68,8 @@ QCheckBox* Building_BuildingPanel::getExistingTechCheck(NTechnology::Technology 
 {
     return existingTechFields[technology];
 }
+
+QCheckBox* Building_BuildingPanel::getVisibilityField() const
+{
+    return visibilityField;
+}

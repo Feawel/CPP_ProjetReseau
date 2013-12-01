@@ -374,6 +374,7 @@ void RequestInterface::addBuilding()
             QObject::connect(b2bPanel->getExistingTechCheck(NTechnology::TWISTEDPAIR), SIGNAL(clicked(bool)), this, SLOT(setExistingTwisted(bool)));
             QObject::connect(b2bPanel->getExistingTechCheck(NTechnology::WIFI), SIGNAL(clicked(bool)), this, SLOT(setExistingWifi(bool)));
             QObject::connect(b2bPanel->getExistingTechCheck(NTechnology::INFRARED), SIGNAL(clicked(bool)), this, SLOT(setExistingInfra(bool)));
+            QObject::connect(b2bPanel->getVisibilityField(), SIGNAL(clicked(bool)), this, SLOT(setVisibility(bool)));
         }
     }
 
@@ -745,4 +746,10 @@ void RequestInterface::setUseEthenet(bool use)
     }
     else
         location->setUseTechnology(NTechnology::ETHERNET, use);
+}
+
+
+void RequestInterface::setVisibility(bool visibility)
+{
+    selectedB2bView->getB2b()->setVisibility(visibility);
 }

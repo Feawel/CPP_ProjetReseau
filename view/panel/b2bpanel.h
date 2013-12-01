@@ -21,6 +21,7 @@ public:
     ~Building_BuildingPanel();
     QDoubleSpinBox* getDistanceField() const;
     QCheckBox* getExistingTechCheck(NTechnology::Technology technology) const;
+    QCheckBox* getVisibilityField() const;
 private:
     QDoubleSpinBox* distanceField;
     std::vector<QCheckBox*> existingTechFields;
