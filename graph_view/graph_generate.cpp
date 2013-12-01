@@ -9,6 +9,7 @@
 #include "phases/request.h"
 #include <vector>
 #include "model/location/building.h"
+#include "model/component/router.h"
 #include "model/location/building_building.h"
 //This function generates the name of a cluster from the number of the building.
 
@@ -90,6 +91,7 @@ string getColorB2B(NTechnology::Technology* tech){
     break;
 }
 }
+
 //Draw a cluster with a name and a label in a ofstream file.
 void draw_cluster(ofstream& file, string name, string legend){
     string name_no_underscore = replace_spaces_by_underscores(name);
@@ -98,6 +100,7 @@ void draw_cluster(ofstream& file, string name, string legend){
          << legend <<"\""
          <<  "}"<< endl <<endl;
 }
+
 //Generates the label with mininum two lines.
 string generate_label(string line1, string line2, string line3=""){
     stringstream label_stream;
@@ -161,8 +164,27 @@ void Graph_generate::graph_building_generate(Building* building){
 
     //We start by drawing the L2L3
     if(building->isAdmin()){
-        draw_location_str(myfile, "Firewall",building, false);
-        draw_location_str(myfile, "cluster_L2L3",building, false);
+        //We draw the firewall
+        Firewall* firewall = (Firewall*) (building->getComponents())[0];
+        string public_IP_firewall = firewall->getPublicAddress().toString();
+        string private_IP_firewall = firewall->getAddress().toString();
+
+        string label =generate_label("Firewall", "IP Publique"+public_IP_firewall, "IP Privé"+private_IP_firewall) ;
+        draw_cluster(myfile, "firewall",label);
+
+        //We draw the router
+        Router* router= (Router*)building->getComponents()[1];
+        string IP_router =  router->getAddress().toString();
+
+        label =generate_label("Router",IP_router) ;
+        draw_cluster(myfile, "L2L3",label);
+        myfile << "subgraph_L2L3"<< "--" <<  "firewall"<< endl;
+    }else{
+        Component* L2 = building->getComponents()[0];
+        string IP_switch =  L2->getAddress().toString();
+
+        string label =generate_label("Switch",IP_switch) ;
+        draw_cluster(myfile, "L2L3",label);
     }
 
     //Then we draw the floors.

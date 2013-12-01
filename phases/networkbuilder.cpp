@@ -93,8 +93,6 @@ void NetworkBuilder::launchP1() {
 
             buildings[i]->addComponent(switchBuilding);
         }
-
-
     }
 }
 

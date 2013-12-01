@@ -31,11 +31,11 @@ int main(int argc, char *argv[])
     RequestInterface window ;
     window.show();
 
-    //mockup pour le graphe global:
+//    //mockup pour le graphe global:
 //    Building b1=Building("B1");
 //    Building b2=Building("B2");
 //    Building b3=Building("B3");
-//    b1.addComponent(Component(Address(10,0,0,1,0)));
+//    b1.addComponent(*Component(Address(10,0,0,1,0)));
 //    b2.addComponent(Component(Address(10,0,0,2,0)));
 //    b3.addComponent(Component(Address(10,0,0,3,0)));
 //    std::vector<Building*> bs;
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 
 //    //mockup pour le graphe du batiment B1:
 //    Floor* f1= b1.addFloor();
-//    f1->addComponent(Component(Address(10,0,1,0,0)));
+//    f1->addComponent(*Component(Address(10,0,1,0,0)));
 //    Floor* f2= b1.addFloor();
 //    f2->addComponent(Component(Address(10,0,1,1,0)));
 //    Floor* f3= b1.addFloor();
