@@ -33,8 +33,8 @@ string replace_spaces_by_underscores(string str){
         if(str[i] == space){
                str[i] = '_';
         }
-    return str;
     }
+    return str;
 }
 
 
@@ -61,28 +61,23 @@ int findBInB2B(std::vector<Building*> buildings, Building* building)
 string getColorB2B(NTechnology::Technology* tech){
     switch (*tech)
     {
-    //WIFI
-    case 0:
+    case NTechnology::WIFI:
         return "blue";
     break;
 
-    //ETHERNET
-    case 1:
+    case NTechnology::ETHERNET:
         return "black";
     break;
 
-    //FIBER
-    case 2:
+    case NTechnology::FIBER:
         return "red";
     break;
 
-    //INFRARED
-    case 3:
+    case NTechnology::INFRARED:
         return "purple";
     break;
 
-    //TWISTEDPAIR
-    case 4:
+    case NTechnology::TWISTEDPAIR:
         return "yellow";
     break;
 
