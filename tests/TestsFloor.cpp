@@ -2,6 +2,10 @@
 
 using namespace std;
 
+TestsFloor::TestsFloor()
+{
+}
+
 bool TestsFloor::testFloorNumber() {
     bool result = false;
     Floor floorTest("Floor Test", 0);

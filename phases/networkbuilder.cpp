@@ -209,7 +209,7 @@ void NetworkBuilder::launchP2() {
             if (B2B[i]->getDistance() < 0.5 && B2B[i]->getVisibility() == true) {
                     addedTech = NTechnology::WIFI;
                 }
-                else if (B2B[i]->getDistance() < 3 && B2B[i]->getVisibility() == true){
+                else if (B2B[i]->getDistance() < 1.5 && B2B[i]->getVisibility() == true){
                     addedTech = NTechnology::INFRARED;
                 }
                 else {

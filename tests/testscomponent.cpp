@@ -1,10 +1,9 @@
-#include "TestsLocation.h"
+#include "testscomponent.h"
 
-using namespace std;
-
-TestsLocation::TestsLocation()
+TestsComponent::TestsComponent()
 {
 }
+
 
 bool TestsLocation::testGetUserNumber() {
     bool result = false, testPart1 = false, testPart2 = false, testPart3 = false;
@@ -28,24 +27,3 @@ bool TestsLocation::testGetUserNumber() {
         result = true;
     return result;
 }
-
-bool TestsLocation::testComponent() {
-    bool result = false, testPart1 = false, testPart2 = false;
-    Location location1("Location test");
-
-    Component* component = new Component();
-
-    if(location1.getComponents().empty())
-        testPart1 = true;
-
-    location1.addComponent(component);
-    if(location1.getComponents().front() == component)
-        testPart2 = true;
-
-    if(testPart1 && testPart2)
-        result = true;
-    return result;
-}
-
-
-

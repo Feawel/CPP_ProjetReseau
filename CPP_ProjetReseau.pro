@@ -24,10 +24,11 @@ SOURCES += \
     txt_generation/table.cpp \
     txt_generation/txtgenerator.cpp \
     model/constant.cpp \
-    tests/TestsLocation.cpp \
-    tests/TestsFloor.cpp \
-    tests/TestsBuilding.cpp \
-    tests/Tests_building_building.cpp
+    tests/testsLocation.cpp \
+    tests/testsFloor.cpp \
+    tests/testsBuilding.cpp \
+    tests/tests_building_building.cpp \
+    tests/testsComponent.cpp
 
 QT += widgets
 
@@ -56,9 +57,10 @@ HEADERS += \
     graph_view/graph_generate.h \
     txt_generation/table.h \
     txt_generation/txtgenerator.h \
-    tests/TestsLocation.h \
-    tests/TestsFloor.h \
-    tests/TestsBuilding.h \
-    tests/Tests_building_building.h
+    tests/testsLocation.h \
+    tests/testsFloor.h \
+    tests/testsBuilding.h \
+    tests/tests_building_building.h \
+    tests/testsComponent.h
 
 OTHER_FILES +=

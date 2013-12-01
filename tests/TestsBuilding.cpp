@@ -2,6 +2,10 @@
 
 using namespace std;
 
+TestsBuilding::TestsBuilding()
+{
+}
+
 bool TestsBuilding::testGetFloors() {
     bool result = false, testPart1 = false, testPart2 = false;
     Building building1("Building 1");
