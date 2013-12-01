@@ -306,11 +306,11 @@ void NetworkBuilder::launchP3() {
 
             unsigned int NB_ADDED_FLOORS;
             //Nombre d'étages à ajouter dans le cas ETHERNET seul
-            if(useTechs[NTechnology::ETHERNET] == true && useTechs[NTechnology::WIFI == false])
+            if(useTechs[NTechnology::ETHERNET] && !useTechs[NTechnology::WIFI])
                 NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/100);
 
             //Nombre d'étages à ajouter dans le cas ETHERNET + WIFI
-            else if(useTechs[NTechnology::ETHERNET] == true && useTechs[NTechnology::WIFI == true])
+            else if(useTechs[NTechnology::ETHERNET] && useTechs[NTechnology::WIFI])
                 NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/70);
 
             //Nombre d'étages à ajouter dans le cas WIFI seul
@@ -324,8 +324,6 @@ void NetworkBuilder::launchP3() {
             for(unsigned int k = 0; k < NB_ADDED_FLOORS; k++){
                 Floor* addedFloor = buildings[i]->addFloor();
                 floors.push_back(addedFloor);
-                Switch* newSwitch = new Switch;
-                addedFloor->addComponent(newSwitch);
                 std::string stringNumFloor = Constant::numberToString(j);
                 std::string stringNumSection = Constant::numberToString(k+2);
                 addedFloor->setName("Floor " + stringNumFloor +" - Section " + stringNumSection);
