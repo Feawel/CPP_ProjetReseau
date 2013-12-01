@@ -49,6 +49,11 @@ void Building_Building::setDistance(double distance)
     this->distance=distance;
 }
 
+void Building_Building::setVisibility(bool newVisibility)
+{
+    this->visibility=newVisibility;
+}
+
 bool Building_Building::existTech() const
 {
    return existingTechs[NTechnology::FIBER] || existingTechs[NTechnology::TWISTEDPAIR] || existingTechs[NTechnology::WIFI] || existingTechs[NTechnology::INFRARED];
