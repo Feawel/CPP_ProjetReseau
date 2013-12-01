@@ -44,6 +44,45 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iQeB8Vn_EeO5coihybFi9g" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iQeB8ln_EeO5coihybFi9g" value="1"/>
     </ownedAttribute>
+    <ownedAttribute xmi:id="_7bNhIFrFEeO87blT4Ac7lg" name="floors" visibility="private" type="_c4_R0Fn9EeO5coihybFi9g">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7wxhcFrFEeO87blT4Ac7lg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7wyIgFrFEeO87blT4Ac7lg" value="*"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_7wzWoFrFEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="__T5p8FrFEeO87blT4Ac7lg" name="admin" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__kH3QFrFEeO87blT4Ac7lg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__kIeUFrFEeO87blT4Ac7lg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="__kJscFrFEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_DHpoYFrGEeO87blT4Ac7lg" name="setAdmin">
+      <ownedParameter xmi:id="_Sn31AFrGEeO87blT4Ac7lg">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_EP5p4FrGEeO87blT4Ac7lg" name="isAdmin">
+      <ownedParameter xmi:id="_N4ps0FrGEeO87blT4Ac7lg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_FeLa4FrGEeO87blT4Ac7lg" name="getFloors">
+      <ownedParameter xmi:id="_WCGgMFrGEeO87blT4Ac7lg" type="_c4_R0Fn9EeO5coihybFi9g" isUnique="false"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_GOtf8FrGEeO87blT4Ac7lg" name="addFloor">
+      <ownedParameter xmi:id="_Yp_vgFrGEeO87blT4Ac7lg" type="_c4_R0Fn9EeO5coihybFi9g" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_IC0h4FrGEeO87blT4Ac7lg" name="getFloorsNumber">
+      <ownedParameter xmi:id="_dg8QUFrGEeO87blT4Ac7lg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_KCPb8FrGEeO87blT4Ac7lg" name="addSpecialSection">
+      <ownedParameter xmi:id="_fxfWoFrGEeO87blT4Ac7lg" type="_c4_R0Fn9EeO5coihybFi9g"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_b8Qj0Fn9EeO5coihybFi9g" name="Location">
     <ownedAttribute xmi:id="_MJ5AkFqoEeO87blT4Ac7lg" name="userNumbers" visibility="private">
@@ -347,6 +386,34 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_M3bLUVoAEeO5coihybFi9g" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_M3bLUloAEeO5coihybFi9g" value="1"/>
     </ownedAttribute>
+    <ownedAttribute xmi:id="_XpYcgFrFEeO87blT4Ac7lg" name="request" visibility="private" type="_FBg70Fn8EeO5coihybFi9g">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_X7YygFrFEeO87blT4Ac7lg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_X7ZZkFrFEeO87blT4Ac7lg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_X7ansFrFEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_akT8kFrFEeO87blT4Ac7lg" name="folder" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_axNwIFrFEeO87blT4Ac7lg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_axOXMFrFEeO87blT4Ac7lg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_axO-QFrFEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_ggBGAFrFEeO87blT4Ac7lg" name="legend" visibility="private" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gx45IFrFEeO87blT4Ac7lg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_gx5gMFrFEeO87blT4Ac7lg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_gx6HQFrFEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_ljHMcFrFEeO87blT4Ac7lg" name="globalGraphGenerate"/>
+    <ownedOperation xmi:id="_vpowgFrFEeO87blT4Ac7lg" name="graphBuildingGenerate">
+      <ownedParameter xmi:id="_0c0LoFrFEeO87blT4Ac7lg" name="building" type="_amqC0Fn9EeO5coihybFi9g"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_14VucFrFEeO87blT4Ac7lg" name="graphGenerateAll"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_M3bLU1oAEeO5coihybFi9g" name="" memberEnd="_M3bLVFoAEeO5coihybFi9g _M3bLUFoAEeO5coihybFi9g">
     <ownedEnd xmi:id="_M3bLVFoAEeO5coihybFi9g" name="graph_generate" type="_KjojwFoAEeO5coihybFi9g" association="_M3bLU1oAEeO5coihybFi9g">
