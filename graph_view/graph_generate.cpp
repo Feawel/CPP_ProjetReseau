@@ -28,7 +28,7 @@ using namespace::std;
 //    string output = "cluster_445";
 //    TS_ASSERT_EQUALS(create_cluster_name(input), output);
 //}
-string replace_spaces_by_underscores(string str){
+string replaceSpacesByUnderscores(string str){
     char space = ' ';
     for(unsigned int i = 0; i < str.size(); i++){
         if(str[i] == space){
@@ -82,7 +82,7 @@ string getColorB2B(NTechnology::Technology* tech){
 }
 }
 
-string create_cluster_name(int position)
+string createClusterName(int position)
 {
     stringstream building1_stream;
     building1_stream << "cluster_" << position;
@@ -91,8 +91,8 @@ string create_cluster_name(int position)
 }
 
 //Draw a cluster with a name and a label in a ofstream file.
-void draw_cluster(ofstream& file, string name, string legend, string props=""){
-    string name_no_underscore = replace_spaces_by_underscores(name);
+void drawCluster(ofstream& file, string name, string legend, string props=""){
+    string name_no_underscore = replaceSpacesByUnderscores(name);
     file << "subgraph "<< name_no_underscore << "{"<< endl
          << "label = \""
          << legend <<"\""
@@ -101,7 +101,7 @@ void draw_cluster(ofstream& file, string name, string legend, string props=""){
 }
 
 //Generates the labege with mininum two lines.
-string generate_label(string line1, string line2="", string line3=""){
+string generateLabel(string line1, string line2="", string line3=""){
     stringstream label_stream;
     label_stream << line1;
     if( line2 != ""){
@@ -114,7 +114,7 @@ string generate_label(string line1, string line2="", string line3=""){
     return cluster_name;
 }
 
-void draw_location_str(ofstream& file, string name, Location* location, string props= ""){
+void drawLocationStr(ofstream& file, string name, Location* location, string props= ""){
     //we create the first line with name.
     string label_line1;
     label_line1=location->getName();
@@ -124,21 +124,21 @@ void draw_location_str(ofstream& file, string name, Location* location, string p
     string IP =  comp->getAddress().toString();
     string label_line2=IP;
 
-    string label= generate_label(label_line1,label_line2);
-    draw_cluster(file,name,label,props);
+    string label= generateLabel(label_line1,label_line2);
+    drawCluster(file,name,label,props);
 }
 
-void draw_location(ofstream& file, int int_name, Location* location){
-    string name = create_cluster_name(int_name);
-    draw_location_str(file, name, location);
+void drawLocation(ofstream& file, int int_name, Location* location){
+    string name = createClusterName(int_name);
+    drawLocationStr(file, name, location);
 }
 
-Graph_generate::Graph_generate(Request* request, string folder):request(request), folder(folder)
+GraphGenerate::GraphGenerate(Request* request, string folder):request(request), folder(folder)
 {
 }
 
 
-void Graph_generate::graph_generate_all(){
+void GraphGenerate::graphGenerateAll(){
     global_graph_generate();
     std::vector<Building*> bs =request->getBuildings();
     for(unsigned int ii=0; ii < bs.size(); ii++)
@@ -148,9 +148,9 @@ void Graph_generate::graph_generate_all(){
 }
 
 //Generates the graph for a given building.
-void Graph_generate::graph_building_generate(Building* building){
+void GraphGenerate::graph_building_generate(Building* building){
     string building_name=(building->getName());
-    string file_name ="graph_building_"+replace_spaces_by_underscores(building_name);
+    string file_name ="graph_building_"+replaceSpacesByUnderscores(building_name);
 
     ofstream myfile;
     myfile.open (( this->folder+"/"+file_name+".txt").c_str());
@@ -167,22 +167,22 @@ void Graph_generate::graph_building_generate(Building* building){
         string public_IP_firewall = firewall->getPublicAddress().toString();
         string private_IP_firewall = firewall->getAddress().toString();
 
-        string label =generate_label("Firewall", "IP Publique: "+public_IP_firewall, "IP Privé: "+private_IP_firewall) ;
-        draw_cluster(myfile, "cluster_firewall",label);
+        string label =generateLabel("Firewall", "IP Publique: "+public_IP_firewall, "IP Privé: "+private_IP_firewall) ;
+        drawCluster(myfile, "cluster_firewall",label);
 
         //We draw the router
         Router* router= (Router*)building->getComponents()[1];
         string IP_router =  router->getAddress().toString();
 
-        label =generate_label("Router",IP_router) ;
-        draw_cluster(myfile, "cluster_L2L3",label);
+        label =generateLabel("Router",IP_router) ;
+        drawCluster(myfile, "cluster_L2L3",label);
         myfile << "cluster_L2L3"<< "--" <<  "cluster_firewall"<< endl;
     }else{
         Component* L2 = building->getComponents()[0];
         string IP_switch =  L2->getAddress().toString();
 
-        string label =generate_label("Switch",IP_switch) ;
-        draw_cluster(myfile, "cluster_L2L3",label);
+        string label =generateLabel("Switch",IP_switch) ;
+        drawCluster(myfile, "cluster_L2L3",label);
     }
 
     //Then we draw the floors.
@@ -194,7 +194,7 @@ void Graph_generate::graph_building_generate(Building* building){
 
         //If it's a normal floor.
         if(component_number==1){
-            draw_location(myfile,ii , floors[ii]);
+            drawLocation(myfile,ii , floors[ii]);
             myfile << "cluster_L2L3 " << " -- " << "cluster_" << ii <<endl<<endl;
 
         //If it's a special floor (with servers)
@@ -204,23 +204,23 @@ void Graph_generate::graph_building_generate(Building* building){
             firewall_label_stream << "FW " << floor->getName();
             string firewall_label = firewall_label_stream.str();
 
-            string label =generate_label(firewall_label) ;
+            string label =generateLabel(firewall_label) ;
             stringstream firewall_stream;
             firewall_stream << "cluster_firewall_special_floor" << ii;
             string firewall_name = firewall_stream.str();
-			draw_cluster(myfile, firewall_name ,label);
+            drawCluster(myfile, firewall_name ,label);
 
             //We draw the router
             Switch* switch_floor= (Switch*)building->getComponents()[1];
             string IP_router =  switch_floor->getAddress().toString();
 
-            label =generate_label(floor->getName(),IP_router) ;
+            label =generateLabel(floor->getName(),IP_router) ;
 
             stringstream L2L3_name_stream;
             L2L3_name_stream << "cluster_L2L3_special_floor" << ii;
             string L2L3_name = L2L3_name_stream.str();
 			
-            draw_cluster(myfile, L2L3_name,label);
+            drawCluster(myfile, L2L3_name,label);
             myfile << "cluster_L2L3" << "--" <<  "cluster_firewall_special_floor"<< ii << endl;
 
             myfile << "cluster_firewall_special_floor"<<ii << "--"
@@ -252,7 +252,7 @@ void Graph_generate::graph_building_generate(Building* building){
             name_connected_building_stream << "cluster_building_connected_" << ii;
             string name_connected_building = name_connected_building_stream.str();
             string props ="color=\"green\" style=\"filled\"";
-            draw_location_str(myfile,name_connected_building, building_to_build,props);
+            drawLocationStr(myfile,name_connected_building, building_to_build,props);
 
             myfile << name_connected_building << " -- " << "cluster_L2L3 "
                    << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
@@ -269,7 +269,7 @@ void Graph_generate::graph_building_generate(Building* building){
 }
 
 //Generates the graph for the full organization.
-void Graph_generate::global_graph_generate(){
+void GraphGenerate::global_graph_generate(){
     std::vector<Building*> bs =request->getBuildings();
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
 
@@ -280,7 +280,7 @@ void Graph_generate::global_graph_generate(){
 
     for(unsigned int ii=0; ii < bs.size(); ii++)
     {
-        draw_location(myfile,ii , bs[ii]);
+        drawLocation(myfile,ii , bs[ii]);
     }
 
     for(unsigned int ii=0; ii < b2bs.size(); ii++)
@@ -290,11 +290,11 @@ void Graph_generate::global_graph_generate(){
 
         Building* building1=building_Building->getBuilding1();
         int positionBuilding1= findBInB2B(bs, building1);
-        string cluster1= create_cluster_name(positionBuilding1);
+        string cluster1= createClusterName(positionBuilding1);
 
         Building* building2=building_Building->getBuilding2();
         int positionBuilding2= findBInB2B(bs, building2);
-        string cluster2= create_cluster_name(positionBuilding2);
+        string cluster2= createClusterName(positionBuilding2);
 
         myfile << cluster1 << " -- " << cluster2 << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
     }
