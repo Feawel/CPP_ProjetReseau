@@ -15,7 +15,6 @@ TxtGenerator::TxtGenerator(std::string folder): folder(folder),
 
 void TxtGenerator::generateInitialDataTable(Request request)
 {
-
     vector<string> header(BUILDING_TABLE_ROW_COUNT);
     header[0]="Building";
     header[1]="Floor";
