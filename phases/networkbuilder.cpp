@@ -331,56 +331,58 @@ void NetworkBuilder::launchP3() {
                 addedFloor->setName("Floor " + stringNumFloor +" - Section " + stringNumSection);
             }
 
-            if(buildings[i]->isAdmin())
-            {
-                //Définition des règles des firewalls
-
-                //Le premier a principalement une action de NAT/PAT"
-                vector<Component*> components = buildings[i]->getComponents();
-                Firewall* buildingFirewall(0);
-                buildingFirewall=(Firewall*)components[0];
-                buildingFirewall->setRules("A principalement une action de NAT/PAT. On peut également définir des règles pour bloquer l'accès internet de certains utilisateurs.' ");
-
-
-                //Ajout d'un étage (cela peut correspondre à une pièce, un sous-sol etc...)
-                //pour abriter les serveurs privés (destinés aux USERS_SUP)
-                Firewall* privateServersFirewall = new Firewall;
-                privateServersFirewall->setRules("Bloque les adresses 10.i.j.x, i et j correspondant à tous les étages et tous les batiments, et x < 200.");
-
-                //Ajout d'un switch pour connecter cette section au réseau
-                Switch* privateServersSwitch = new Switch;
-                Address privateServersAddressSwitch(10,i,floors.size(),0,24);
-                privateServersSwitch->setAddress(privateServersAddressSwitch);
-
-                Floor* privateServersFloor= new Floor("Private Server Floor", -1); 
-                privateServersFloor->addComponent(privateServersSwitch);
-                privateServersFloor->addComponent(privateServersFirewall);
-
-                buildings[i]->addSpecialSection(privateServersFloor);
-
-                //Ajout d'un étage (cela peut correspondre à une pièce, un sous-sol, une cave etc...)
-                //pour abriter la section ADMIN (destinés aux USERS_ADMIN)
-                Firewall* adminFloorFirewall = new Firewall;
-
-                // on transforme l'int du num building en string pour la concaténation
-                std::string stringNumBuilding = Constant::numberToString(i+1);
-                adminFloorFirewall->setRules("Bloque les adresses sources autre que 10."+stringNumBuilding+".0.x, x < 200.");
-
-                //Ajout d'un switch pour connecter cette section au réseau
-                Switch* adminSwitch = new Switch;
-                Address adminAddressSwitch(10,i,floors.size()+1,0,24);
-                adminSwitch->setAddress(adminAddressSwitch);
-
-                Floor* adminFloor= new Floor("Admin Floor", -2);
-                adminFloor->addComponent(adminSwitch);
-                adminFloor->addComponent(adminFloorFirewall);
-
-
-                buildings[i]->addSpecialSection(adminFloor);
 
 
 
-            }
+        }
+
+        if(buildings[i]->isAdmin())
+        {
+            //Définition des règles des firewalls
+
+            //Le premier a principalement une action de NAT/PAT"
+            vector<Component*> components = buildings[i]->getComponents();
+            Firewall* buildingFirewall(0);
+            buildingFirewall=(Firewall*)components[0];
+            buildingFirewall->setRules("A principalement une action de NAT/PAT. On peut également définir des règles pour bloquer l'accès internet de certains utilisateurs.' ");
+
+
+            //Ajout d'un étage (cela peut correspondre à une pièce, un sous-sol etc...)
+            //pour abriter les serveurs privés (destinés aux USERS_SUP)
+            Firewall* privateServersFirewall = new Firewall;
+            privateServersFirewall->setRules("Bloque les adresses 10.i.j.x, i et j correspondant à tous les étages et tous les batiments, et x < 200.");
+
+            //Ajout d'un switch pour connecter cette section au réseau
+            Switch* privateServersSwitch = new Switch;
+            Address privateServersAddressSwitch(10,i,floors.size(),0,24);
+            privateServersSwitch->setAddress(privateServersAddressSwitch);
+
+            Floor* privateServersFloor= new Floor("Private Server Floor", -1);
+            privateServersFloor->addComponent(privateServersSwitch);
+            privateServersFloor->addComponent(privateServersFirewall);
+
+            buildings[i]->addSpecialSection(privateServersFloor);
+
+            //Ajout d'un étage (cela peut correspondre à une pièce, un sous-sol, une cave etc...)
+            //pour abriter la section ADMIN (destinés aux USERS_ADMIN)
+            Firewall* adminFloorFirewall = new Firewall;
+
+            // on transforme l'int du num building en string pour la concaténation
+            std::string stringNumBuilding = Constant::numberToString(i+1);
+            adminFloorFirewall->setRules("Bloque les adresses sources autre que 10."+stringNumBuilding+".0.x, x < 200.");
+
+            //Ajout d'un switch pour connecter cette section au réseau
+            Switch* adminSwitch = new Switch;
+            Address adminAddressSwitch(10,i,floors.size()+1,0,24);
+            adminSwitch->setAddress(adminAddressSwitch);
+
+            Floor* adminFloor= new Floor("Admin Floor", -2);
+            adminFloor->addComponent(adminSwitch);
+            adminFloor->addComponent(adminFloorFirewall);
+
+
+            buildings[i]->addSpecialSection(adminFloor);
+
 
 
         }
