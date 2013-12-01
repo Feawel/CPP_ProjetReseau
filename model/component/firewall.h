@@ -8,7 +8,7 @@
 #ifndef FIREWALL_H_
 #define FIREWALL_H_
 
-#include "model/component/component.h"
+#include "../component/component.h"
 
 
 class Firewall: public Component {

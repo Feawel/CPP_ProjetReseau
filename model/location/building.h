@@ -10,7 +10,7 @@
 
 #include <vector>
 #include "floor.h"
-#include "model/component/firewall.h"
+#include "../component/firewall.h"
 
 
 class Building: public Location {
