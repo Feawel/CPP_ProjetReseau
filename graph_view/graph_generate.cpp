@@ -38,13 +38,7 @@ string replace_spaces_by_underscores(string str){
 }
 
 
-string create_cluster_name(int position)
-{
-    stringstream building1_stream;
-    building1_stream << "cluster_" << position;
-    string cluster_name = building1_stream.str();
-    return cluster_name;
-}
+
 
 //This function returns the postion of a building in a Building_building vector.
 int findBInB2B(std::vector<Building*> buildings, Building* building)
@@ -87,10 +81,18 @@ string getColorB2B(NTechnology::Technology* tech){
 }
 }
 
+string create_cluster_name(int position)
+{
+    stringstream building1_stream;
+    building1_stream << "cluster_" << position;
+    string cluster_name = building1_stream.str();
+    return cluster_name;
+}
+
 //Draw a cluster with a name and a label in a ofstream file.
 void draw_cluster(ofstream& file, string name, string legend){
     string name_no_underscore = replace_spaces_by_underscores(name);
-    file << "subgraph cluster_"<< name_no_underscore << "{"<< endl
+    file << "subgraph "<< name_no_underscore << "{"<< endl
          << "label = \""
          << legend <<"\""
          <<  "}"<< endl <<endl;
@@ -241,7 +243,7 @@ void Graph_generate::graph_building_generate(Building* building){
             string name_connected_building = name_connected_building_stream.str();
             draw_location_str(myfile,name_connected_building, building_to_build);
 
-            myfile << name_connected_building << " -- " << "cluster_L2L3 "
+            myfile << "cluster_" << name_connected_building << " -- " << "cluster_L2L3 "
                    << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
         }
     }
