@@ -69,19 +69,6 @@ bool Building::isAdmin(){
 }
 
 /**
- * @brief Building::getFirewall
- * @param components
- * @return ptr on building firewall
- */
-Firewall* Building::getFirewall(vector<Component> components){
-    for(int k=0; k<components.size();k++){
-        if(typeid(components[k]) == typeid(Firewall)){
-            return (Firewall*)&components[k];
-        }
-    }
-}
-
-/**
  * @brief Building::setAdmin
  * @param isAdmin
  * set building admin status to isAdmin

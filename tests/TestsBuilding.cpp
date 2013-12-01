@@ -34,15 +34,3 @@ bool TestsBuilding::testIsAdmin() {
         testPart2 = true;
     return result;
 }
-
-//bool TestsBuilding::testGetFirewall(){
-//    Firewall* newFirewall = new Firewall();
-//    Building building1("Building test");
-//    building1.addComponent(newFirewall);
-//    vector<Component*> components = building1.getComponents();
-//    Firewall* testFirewall = building1.getFirewall(*components);
-//    if(newFirewall == testFirewall)
-//        return true;
-//    else
-//        return false;
-//}

@@ -48,7 +48,6 @@ int main(int argc, char *argv[])
     bool resultTestLocationUserNumber = testsLocation.testGetUserNumber() ;
 
     //Test of Building Class
-    bool resultTestBuildingFirewall = testsBuilding.testGetFirewall();
     bool resultTestBuildingFloors = testsBuilding.testGetFloors();
     bool resultTestBuildingAdmin = testsBuilding.testIsAdmin();
 

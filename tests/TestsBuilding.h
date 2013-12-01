@@ -11,7 +11,6 @@ public:
 
     bool testGetFloors();
     bool testIsAdmin();
-    bool testGetFirewall();
 
 
 };

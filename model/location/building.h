@@ -21,7 +21,6 @@ public:
     std::vector<Floor*> getFloors();
     Floor* addFloor();
     int getFloorsNumber();
-    Firewall* getFirewall(std::vector<Component> components);
     bool isAdmin();
     void setAdmin(bool isAdmin);
     void addSpecialSection(Floor* newSpecialSection);
