@@ -10,6 +10,7 @@
 #include <vector>
 #include "model/location/building.h"
 #include "model/component/router.h"
+#include "model/component/switch.h"
 #include "model/location/building_building.h"
 //This function generates the name of a cluster from the number of the building.
 
@@ -212,8 +213,8 @@ void Graph_generate::graph_building_generate(Building* building){
 			draw_cluster(myfile, firewall_name ,label);
 
             //We draw the router
-            Router* router= (Router*)building->getComponents()[1];
-            string IP_router =  router->getAddress().toString();
+            Switch* switch_floor= (Switch*)building->getComponents()[1];
+            string IP_router =  switch_floor->getAddress().toString();
 
             label =generate_label("Router",IP_router) ;
 

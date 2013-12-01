@@ -54,6 +54,6 @@ bool TestsFirewall::testAddresses() {
     if(testPart1 && testPart2)
         result = true;
 
-    return result
+    return result;
 
 }
