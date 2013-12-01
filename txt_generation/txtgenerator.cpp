@@ -84,17 +84,22 @@ void TxtGenerator::publishDoc(Request request)
             file << currentBuilding->getName() << ": backbone address " << currentBuilding->getComponents()[0]->getAddress().toString() << endl;
             file << endl;
 
-            vector<string> header(2);
+            vector<string> header(4);
             header[0] = "Floor";
             header[1] = "Switch";
+            header[2] = "Network Address";
+            header[3] = "Broadcast Address";
 
-            Table buildingTable(2);
+            Table buildingTable(4);
             buildingTable.addLine(header);
             for(unsigned int j = 0; j< currentBuilding->getFloors().size(); j++)
             {
-                vector<string> line(2);
+                vector<string> line(4);
                 line[0] = currentBuilding->getFloors()[j]->getName();
                 line[1] = currentBuilding->getFloors()[j]->getComponents()[0]->getAddress().toString();
+                line[2] = currentBuilding->getFloors()[j]->getNetworkAddress().toString();
+                line[3] = currentBuilding->getFloors()[j]->getBroadcastAddress().toString();
+
                 buildingTable.addLine(line);
             }
             buildingTable.generateTable(file);
@@ -103,26 +108,32 @@ void TxtGenerator::publishDoc(Request request)
         else
         {
             file << currentBuilding->getName() << ":" << endl;
-            file << "\t- Public Address Router : " << currentBuilding->getComponents()[1]->getAddress() << endl;
-            file << "\t- Public Address Firewall : " << ((Firewall*)currentBuilding->getComponents()[0])->getPublicAddress() << endl;
-            file << "\t- Backbone Address : " << currentBuilding->getComponents()[0]->getAddress() << endl;
+            file << "\t- Public Address Router: " << currentBuilding->getComponents()[1]->getAddress() << endl;
+            file << "\t- Public Address Firewall: " << ((Firewall*)currentBuilding->getComponents()[0])->getPublicAddress() << endl;
+            file << "\t- Backbone Address: " << currentBuilding->getComponents()[0]->getAddress() << endl;
+            file << "\t- Firewall Rule: " << ((Firewall*)currentBuilding->getComponents()[0])->getRules() << endl;
             file << endl;
 
-            vector<string> header(3);
+            vector<string> header(5);
             header[0] = "Floor";
             header[1] = "Switch";
-            header[2] = "Router";
+            header[2] = "Firewall";
+            header[3] = "Network Address";
+            header[4] = "Broadcast Address";
 
-            Table buildingTable(3);
+            Table buildingTable(5);
             buildingTable.addLine(header);
             for(unsigned int j = 0; j< currentBuilding->getFloors().size(); j++)
             {
-                vector<string> line(3);
+                vector<string> line(5);
                 line[0] = currentBuilding->getFloors()[j]->getName();
                 line[1] = currentBuilding->getFloors()[j]->getComponents()[0]->getAddress().toString();
                 line[2] = "No";
                 if(currentBuilding->getFloors()[j]->getComponents().size()>1)
                     line[2] = ((Firewall*)currentBuilding->getFloors()[j]->getComponents()[1])->getRules();
+                line[3] = currentBuilding->getFloors()[j]->getNetworkAddress().toString();
+                line[4] = currentBuilding->getFloors()[j]->getBroadcastAddress().toString();
+
                 buildingTable.addLine(line);
             }
             buildingTable.generateTable(file);

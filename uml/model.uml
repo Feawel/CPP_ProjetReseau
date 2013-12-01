@@ -529,7 +529,9 @@
     <ownedOperation xmi:id="_lF6OsFqnEeO87blT4Ac7lg" name="generateInitialDataTable">
       <ownedParameter xmi:id="_pYIR0FqnEeO87blT4Ac7lg" name="request" type="_FBg70Fn8EeO5coihybFi9g"/>
     </ownedOperation>
-    <ownedOperation xmi:id="_qhg7wFqnEeO87blT4Ac7lg" name="publishDoc"/>
+    <ownedOperation xmi:id="_qhg7wFqnEeO87blT4Ac7lg" name="publishDoc">
+      <ownedParameter xmi:id="_Rja9IFrAEeO87blT4Ac7lg" type="_FBg70Fn8EeO5coihybFi9g"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_-Mm1UFoCEeO87blT4Ac7lg" name="" memberEnd="_-Mm1UVoCEeO87blT4Ac7lg _-MmOQFoCEeO87blT4Ac7lg">
     <ownedEnd xmi:id="_-Mm1UVoCEeO87blT4Ac7lg" name="txtGenerator" type="_9DWuQFoCEeO87blT4Ac7lg" association="_-Mm1UFoCEeO87blT4Ac7lg">

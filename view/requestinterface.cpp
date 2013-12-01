@@ -585,6 +585,7 @@ void RequestInterface::run()
             graph_generate.graph_generate_all();
 
             txtGenerator.publishDoc(request);
+            clean();
         }
     }
     else
