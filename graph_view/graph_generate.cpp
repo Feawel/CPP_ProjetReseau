@@ -198,11 +198,14 @@ void Graph_generate::graph_building_generate(Building* building){
 
         //If it's a special floor (with servers)
         }else if(component_number==2){
-            Firewall* firewall = (Firewall*) (floor->getComponents())[0];
-            string public_IP_firewall = firewall->getPublicAddress().toString();
-            string private_IP_firewall = firewall->getAddress().toString();
+            Firewall* firewall_floor = (Firewall*) (floor->getComponents())[0];
+            string IP_firewall_floor = firewall_floor->getPublicAddress().toString();
 
-            string label =generate_label("Firewall", "IP Publique: "+public_IP_firewall, "IP Privé: "+private_IP_firewall) ;
+            stringstream firewall_label_stream;
+            firewall_label_stream << "FW floor " << ii;
+            string firewall_label = firewall_label_stream.str();
+
+            string label =generate_label(firewall_label, IP_firewall_floor) ;
             stringstream firewall_stream;
             firewall_stream << "cluster_firewall_special_floor" << ii;
             string firewall_name = firewall_stream.str();
