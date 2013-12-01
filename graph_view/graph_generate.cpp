@@ -90,13 +90,13 @@ string getColorB2B(NTechnology::Technology* tech){
 //Draw a cluster with a name and a label in a ofstream file.
 void draw_cluster(ofstream& file, string name, string legend){
     string name_no_underscore = replace_spaces_by_underscores(name);
-    file << "subgraph "<< name_no_underscore << "{"<< endl
+    file << "subgraph cluster_"<< name_no_underscore << "{"<< endl
          << "label = \""
          << legend <<"\""
          <<  "}"<< endl <<endl;
 }
 
-//Generates the label with mininum two lines.
+//Generates the labege with mininum two lines.
 string generate_label(string line1, string line2, string line3=""){
     stringstream label_stream;
     label_stream << line1 << " \\n";
@@ -154,7 +154,7 @@ void Graph_generate::graph_building_generate(Building* building){
     myfile << "graph G {" << endl;
 
     //Creating the big box for the building.
-    myfile << "subgraph_"<< replace_spaces_by_underscores(building_name) << "{"<< endl
+    myfile << "subgraph cluster_"<< replace_spaces_by_underscores(building_name) << "{"<< endl
            << "label = \"" << building_name << "\"" << endl;
 
     //We start by drawing the L2L3
@@ -173,7 +173,7 @@ void Graph_generate::graph_building_generate(Building* building){
 
         label =generate_label("Router",IP_router) ;
         draw_cluster(myfile, "L2L3",label);
-        myfile << "subgraph_L2L3"<< "--" <<  "subgraph_firewall"<< endl;
+        myfile << "cluster_L2L3"<< "--" <<  "cluster_firewall"<< endl;
     }else{
         Component* L2 = building->getComponents()[0];
         string IP_switch =  L2->getAddress().toString();
@@ -237,7 +237,7 @@ void Graph_generate::graph_building_generate(Building* building){
 
             }
             stringstream name_connected_building_stream;
-            name_connected_building_stream << "cluster_building_connected_" << ii;
+            name_connected_building_stream << "building_connected_" << ii;
             string name_connected_building = name_connected_building_stream.str();
             draw_location_str(myfile,name_connected_building, building_to_build);
 
