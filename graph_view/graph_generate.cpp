@@ -91,11 +91,12 @@ string create_cluster_name(int position)
 }
 
 //Draw a cluster with a name and a label in a ofstream file.
-void draw_cluster(ofstream& file, string name, string legend){
+void draw_cluster(ofstream& file, string name, string legend, string props=""){
     string name_no_underscore = replace_spaces_by_underscores(name);
     file << "subgraph "<< name_no_underscore << "{"<< endl
          << "label = \""
          << legend <<"\""
+         << props<< endl
          <<  "}"<< endl <<endl;
 }
 
@@ -113,26 +114,23 @@ string generate_label(string line1, string line2="", string line3=""){
     return cluster_name;
 }
 
-void draw_location_str(ofstream& file, string name, Location* location, bool create_label=true){
+void draw_location_str(ofstream& file, string name, Location* location, string props= ""){
     //we create the first line with name.
     string label_line1;
-    if(create_label){
-        label_line1=location->getName();
-    }else{
-        label_line1= name;
-    }
+    label_line1=location->getName();
+
     //We create the line 2 with the IP address:
     Component* comp = (location->getComponents()).front();
     string IP =  comp->getAddress().toString();
     string label_line2=IP;
 
     string label= generate_label(label_line1,label_line2);
-    draw_cluster(file,name,label);
+    draw_cluster(file,name,label,props);
 }
 
-void draw_location(ofstream& file, int int_name, Location* location, bool generate_label=true){
+void draw_location(ofstream& file, int int_name, Location* location){
     string name = create_cluster_name(int_name);
-    draw_location_str(file, name, location,generate_label);
+    draw_location_str(file, name, location);
 }
 
 Graph_generate::Graph_generate(Request* request, string folder):request(request), folder(folder)
@@ -159,8 +157,8 @@ void Graph_generate::graph_building_generate(Building* building){
     myfile << "graph G {" << endl;
 
     //Creating the big box for the building.
-    myfile << "subgraph cluster_"<< replace_spaces_by_underscores(building_name) << "{"<< endl
-           << "label = \"" << building_name << "\"" << endl;
+//    myfile << "subgraph cluster_"<< replace_spaces_by_underscores(building_name) << "{"<< endl
+//           << "label = \"" << building_name << "\"" << endl;
 
     //We start by drawing the L2L3
     if(building->isAdmin()){
@@ -231,7 +229,7 @@ void Graph_generate::graph_building_generate(Building* building){
             myfile << "// Plop" <<endl;
         }
     }
-    myfile <<  "}"<< endl <<endl;
+//    myfile <<  "}"<< endl <<endl;
     //The things after won't be in the building, they will be outside the box.
 
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
@@ -253,7 +251,8 @@ void Graph_generate::graph_building_generate(Building* building){
             stringstream name_connected_building_stream;
             name_connected_building_stream << "cluster_building_connected_" << ii;
             string name_connected_building = name_connected_building_stream.str();
-            draw_location_str(myfile,name_connected_building, building_to_build);
+            string props ="color=\"green\" style=\"filled\"";
+            draw_location_str(myfile,name_connected_building, building_to_build,props);
 
             myfile << name_connected_building << " -- " << "cluster_L2L3 "
                    << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
