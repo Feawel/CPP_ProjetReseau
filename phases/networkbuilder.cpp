@@ -318,11 +318,17 @@ void NetworkBuilder::launchP3() {
                 NB_ADDED_FLOORS = (unsigned int)(NB_USER_TOT/250);
 
 
+            if(NB_ADDED_FLOORS > 0){
+                floors[j]->setName(floors[j]->getName() + " - Section 1");
+            }
             for(unsigned int k = 0; k < NB_ADDED_FLOORS; k++){
                 Floor* addedFloor = buildings[i]->addFloor();
+                floors.push_back(addedFloor);
+                Switch* newSwitch = new Switch;
+                addedFloor->addComponent(newSwitch);
                 std::string stringNumFloor = Constant::numberToString(j);
                 std::string stringNumSection = Constant::numberToString(k+2);
-                addedFloor->setName("Etage " + stringNumFloor +" - Section " + stringNumSection);
+                addedFloor->setName("Floor " + stringNumFloor +" - Section " + stringNumSection);
             }
 
             if(buildings[i]->isAdmin())
