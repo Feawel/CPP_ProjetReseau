@@ -203,18 +203,26 @@ void Graph_generate::graph_building_generate(Building* building){
             string private_IP_firewall = firewall->getAddress().toString();
 
             string label =generate_label("Firewall", "IP Publique: "+public_IP_firewall, "IP Privé: "+private_IP_firewall) ;
-            draw_cluster(myfile, "cluster_firewall_special_floor"+ii,label);
+            stringstream firewall_stream;
+            firewall_stream << "cluster_firewall_special_floor" << ii;
+            string firewall_name = firewall_stream.str();
+			draw_cluster(myfile, firewall_name ,label);
 
             //We draw the router
             Router* router= (Router*)building->getComponents()[1];
             string IP_router =  router->getAddress().toString();
 
             label =generate_label("Router",IP_router) ;
-            draw_cluster(myfile, "cluster_L2L3_special_floor"+ii,label);
-            myfile << "subgraph_L2L3" << "--" <<  "subgraph_firewall_special_floor"<< ii << endl;
 
-            myfile << "subgraph_firewall_special_floor" << "--"
-                   << "subgraph_L2L3_special_floor"<< ii << endl;
+            stringstream L2L3_name_stream;
+            L2L3_name_stream << "cluster_L2L3_special_floor" << ii;
+            string L2L3_name = L2L3_name_stream.str();
+			
+            draw_cluster(myfile, L2L3_name,label);
+            myfile << "cluster_L2L3" <<ii<< "--" <<  "cluster_firewall_special_floor"<< ii << endl;
+
+            myfile << "cluster_firewall_special_floor"<<ii << "--"
+                   << "cluster_L2L3_special_floor"<< ii << endl;
         }else{
             myfile << "// Plop" <<endl;
         }
