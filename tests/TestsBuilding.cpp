@@ -32,5 +32,8 @@ bool TestsBuilding::testIsAdmin() {
     bool isAdmin2 = building1.isAdmin();
     if(isAdmin2)
         testPart2 = true;
+
+    if(testPart1 && testPart2)
+        result = true;
     return result;
 }

@@ -14,12 +14,12 @@ bool TestsLocation::testGetUserNumber() {
         testPart1 = true;
 
     location1.setUserNumber(NUserType::SUP, 30);
-    temp = location1.getUserNumber(NUserType::DEFAULT);
+    temp = location1.getUserNumber(NUserType::SUP);
     if(temp == 30)
         testPart2 = true;
 
     location1.setUserNumber(NUserType::ADMIN, 3);
-    temp = location1.getUserNumber(NUserType::DEFAULT);
+    temp = location1.getUserNumber(NUserType::ADMIN);
     if(temp == 3)
         testPart3 = true;
     if(testPart1 && testPart2 && testPart3)

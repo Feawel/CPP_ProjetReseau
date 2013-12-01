@@ -10,3 +10,11 @@ string Constant::numberToString(int number)
     ss << number;
     return ss.str();
 }
+
+string Constant::boolToString(bool booleen)
+{
+    if (booleen)
+        return "OK !";
+    else
+        return "Failed...";
+}
