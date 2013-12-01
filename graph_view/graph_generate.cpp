@@ -259,7 +259,7 @@ void GraphGenerate::graphBuildingGenerate(Building* building){
             stringstream L2L3_name_stream;
             L2L3_name_stream << "cluster_L2L3_special_floor" << ii;
             string L2L3_name = L2L3_name_stream.str();
-			
+
             drawCluster(myfile, L2L3_name,label);
             myfile << "cluster_L2L3" << "--" <<  "cluster_firewall_special_floor"<< ii << endl;
 

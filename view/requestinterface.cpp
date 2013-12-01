@@ -94,6 +94,9 @@ RequestInterface::RequestInterface() :
  */
 void RequestInterface::paintEvent(QPaintEvent *)
 {
+    setWindowTitle("NetworkBuilder");
+    setWindowIcon(QIcon("../network-logo.jpg"));
+
     // reset errors messages
     errors.clear();
 

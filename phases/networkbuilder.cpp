@@ -131,8 +131,10 @@ void NetworkBuilder::launchP2() {
     //On récupère dans un premier temps les liaisons existantes avec des techs
     // On met les abtiemtn dans listBuildingWithTech
     // On met les pointeurs des autres dans B2BTemp à 0
+    bool foundtech = false;
     for(unsigned int i=0;i<B2BTemp.size();i++){
         if(B2BTemp[i]->existTech()){
+            foundtech=true;
             listBuildingWithTech[contains(buildingsFull, B2BTemp[i]->getBuilding1())]=B2BTemp[i]->getBuilding1();
             listBuildingWithTech[contains(buildingsFull, B2BTemp[i]->getBuilding2())]=B2BTemp[i]->getBuilding2();
         }
@@ -143,12 +145,15 @@ void NetworkBuilder::launchP2() {
     }
 
     // si on a trouvé aucune techno on ajoute seulement le building admin dans listBuildingWithTech
-    for(unsigned int  i = 0; i< buildingsFull.size(); i++)
+    if(!foundtech)
     {
-        if(buildingsFull[i]->isAdmin())
+        for(unsigned int  i = 0; i< buildingsFull.size(); i++)
         {
-            listBuildingWithTech[i]=buildingsFull[i];
-            break;
+            if(buildingsFull[i]->isAdmin())
+            {
+                listBuildingWithTech[i]=buildingsFull[i];
+                break;
+            }
         }
     }
 
@@ -179,7 +184,7 @@ void NetworkBuilder::launchP2() {
                 int k = contains(listBuildingWithTech, otherBuilding);
                 if(k>=0)
                 {
-                    double dist=currentB2Bs[k]->getDistance();
+                    double dist=currentB2Bs[j]->getDistance();
                     if(min == 0 || min > dist)
                     {
                             min = dist;
@@ -348,7 +353,7 @@ void NetworkBuilder::launchP3() {
             //Ajout d'un étage (cela peut correspondre à une pièce, un sous-sol etc...)
             //pour abriter les serveurs privés (destinés aux USERS_SUP)
             Firewall* privateServersFirewall = new Firewall;
-            privateServersFirewall->setRules("Bloque les adresses 10.i.j.x, i et j correspondant à tous les étages et tous les batiments, et x < 200.");
+            privateServersFirewall->setRules("Bloque les adresses 10.i.j.x, i et j correspondant a tous les etages et tous les batiments, et x < 200.");
 
             //Ajout d'un switch pour connecter cette section au réseau
             Switch* privateServersSwitch = new Switch;

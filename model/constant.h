@@ -15,6 +15,7 @@ class Constant
 public:
     static std::string numberToString(int number);
     static std::string boolToString(bool booleen);
+    static std::string doubleToString(double number);
 };
 
 namespace NTechnology {

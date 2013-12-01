@@ -68,3 +68,5 @@ HEADERS += \
     tests/testsRequest.h
 
 OTHER_FILES +=
+
+RC_FILE = networkbuilder.rc

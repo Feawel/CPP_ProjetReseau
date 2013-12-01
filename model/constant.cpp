@@ -11,6 +11,13 @@ string Constant::numberToString(int number)
     return ss.str();
 }
 
+string Constant::doubleToString(double number)
+{
+    ostringstream ss;
+    ss << number;
+    return ss.str();
+}
+
 string Constant::boolToString(bool booleen)
 {
     if (booleen)
