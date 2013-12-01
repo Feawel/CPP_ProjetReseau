@@ -1,4 +1,0 @@
-Ensemble des tests unitaires.
-
-Descriptions des tests unitaires :
-    - ...
