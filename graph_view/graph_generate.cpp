@@ -219,7 +219,7 @@ void Graph_generate::graph_building_generate(Building* building){
             string L2L3_name = L2L3_name_stream.str();
 			
             draw_cluster(myfile, L2L3_name,label);
-            myfile << "cluster_L2L3" <<ii<< "--" <<  "cluster_firewall_special_floor"<< ii << endl;
+            myfile << "cluster_L2L3" << "--" <<  "cluster_firewall_special_floor"<< ii << endl;
 
             myfile << "cluster_firewall_special_floor"<<ii << "--"
                    << "cluster_L2L3_special_floor"<< ii << endl;
