@@ -23,7 +23,11 @@ SOURCES += \
     graph_view/graph_generate.cpp \
     txt_generation/table.cpp \
     txt_generation/txtgenerator.cpp \
-    model/constant.cpp
+    model/constant.cpp \
+    tests/TestsLocation.cpp \
+    tests/TestsFloor.cpp \
+    tests/TestsBuilding.cpp \
+    tests/Tests_building_building.cpp
 
 QT += widgets
 
@@ -51,6 +55,10 @@ HEADERS += \
     view/views/floorview.h \
     graph_view/graph_generate.h \
     txt_generation/table.h \
-    txt_generation/txtgenerator.h
+    txt_generation/txtgenerator.h \
+    tests/TestsLocation.h \
+    tests/TestsFloor.h \
+    tests/TestsBuilding.h \
+    tests/Tests_building_building.h
 
 OTHER_FILES +=
