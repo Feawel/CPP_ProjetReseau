@@ -22,7 +22,7 @@ BuildingPanel::BuildingPanel(string name):LocationPanel()
     layout->addRow(addFloorButton);
 
     removeBuildingButton = new QPushButton("Remove Building");
-    layout->addRow(removeBuildingButton);
+    //layout->addRow(removeBuildingButton);
 
     readOnly =false;
 }
