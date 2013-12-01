@@ -29,11 +29,6 @@ NetworkBuilder::NetworkBuilder(Request* request)
     this->request=request;
 }
 
-
-Request* NetworkBuilder::getRequest() {
-    return request;
-}
-
 int contains(vector<Building*> buildings, Building* building)
 {
     for(unsigned int i = 0; i< buildings.size(); i++)
@@ -220,8 +215,6 @@ void NetworkBuilder::launchP2() {
                 else {
                     addedTech = NTechnology::FIBER;
                 }
-
-
         }
         else{
             vector<bool> existingTechs = B2B[i]->getExistingTechs();
@@ -243,7 +236,6 @@ void NetworkBuilder::launchP2() {
             }
 
         }
-
     B2B[i]->setAppliedTechnology(addedTech);
     }
     request->setBuilding_Buildings(B2B);

@@ -9,12 +9,10 @@ class NetworkBuilder
     public:
         NetworkBuilder();
         NetworkBuilder(Request* request);
-        Request* getRequest();
         void launchP1();
         void launchP2();
         void launchP3();
         void launchP4();
-
 
     private:
         Request* request;
