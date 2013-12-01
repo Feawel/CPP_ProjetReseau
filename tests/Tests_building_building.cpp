@@ -2,9 +2,6 @@
 
 using namespace std;
 
-Tests_building_building::Tests_building_building()
-{
-}
 
 bool Tests_building_building::testDistance() {
     bool result = false;

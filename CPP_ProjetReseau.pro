@@ -28,7 +28,8 @@ SOURCES += \
     tests/testsFloor.cpp \
     tests/testsBuilding.cpp \
     tests/tests_building_building.cpp \
-    tests/testsComponent.cpp
+    tests/testsComponent.cpp \
+    tests/testsFirewall.cpp
 
 QT += widgets
 
@@ -61,6 +62,7 @@ HEADERS += \
     tests/testsFloor.h \
     tests/testsBuilding.h \
     tests/tests_building_building.h \
-    tests/testsComponent.h
+    tests/testsComponent.h \
+    tests/testsFirewall.h
 
 OTHER_FILES +=

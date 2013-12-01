@@ -2,9 +2,7 @@
 
 using namespace std;
 
-TestsLocation::TestsLocation()
-{
-}
+
 
 bool TestsLocation::testGetUserNumber() {
     bool result = false, testPart1 = false, testPart2 = false, testPart3 = false;

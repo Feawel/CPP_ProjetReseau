@@ -1,29 +1,21 @@
-#include "testscomponent.h"
-
-TestsComponent::TestsComponent()
-{
-}
+#include "testsComponent.h"
 
 
-bool TestsLocation::testGetUserNumber() {
-    bool result = false, testPart1 = false, testPart2 = false, testPart3 = false;
-    Location location1("Location test");
 
-    location1.setUserNumber(NUserType::DEFAULT, 300);
-    unsigned int temp = location1.getUserNumber(NUserType::DEFAULT);
-    if(temp == 300)
-        testPart1 = true;
+bool TestsComponent::testAddress() {
+    bool result = false;
+    Component componentTest;
 
-    location1.setUserNumber(NUserType::SUP, 30);
-    temp = location1.getUserNumber(NUserType::DEFAULT);
-    if(temp == 30)
-        testPart2 = true;
+    Address addressTest(10,8,6,4,2);
 
-    location1.setUserNumber(NUserType::ADMIN, 3);
-    temp = location1.getUserNumber(NUserType::DEFAULT);
-    if(temp == 3)
-        testPart3 = true;
-    if(testPart1 && testPart2 && testPart3)
+    componentTest.setAddress(addressTest);
+
+    Address addressTest2 = componentTest.getAddress();
+
+    std::string addressTestString = addressTest.toString();
+    std::string addressTest2String = addressTest2.toString();
+
+    if(addressTestString == addressTest2String)
         result = true;
     return result;
 }

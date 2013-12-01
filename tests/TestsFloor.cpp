@@ -2,9 +2,7 @@
 
 using namespace std;
 
-TestsFloor::TestsFloor()
-{
-}
+
 
 bool TestsFloor::testFloorNumber() {
     bool result = false;
