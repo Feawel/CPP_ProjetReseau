@@ -137,7 +137,7 @@ void NetworkBuilder::launchP2() {
     // On met les abtiemtn dans listBuildingWithTech
     // On met les pointeurs des autres dans B2BTemp à 0
     for(unsigned int i=0;i<B2BTemp.size();i++){
-        if(!B2BTemp[i]->existTech()){
+        if(B2BTemp[i]->existTech()){
             listBuildingWithTech[contains(buildingsFull, B2BTemp[i]->getBuilding1())]=B2BTemp[i]->getBuilding1();
             listBuildingWithTech[contains(buildingsFull, B2BTemp[i]->getBuilding2())]=B2BTemp[i]->getBuilding2();
         }
@@ -292,9 +292,6 @@ void NetworkBuilder::launchP3() {
             Address tempAddressBroadcast(10,j,i+1,255,0);
             Address tempAddressNetwork(10,j,i+1,0,24);
             tempSwitch->setAddress(tempAddress);
-
-
-            floors[j]->addComponent(tempSwitch);
 
 
             floors[j]->addComponent(tempSwitch);

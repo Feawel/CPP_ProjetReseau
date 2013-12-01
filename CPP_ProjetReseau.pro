@@ -6,7 +6,6 @@ SOURCES += \
     model/location/building.cpp \
     model/component/switch.cpp \
     model/component/router.cpp \
-    model/component/port.cpp \
     model/component/firewall.cpp \
     model/component/component.cpp \
     model/component/backbone.cpp \
@@ -37,7 +36,6 @@ HEADERS += \
     model/location/building.h \
     model/component/switch.h \
     model/component/router.h \
-    model/component/port.h \
     model/component/firewall.h \
     model/component/component.h \
     model/component/backbone.h \
