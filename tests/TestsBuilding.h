@@ -1,9 +1,3 @@
-/*
- * building.h
- *
- *  Created on: 4 nov. 2013
- *      Author: BANON
- */
 
 #include <vector>
 #include "../model/location/building.h"
@@ -14,7 +8,6 @@
 class TestsBuilding {
 
 public:
-    ~TestsBuilding();
 
     bool testGetFloors();
     bool testIsAdmin();

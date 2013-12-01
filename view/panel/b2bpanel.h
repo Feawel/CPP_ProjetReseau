@@ -24,6 +24,7 @@ public:
 private:
     QDoubleSpinBox* distanceField;
     std::vector<QCheckBox*> existingTechFields;
+    QCheckBox* visibilityField;
 };
 #endif // B2BPANEL_H
 

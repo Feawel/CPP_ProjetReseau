@@ -39,9 +39,16 @@ Building_BuildingPanel::Building_BuildingPanel(): QWidget(),existingTechFields(4
 
     existingTechsGroup->setLayout(existingTechsLayout);
 
+    QGroupBox* visibilityGroup = new QGroupBox;
+    QVBoxLayout* visibilityLayout = new QVBoxLayout;
+    visibilityField = new QCheckBox("Visibility ?");
+    visibilityLayout->addWidget(visibilityField);
+    visibilityGroup->setLayout(visibilityLayout);
+
     QFormLayout *layout = new QFormLayout;
     layout->addRow("Distance (km):", distanceField);
     layout->addRow("Existing technologies:", existingTechsGroup);
+    layout->addRow("Visibility", visibilityGroup);
 
     this->setLayout(layout);
 }
