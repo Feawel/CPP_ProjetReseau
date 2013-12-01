@@ -35,12 +35,12 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-//    TestsBuilding testsBuilding;
-//    TestsComponent testsComponent;
-//    TestsFirewall testsFirewall;
-//    TestsFloor testsFloor;
-//    TestsLocation testsLocation;
-//    Tests_building_building tests_building_building;
+    TestsBuilding testsBuilding;
+    TestsComponent testsComponent;
+    TestsFirewall testsFirewall;
+    TestsFloor testsFloor;
+    TestsLocation testsLocation;
+    Tests_building_building tests_building_building;
 
     RequestInterface window ;
     window.show();
