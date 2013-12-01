@@ -68,8 +68,12 @@ void TxtGenerator::generateInitialDataTable(Request request)
 void TxtGenerator::publishDoc(Request request)
 {
     ofstream file((folder + "/readme.txt").c_str());
+
+    file << "INITIAL DATA :" << endl;
     initialTable.generateTable(file);
     file << endl;
+    file << endl;
+    file << "OUTPUT DATA :" << endl;
 
     vector<Building*> buildings = request.getBuildings();
     for(unsigned int i = 0; i< buildings.size(); i++)
@@ -99,9 +103,9 @@ void TxtGenerator::publishDoc(Request request)
         else
         {
             file << currentBuilding->getName() << ":" << endl;
-            file << "\t- Public Address Router : " << currentBuilding->getComponents()[1]->getAddress();
-            file << "\t- Public Address Firewall : " << ((Firewall*)currentBuilding->getComponents()[0])->getPublicAddress();
-            file << "\t- Backbone Address : " << currentBuilding->getComponents()[0]->getAddress();
+            file << "\t- Public Address Router : " << currentBuilding->getComponents()[1]->getAddress() << endl;
+            file << "\t- Public Address Firewall : " << ((Firewall*)currentBuilding->getComponents()[0])->getPublicAddress() << endl;
+            file << "\t- Backbone Address : " << currentBuilding->getComponents()[0]->getAddress() << endl;
             file << endl;
 
             vector<string> header(3);
@@ -125,4 +129,51 @@ void TxtGenerator::publishDoc(Request request)
             file << endl;
         }
     }
+
+    file << "Links :" << endl;
+    file << endl;
+
+    Table b2bTable(5);
+    vector<string> header(5);
+    header[0] = "Building";
+    header[1] = "Building";
+    header[2] = "Connection Technology";
+    header[3] = "Distance";
+    header[4] = "Visibility";
+
+    vector<Building_Building*> b2bs = request.getBuilding_Buildings();
+    for(unsigned int i = 0; i< b2bs.size(); i++)
+    {
+        Building_Building* currentB2B = b2bs[i];
+        vector<string> line(5);
+        line[0] = currentB2B->getBuilding1()->getName();
+        line[1] = currentB2B->getBuilding2()->getName();
+        NTechnology::Technology tech = currentB2B->getAppliedTechnology();
+        switch (tech) {
+        case NTechnology::FIBER:
+            line[2] = "Fiber";
+            break;
+
+        case NTechnology::TWISTEDPAIR:
+            line[2] = "Twisted Pair";
+            break;
+
+        case NTechnology::WIFI:
+            line[2] = "WiFi";
+            break;
+
+        case NTechnology::INFRARED:
+            line[2] = "Infra-Red";
+            break;
+        }
+        line[3] = Constant::numberToString(currentB2B->getDistance());
+        bool visibility = currentB2B->getVisibility();
+        if(visibility)
+            line[4] = "Yes";
+        else
+            line[4] = "No";
+
+        b2bTable.addLine(line);
+    }
+    b2bTable.generateTable(file);
 }
