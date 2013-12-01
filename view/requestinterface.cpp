@@ -584,7 +584,7 @@ void RequestInterface::run()
             Graph_generate graph_generate = Graph_generate(ptr, folder.toStdString());
             graph_generate.graph_generate_all();
 
-            txtGenerator.publishDoc();
+            txtGenerator.publishDoc(request);
         }
     }
     else

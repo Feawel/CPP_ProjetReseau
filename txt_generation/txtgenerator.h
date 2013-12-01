@@ -9,7 +9,7 @@ class TxtGenerator
 public:
     TxtGenerator(std::string folder);
     void generateInitialDataTable(Request request);
-    void publishDoc();
+    void publishDoc(Request request);
 private:
     std::string folder;
     Table initialTable;

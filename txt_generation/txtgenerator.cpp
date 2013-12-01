@@ -65,8 +65,64 @@ void TxtGenerator::generateInitialDataTable(Request request)
     }
 }
 
-void TxtGenerator::publishDoc()
+void TxtGenerator::publishDoc(Request request)
 {
     ofstream file((folder + "/readme.txt").c_str());
     initialTable.generateTable(file);
+    file << endl;
+
+    vector<Building*> buildings = request.getBuildings();
+    for(unsigned int i = 0; i< buildings.size(); i++)
+    {
+        Building* currentBuilding = buildings[i];
+        if(!currentBuilding->isAdmin())
+        {
+            file << currentBuilding->getName() << ": backbone address " << currentBuilding->getComponents()[0]->getAddress().toString() << endl;
+            file << endl;
+
+            vector<string> header(2);
+            header[0] = "Floor";
+            header[1] = "Switch";
+
+            Table buildingTable(2);
+            buildingTable.addLine(header);
+            for(unsigned int j = 0; j< currentBuilding->getFloors().size(); j++)
+            {
+                vector<string> line(2);
+                line[0] = currentBuilding->getFloors()[j]->getName();
+                line[1] = currentBuilding->getFloors()[j]->getComponents()[0]->getAddress().toString();
+                buildingTable.addLine(line);
+            }
+            buildingTable.generateTable(file);
+            file << endl;
+        }
+        else
+        {
+            file << currentBuilding->getName() << ":" << endl;
+            file << "\t- Public Address Router : " << currentBuilding->getComponents()[1]->getAddress();
+            file << "\t- Public Address Firewall : " << ((Firewall*)currentBuilding->getComponents()[0])->getPublicAddress();
+            file << "\t- Backbone Address : " << currentBuilding->getComponents()[0]->getAddress();
+            file << endl;
+
+            vector<string> header(3);
+            header[0] = "Floor";
+            header[1] = "Switch";
+            header[2] = "Router";
+
+            Table buildingTable(3);
+            buildingTable.addLine(header);
+            for(unsigned int j = 0; j< currentBuilding->getFloors().size(); j++)
+            {
+                vector<string> line(3);
+                line[0] = currentBuilding->getFloors()[j]->getName();
+                line[1] = currentBuilding->getFloors()[j]->getComponents()[0]->getAddress().toString();
+                line[2] = "No";
+                if(currentBuilding->getFloors()[j]->getComponents().size()>1)
+                    line[2] = ((Firewall*)currentBuilding->getFloors()[j]->getComponents()[1])->getRules();
+                buildingTable.addLine(line);
+            }
+            buildingTable.generateTable(file);
+            file << endl;
+        }
+    }
 }
