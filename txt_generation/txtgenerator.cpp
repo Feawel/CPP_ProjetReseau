@@ -91,12 +91,14 @@ void TxtGenerator::publishDoc(Request request)
     // create the file
     ofstream file((folder + "/readme.txt").c_str());
 
+    // add initial table
     file << "INITIAL DATA :" << endl;
     initialTable.generateTable(file);
     file << endl;
     file << endl;
     file << "OUTPUT DATA :" << endl;
 
+    // create a table for each building
     vector<Building*> buildings = request.getBuildings();
     for(unsigned int i = 0; i< buildings.size(); i++)
     {
