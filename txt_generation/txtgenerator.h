@@ -1,7 +1,7 @@
 #ifndef TXTGENERATOR_H
 #define TXTGENERATOR_H
 
-#include "phases/Request.h"
+#include "model/request.h"
 #include "table.h"
 
 class TxtGenerator

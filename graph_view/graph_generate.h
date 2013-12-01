@@ -1,6 +1,6 @@
 #ifndef GRAPH_GENERATE_H
 #define GRAPH_GENERATE_H
-#include "../phases/request.h"
+#include "model/request.h"
 #include <string>
 
 class Graph_generate

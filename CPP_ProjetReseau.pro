@@ -11,7 +11,7 @@ SOURCES += \
     model/component/backbone.cpp \
     main.cpp \
     view/requestinterface.cpp \
-    phases/request.cpp \
+    model/request.cpp \
     phases/networkbuilder.cpp \
     view/panel/locationpanel.cpp \
     view/panel/buildingpanel.cpp \
@@ -40,7 +40,7 @@ HEADERS += \
     model/component/component.h \
     model/component/backbone.h \
     view/requestinterface.h \
-    phases/request.h \
+    model/request.h \
     phases/networkbuilder.h \
     view/panel/locationpanel.h \
     view/panel/buildingpanel.h \

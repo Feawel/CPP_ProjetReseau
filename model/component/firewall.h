@@ -16,7 +16,6 @@ public:
     Firewall();
     std::string getRules() const;
     void setRules(std::string newRules);
-
     void setPublicAddress(Address newPublicAddress);
     Address getPublicAddress() const;
 
