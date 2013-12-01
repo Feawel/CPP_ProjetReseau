@@ -15,19 +15,12 @@
 //This function generates the name of a cluster from the number of the building.
 
 using namespace::std;
-//tests:
-//void test_replace_spaces_by_underscores(void)
-//{
-//    string input = "plop plop";
-//    string output = "plop_plop";
-//    TS_ASSERT_EQUALS(replace_spaces_by_underscores(input), output);
-//}
-//void test_create_cluster_name(void)
-//{
-//    int input = 445;
-//    string output = "cluster_445";
-//    TS_ASSERT_EQUALS(create_cluster_name(input), output);
-//}
+
+/**
+ * @brief replaceSpacesByUnderscores
+ * @param str
+ * @return str with "_" instead of " "
+ */
 string replaceSpacesByUnderscores(string str){
     char space = ' ';
     for(unsigned int i = 0; i < str.size(); i++){
@@ -38,10 +31,13 @@ string replaceSpacesByUnderscores(string str){
     return str;
 }
 
-
-
-
-//This function returns the postion of a building in a Building_building vector.
+/**
+ * @brief findBInB2B
+ * @param buildings
+ * @param building
+ * @return the postion of a building in a Building_building vector, if the building
+ * is not in the building_building it return -1
+ */
 int findBInB2B(std::vector<Building*> buildings, Building* building)
 {
     for(unsigned int i = 0; i < buildings.size(); i++ ) {
@@ -52,7 +48,11 @@ int findBInB2B(std::vector<Building*> buildings, Building* building)
     return -1;
 }
 
-//Permet de déterminer la couleur d'un lien représentant une technologie.
+/**
+ * @brief getColorB2B
+ * @param tech
+ * @return the string of the color of a building.
+ */
 string getColorB2B(NTechnology::Technology* tech){
     switch (*tech)
     {
@@ -81,7 +81,11 @@ string getColorB2B(NTechnology::Technology* tech){
     break;
 }
 }
-
+/**
+ * @brief createClusterName
+ * @param position
+ * @return the name of the cluster, eg. "cluste_1"
+ */
 string createClusterName(int position)
 {
     stringstream building1_stream;
@@ -90,7 +94,14 @@ string createClusterName(int position)
     return cluster_name;
 }
 
-//Draw a cluster with a name and a label in a ofstream file.
+/**
+ * Draw a cluster with a name and a label in a ofstream file.
+ * @brief drawCluster
+ * @param file
+ * @param name
+ * @param legend
+ * @param props
+ */
 void drawCluster(ofstream& file, string name, string legend, string props=""){
     string name_no_underscore = replaceSpacesByUnderscores(name);
     file << "subgraph "<< name_no_underscore << "{"<< endl
@@ -100,7 +111,13 @@ void drawCluster(ofstream& file, string name, string legend, string props=""){
          <<  "}"<< endl <<endl;
 }
 
-//Generates the labege with mininum two lines.
+/**
+ * @brief generateLabel
+ * @param line1
+ * @param line2
+ * @param line3
+ * @return the label with mininum two lines.
+ */
 string generateLabel(string line1, string line2="", string line3=""){
     stringstream label_stream;
     label_stream << line1;
@@ -113,7 +130,14 @@ string generateLabel(string line1, string line2="", string line3=""){
     string cluster_name = label_stream.str();
     return cluster_name;
 }
-
+/**
+ * Draw a location in file given a name, a location and eventually properties.
+ * @brief drawLocationStr
+ * @param file
+ * @param name
+ * @param location
+ * @param props
+ */
 void drawLocationStr(ofstream& file, string name, Location* location, string props= ""){
     //we create the first line with name.
     string label_line1;
@@ -127,28 +151,46 @@ void drawLocationStr(ofstream& file, string name, Location* location, string pro
     string label= generateLabel(label_line1,label_line2);
     drawCluster(file,name,label,props);
 }
-
+/**
+ * Allow to draw a location with given an interger.
+ * @brief drawLocation
+ * @param file
+ * @param int_name
+ * @param location
+ */
 void drawLocation(ofstream& file, int int_name, Location* location){
     string name = createClusterName(int_name);
     drawLocationStr(file, name, location);
 }
-
+/**
+ * Constructor
+ * @brief GraphGenerate::GraphGenerate
+ * @param request
+ * @param folder
+ */
 GraphGenerate::GraphGenerate(Request* request, string folder):request(request), folder(folder)
 {
 }
 
-
+/**
+ * Generate all the graphs given a request.
+ * @brief GraphGenerate::graphGenerateAll
+ */
 void GraphGenerate::graphGenerateAll(){
-    global_graph_generate();
+    globalGraphGenerate();
     std::vector<Building*> bs =request->getBuildings();
     for(unsigned int ii=0; ii < bs.size(); ii++)
     {
-        graph_building_generate(bs[ii]);
+        graphBuildingGenerate(bs[ii]);
     }
 }
 
-//Generates the graph for a given building.
-void GraphGenerate::graph_building_generate(Building* building){
+/**
+ * Generates the detailled graph for a given building.
+ * @brief GraphGenerate::graphBuildingGenerate
+ * @param building
+ */
+void GraphGenerate::graphBuildingGenerate(Building* building){
     string building_name=(building->getName());
     string file_name ="graph_building_"+replaceSpacesByUnderscores(building_name);
 
@@ -268,8 +310,11 @@ void GraphGenerate::graph_building_generate(Building* building){
     system (("fdp -Tpng "+this->folder+"/"+file_name+".txt >"+this->folder+"/"+file_name+".png").c_str());
 }
 
-//Generates the graph for the full organization.
-void GraphGenerate::global_graph_generate(){
+/**
+ * Generates the graph for the full organization.
+ * @brief GraphGenerate::globalGraphGenerate
+ */
+void GraphGenerate::globalGraphGenerate(){
     std::vector<Building*> bs =request->getBuildings();
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
 
@@ -304,6 +349,6 @@ void GraphGenerate::global_graph_generate(){
     myfile <<endl<< "}" << endl;
     myfile.close();
 
-//  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
+//  Generate the image for the graph with Graphviz.
     system (("fdp -Tpng "+this->folder+"/"+file_name+".txt >"+this->folder+"/"+file_name+".png").c_str());
 }
