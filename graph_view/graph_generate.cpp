@@ -191,16 +191,13 @@ void GraphGenerate::graphGenerateAll(){
  * @param building
  */
 void GraphGenerate::graphBuildingGenerate(Building* building){
+    //we create the stream and folder
     string building_name=(building->getName());
     string file_name ="graph_building_"+replaceSpacesByUnderscores(building_name);
 
     ofstream myfile;
     myfile.open (( this->folder+"/"+file_name+".txt").c_str());
     myfile << "graph G {" << endl;
-
-    //Creating the big box for the building.
-//    myfile << "subgraph cluster_"<< replace_spaces_by_underscores(building_name) << "{"<< endl
-//           << "label = \"" << building_name << "\"" << endl;
 
     //We start by drawing the L2L3
     if(building->isAdmin()){
@@ -220,6 +217,7 @@ void GraphGenerate::graphBuildingGenerate(Building* building){
         drawCluster(myfile, "cluster_L2L3",label);
         myfile << "cluster_L2L3"<< "--" <<  "cluster_firewall"<< endl;
     }else{
+        // we just draw the switch of the floor.
         Component* L2 = building->getComponents()[0];
         string IP_switch =  L2->getAddress().toString();
 
@@ -241,7 +239,7 @@ void GraphGenerate::graphBuildingGenerate(Building* building){
 
         //If it's a special floor (with servers)
         }else if(component_number==2){
-
+            //First the firewall
             stringstream firewall_label_stream;
             firewall_label_stream << "FW " << floor->getName();
             string firewall_label = firewall_label_stream.str();
@@ -267,13 +265,9 @@ void GraphGenerate::graphBuildingGenerate(Building* building){
 
             myfile << "cluster_firewall_special_floor"<<ii << "--"
                    << "cluster_L2L3_special_floor"<< ii << endl;
-        }else{
-            myfile << "// Plop" <<endl;
-        }
     }
-//    myfile <<  "}"<< endl <<endl;
-    //The things after won't be in the building, they will be outside the box.
 
+    //We create the links with the o
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
     for(unsigned int ii=0; ii < b2bs.size(); ii++)
     {
@@ -308,6 +302,7 @@ void GraphGenerate::graphBuildingGenerate(Building* building){
 
     //  Génére le graphe en png avec un appel système, nécessite graphviz.
     system (("fdp -Tpng "+this->folder+"/"+file_name+".txt >"+this->folder+"/"+file_name+".png").c_str());
+}
 }
 
 /**

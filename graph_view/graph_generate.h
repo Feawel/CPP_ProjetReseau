@@ -3,13 +3,13 @@
 #include "model/request.h"
 #include <string>
 
-class Graph_generate
+class GraphGenerate
 {
 public:
-    Graph_generate(Request* request, std::string folder);
-    void global_graph_generate();
-    void graph_building_generate(Building* building);
-    void graph_generate_all();
+    GraphGenerate(Request* request, std::string folder);
+    void globalGraphGenerate();
+    void graphBuildingGenerate(Building* building);
+    void graphGenerateAll();
 private:
     Request* request;
     std::string folder;
