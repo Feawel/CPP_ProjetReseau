@@ -217,6 +217,106 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ksVncVn_EeO5coihybFi9g" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ksVncln_EeO5coihybFi9g" value="1"/>
     </ownedAttribute>
+    <ownedAttribute xmi:id="_FcUkQFrHEeO87blT4Ac7lg" name="appliedTech" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Fu13oFrHEeO87blT4Ac7lg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Fu13oVrHEeO87blT4Ac7lg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_Fu3FwFrHEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_-enLQFrGEeO87blT4Ac7lg" name="existingTechs" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-yg-sFrGEeO87blT4Ac7lg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-yhlwFrGEeO87blT4Ac7lg" value="*"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_-yiz4FrGEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_7MWJQFrGEeO87blT4Ac7lg" name="visibility" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7jgFAFrGEeO87blT4Ac7lg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7jgFAVrGEeO87blT4Ac7lg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_7jhTIFrGEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_4ZqmQFrGEeO87blT4Ac7lg" name="building2" visibility="private" type="_amqC0Fn9EeO5coihybFi9g">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4p1wQFrGEeO87blT4Ac7lg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4p2XUFrGEeO87blT4Ac7lg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_4p2-YFrGEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_1qMIQFrGEeO87blT4Ac7lg" name="building1" visibility="private" type="_amqC0Fn9EeO5coihybFi9g">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_19FPEFrGEeO87blT4Ac7lg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_19F2IFrGEeO87blT4Ac7lg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_19GdMFrGEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_xvGywFrGEeO87blT4Ac7lg" name="distance" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yHy_kFrGEeO87blT4Ac7lg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yHzmoFrGEeO87blT4Ac7lg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_yH0NsFrGEeO87blT4Ac7lg">
+        <value xsi:nil="true"/>
+      </defaultValue>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_QzJ5oFrHEeO87blT4Ac7lg" name="setDistance">
+      <ownedParameter xmi:id="_ltbUIFrHEeO87blT4Ac7lg">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_R4qwMFrHEeO87blT4Ac7lg" name="getDistance">
+      <ownedParameter xmi:id="_ngXRYFrHEeO87blT4Ac7lg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_StsTsFrHEeO87blT4Ac7lg" name="getBuilding1">
+      <ownedParameter xmi:id="_pSiZoFrHEeO87blT4Ac7lg" type="_amqC0Fn9EeO5coihybFi9g" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_UHpJMFrHEeO87blT4Ac7lg" name="getBuilding2">
+      <ownedParameter xmi:id="_uY52gFrHEeO87blT4Ac7lg" type="_amqC0Fn9EeO5coihybFi9g" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Vce1MFrHEeO87blT4Ac7lg" name="setVisibility">
+      <ownedParameter xmi:id="_wcnasFrHEeO87blT4Ac7lg">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_WdowMFrHEeO87blT4Ac7lg" name="getVisibility">
+      <ownedParameter xmi:id="_yqdyUFrHEeO87blT4Ac7lg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_ZYohsFrHEeO87blT4Ac7lg" name="setExistingTechnology">
+      <ownedParameter xmi:id="_0rAGsFrHEeO87blT4Ac7lg" type="_dxJ8wFqpEeO87blT4Ac7lg"/>
+      <ownedParameter xmi:id="_2inIkFrHEeO87blT4Ac7lg">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_cE_aQFrHEeO87blT4Ac7lg" name="getExistingTechs">
+      <ownedParameter xmi:id="_6HasEFrHEeO87blT4Ac7lg" isUnique="false" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_fQdQsFrHEeO87blT4Ac7lg" name="isExistingTech">
+      <ownedParameter xmi:id="_8USMQFrHEeO87blT4Ac7lg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_-LwEMFrHEeO87blT4Ac7lg" type="_dxJ8wFqpEeO87blT4Ac7lg"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_go9UsFrHEeO87blT4Ac7lg" name="existTech">
+      <ownedParameter xmi:id="_Am-JcFrIEeO87blT4Ac7lg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_h5OCsFrHEeO87blT4Ac7lg" name="setAppliedTechnology">
+      <ownedParameter xmi:id="_Ckg0MFrIEeO87blT4Ac7lg" type="_dxJ8wFqpEeO87blT4Ac7lg"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_jEXnMFrHEeO87blT4Ac7lg" name="getAppliedTechnology">
+      <ownedParameter xmi:id="_D2KpUFrIEeO87blT4Ac7lg" type="_dxJ8wFqpEeO87blT4Ac7lg" direction="return"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_-nwdEFn-EeO5coihybFi9g"/>
   <packagedElement xmi:type="uml:Association" xmi:id="_evsC01n_EeO5coihybFi9g" name="" memberEnd="_evsC1Fn_EeO5coihybFi9g _evsC0Fn_EeO5coihybFi9g">
