@@ -1,7 +1,7 @@
 #ifndef NETWORKBUILDER_H
 #define NETWORKBUILDER_H
 
-#include "request.h"
+#include "model/request.h"
 #include "model/location/building_building.h"
 
 class NetworkBuilder

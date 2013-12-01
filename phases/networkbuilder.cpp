@@ -13,7 +13,7 @@
 #include "model/component/backbone.h"
 #include "model/component/switch.h"
 #include "model/component/router.h"
-#include "phases/request.h"
+#include "model/request.h"
 #include "model/component/firewall.h"
 #include "model/constant.h"
 

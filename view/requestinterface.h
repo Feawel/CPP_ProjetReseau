@@ -25,7 +25,7 @@
 #include "views/buildingview.h"
 #include "views/b2bview.h"
 #include "views/floorview.h"
-#include "../phases/Request.h"
+#include "model/request.h"
 #include "../model/location/building.h"
 
 class RequestInterface: public QMainWindow {

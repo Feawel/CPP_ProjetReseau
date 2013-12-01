@@ -16,7 +16,7 @@ using namespace std;
 
 
 //mockup
-#include "phases/request.h"
+#include "model/request.h"
 #include <vector>
 #include "model/location/building.h"
 #include "model/location/building_building.h"

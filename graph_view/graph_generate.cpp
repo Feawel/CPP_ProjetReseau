@@ -6,7 +6,7 @@
 #include <sstream>
 
 //mockup
-#include "phases/request.h"
+#include "model/request.h"
 #include <vector>
 #include "model/location/building.h"
 #include "model/component/router.h"
