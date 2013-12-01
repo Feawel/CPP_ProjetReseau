@@ -1,6 +1,6 @@
 #include <cxxtest/TestSuite.h>
-#include "../../model/location/building.h"
-#include "../../model/location/floor.h"
+#include "model/location/building.h"
+#include "model/location/floor.h"
 
 
 class TestBuilding : public CxxTest::TestSuite
@@ -30,7 +30,7 @@ public:
     void testSetAdmin(void)
     {
         Building buildingTestAdmin("Building test");
-        buildingTestAdmin.setAdmin();
+        buildingTestAdmin.setAdmin(true);
         TS_ASSERT_EQUALS(buildingTestAdmin.isAdmin(), true);
     }
 

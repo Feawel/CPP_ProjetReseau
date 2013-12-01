@@ -20,7 +20,7 @@ int main( int argc, char *argv[] ) {
     return status;
 }
 bool suite_TestBuilding_init = false;
-#include "/Users/Jonathan/CPP_ProjetReseau/tests/tests_unitaires/TestBuilding.h"
+#include "/Users/Jonathan/CPP_ProjetReseau/TestBuilding.h"
 
 static TestBuilding suite_TestBuilding;
 
