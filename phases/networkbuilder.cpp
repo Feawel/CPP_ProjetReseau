@@ -280,9 +280,9 @@ void NetworkBuilder::launchP3() {
 
 
             Switch* tempSwitch = new Switch;
-            Address tempAddress(10,j,i+1,199,0);
-            Address tempAddressBroadcast(10,j,i+1,255,0);
-            Address tempAddressNetwork(10,j,i+1,0,24);
+            Address tempAddress(10,i+1,j,199,0);
+            Address tempAddressBroadcast(10,i+1,j,255,0);
+            Address tempAddressNetwork(10,i+1,j,0,24);
             tempSwitch->setAddress(tempAddress);
 
 
@@ -352,10 +352,14 @@ void NetworkBuilder::launchP3() {
 
             //Ajout d'un switch pour connecter cette section au réseau
             Switch* privateServersSwitch = new Switch;
-            Address privateServersAddressSwitch(10,i,floors.size(),0,24);
+            Address privateServersAddressSwitch(10,i+1,floors.size(),0,24);
             privateServersSwitch->setAddress(privateServersAddressSwitch);
 
             Floor* privateServersFloor= new Floor("Private Server Floor", -1);
+            Address privateServersAddressBroadcast(10,i+1,floors.size(),255,0);
+            Address privateServersAddressNetwork(10,i+1,floors.size(),0,24);
+            privateServersFloor->setBroadcastAddress(privateServersAddressBroadcast);
+            privateServersFloor->setNetworkAddress(privateServersAddressNetwork);
             privateServersFloor->addComponent(privateServersSwitch);
             privateServersFloor->addComponent(privateServersFirewall);
 
@@ -371,10 +375,14 @@ void NetworkBuilder::launchP3() {
 
             //Ajout d'un switch pour connecter cette section au réseau
             Switch* adminSwitch = new Switch;
-            Address adminAddressSwitch(10,i,floors.size()+1,0,24);
+            Address adminAddressSwitch(10,i+1,floors.size()+1,0,24);
             adminSwitch->setAddress(adminAddressSwitch);
 
             Floor* adminFloor= new Floor("Admin Floor", -2);
+            Address adminFloorAddressBroadcast(10,i+1,floors.size()+1,255,0);
+            Address adminFloorAddressNetwork(10,i+1,floors.size()+1,0,24);
+            adminFloor->setBroadcastAddress(adminFloorAddressBroadcast);
+            adminFloor->setNetworkAddress(adminFloorAddressNetwork);
             adminFloor->addComponent(adminSwitch);
             adminFloor->addComponent(adminFloorFirewall);
 
