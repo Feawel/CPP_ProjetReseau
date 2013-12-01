@@ -267,7 +267,7 @@ void GraphGenerate::graphBuildingGenerate(Building* building){
                    << "cluster_L2L3_special_floor"<< ii << endl;
     }
 
-    //We create the links with the o
+    //We create the links with the others buildings.
     std::vector<Building_Building*> b2bs= request->getBuilding_Buildings();
     for(unsigned int ii=0; ii < b2bs.size(); ii++)
     {
@@ -300,7 +300,7 @@ void GraphGenerate::graphBuildingGenerate(Building* building){
     myfile <<endl<< "}" << endl;
     myfile.close();
 
-    //  Génére le graphe en png avec un appel système, nécessite graphviz.
+    //  Generate the file using GraphViz.
     system (("fdp -Tpng "+this->folder+"/"+file_name+".txt >"+this->folder+"/"+file_name+".png").c_str());
 }
 }
@@ -318,11 +318,12 @@ void GraphGenerate::globalGraphGenerate(){
     myfile.open ( (this->folder+"/"+file_name+".txt").c_str());
     myfile << "graph G {" << endl;
 
+    //First we draw all the buildings.
     for(unsigned int ii=0; ii < bs.size(); ii++)
     {
         drawLocation(myfile,ii , bs[ii]);
     }
-
+    //Then we create the links between them.
     for(unsigned int ii=0; ii < b2bs.size(); ii++)
     {
         Building_Building* building_Building=b2bs[ii];
