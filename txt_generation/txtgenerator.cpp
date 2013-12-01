@@ -5,17 +5,26 @@
 
 using namespace std;
 
-static const unsigned int BUILDING_TABLE_ROW_COUNT = 7;
+static const unsigned int INITIAL_BUILDING_TABLE_ROW_COUNT = 7;
+static const unsigned int ADMIN_BUILDING_TABLE_ROW_COUNT = 5;
+static const unsigned int DEFAULT_BUILDING_TABLE_ROW_COUNT = 4;
+static const unsigned int BUILDING_BUILDING_TABLE_ROW_COUNT = 5;
 
 TxtGenerator::TxtGenerator(std::string folder): folder(folder),
-    initialTable(BUILDING_TABLE_ROW_COUNT)
+    initialTable(INITIAL_BUILDING_TABLE_ROW_COUNT)
 {
 
 }
 
+/**
+ * @brief TxtGenerator::generateInitialDataTable
+ * @param request
+ * generate the table with initial data
+ */
 void TxtGenerator::generateInitialDataTable(Request request)
 {
-    vector<string> header(BUILDING_TABLE_ROW_COUNT);
+    // create the header
+    vector<string> header(INITIAL_BUILDING_TABLE_ROW_COUNT);
     header[0]="Building";
     header[1]="Floor";
     header[2]="Default Users";
@@ -24,20 +33,25 @@ void TxtGenerator::generateInitialDataTable(Request request)
     header[5]="Ethernet";
     header[6]="Wifi";
 
+    // add it to the table
     initialTable.addLine(header);
 
+    // loop on buildings
     for(unsigned int i = 0; i< request.getBuildings().size(); i++)
     {
         Building* currentBuilding = request.getBuildings()[i];
+        // display each floor is ther is some
         for(unsigned int j = 0; j<currentBuilding->getFloors().size(); j++ )
         {
-            vector<string> line(BUILDING_TABLE_ROW_COUNT);
+            vector<string> line(INITIAL_BUILDING_TABLE_ROW_COUNT);
             line[0]=currentBuilding->getName();
             Floor* currentFloor = currentBuilding->getFloors()[j];
             line[1]=currentFloor->getName();
             line[2]= Constant::numberToString(currentFloor->getUserNumber(NUserType::DEFAULT));
             line[3]= Constant::numberToString(currentFloor->getUserNumber(NUserType::SUP));
             line[4]= Constant::numberToString(currentFloor->getUserNumber(NUserType::ADMIN));
+
+            // add techs to add in each fllor
             line[5]="Yes";
             if(!currentFloor->getUseTechs()[NTechnology::ETHERNET])
                 line[5]="No";
@@ -46,9 +60,11 @@ void TxtGenerator::generateInitialDataTable(Request request)
                 line[6]="No";
             initialTable.addLine(line);
         }
+
+        // if ther is no floors
         if(currentBuilding->getFloors().empty())
         {
-            vector<string> line(BUILDING_TABLE_ROW_COUNT);
+            vector<string> line(INITIAL_BUILDING_TABLE_ROW_COUNT);
             line[0]=currentBuilding->getName();
             line[1]="-";
             line[2]= Constant::numberToString(currentBuilding->getUserNumber(NUserType::DEFAULT));
@@ -65,8 +81,14 @@ void TxtGenerator::generateInitialDataTable(Request request)
     }
 }
 
+/**
+ * @brief TxtGenerator::publishDoc
+ * @param request
+ * create a doc with initail table and other data
+ */
 void TxtGenerator::publishDoc(Request request)
 {
+    // create the file
     ofstream file((folder + "/readme.txt").c_str());
 
     file << "INITIAL DATA :" << endl;
@@ -84,17 +106,17 @@ void TxtGenerator::publishDoc(Request request)
             file << currentBuilding->getName() << ": backbone address " << currentBuilding->getComponents()[0]->getAddress().toString() << endl;
             file << endl;
 
-            vector<string> header(4);
+            vector<string> header(DEFAULT_BUILDING_TABLE_ROW_COUNT);
             header[0] = "Floor";
             header[1] = "Switch";
             header[2] = "Network Address";
             header[3] = "Broadcast Address";
 
-            Table buildingTable(4);
+            Table buildingTable(DEFAULT_BUILDING_TABLE_ROW_COUNT);
             buildingTable.addLine(header);
             for(unsigned int j = 0; j< currentBuilding->getFloors().size(); j++)
             {
-                vector<string> line(4);
+                vector<string> line(DEFAULT_BUILDING_TABLE_ROW_COUNT);
                 line[0] = currentBuilding->getFloors()[j]->getName();
                 line[1] = currentBuilding->getFloors()[j]->getComponents()[0]->getAddress().toString();
                 line[2] = currentBuilding->getFloors()[j]->getNetworkAddress().toString();
@@ -114,18 +136,18 @@ void TxtGenerator::publishDoc(Request request)
             file << "\t- Firewall Rule: " << ((Firewall*)currentBuilding->getComponents()[0])->getRules() << endl;
             file << endl;
 
-            vector<string> header(5);
+            vector<string> header(ADMIN_BUILDING_TABLE_ROW_COUNT);
             header[0] = "Floor";
             header[1] = "Switch";
             header[2] = "Firewall";
             header[3] = "Network Address";
             header[4] = "Broadcast Address";
 
-            Table buildingTable(5);
+            Table buildingTable(ADMIN_BUILDING_TABLE_ROW_COUNT);
             buildingTable.addLine(header);
             for(unsigned int j = 0; j< currentBuilding->getFloors().size(); j++)
             {
-                vector<string> line(5);
+                vector<string> line(ADMIN_BUILDING_TABLE_ROW_COUNT);
                 line[0] = currentBuilding->getFloors()[j]->getName();
                 line[1] = currentBuilding->getFloors()[j]->getComponents()[0]->getAddress().toString();
                 line[2] = "No";
@@ -144,8 +166,8 @@ void TxtGenerator::publishDoc(Request request)
     file << "Links :" << endl;
     file << endl;
 
-    Table b2bTable(5);
-    vector<string> header(5);
+    Table b2bTable(BUILDING_BUILDING_TABLE_ROW_COUNT);
+    vector<string> header(BUILDING_BUILDING_TABLE_ROW_COUNT);
     header[0] = "Building";
     header[1] = "Building";
     header[2] = "Connection Technology";
@@ -156,7 +178,7 @@ void TxtGenerator::publishDoc(Request request)
     for(unsigned int i = 0; i< b2bs.size(); i++)
     {
         Building_Building* currentB2B = b2bs[i];
-        vector<string> line(5);
+        vector<string> line(BUILDING_BUILDING_TABLE_ROW_COUNT);
         line[0] = currentB2B->getBuilding1()->getName();
         line[1] = currentB2B->getBuilding2()->getName();
         NTechnology::Technology tech = currentB2B->getAppliedTechnology();

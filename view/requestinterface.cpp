@@ -26,7 +26,7 @@
 #include "requestinterface.h"
 #include "phases/networkbuilder.h"
 #include "txt_generation/txtgenerator.h"
-#include "../graph_view/graph_generate.h"
+#include "graph_view/graph_generate.h"
 
 using namespace std;
 
@@ -580,7 +580,6 @@ void RequestInterface::run()
             builder.launchP1();
             builder.launchP2();
             builder.launchP3();
-
 
             GraphGenerate graph_generate = GraphGenerate(ptr, folder.toStdString());
             graph_generate.graphGenerateAll();
