@@ -397,17 +397,5 @@ void NetworkBuilder::launchP3() {
 
  }
 
-void NetworkBuilder::launchP4() {
-    /*
-     *Phase III : Ajouts généraux pour permettre une génération facile du graphe
-     *  Variable next_hop
-     *  ?
-     */
-
-
-
-
-
-}
 
 

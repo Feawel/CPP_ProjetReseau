@@ -579,7 +579,7 @@ void RequestInterface::run()
             builder.launchP1();
             builder.launchP2();
             builder.launchP3();
-            builder.launchP4();
+
 
             Graph_generate graph_generate = Graph_generate(ptr, folder.toStdString());
             graph_generate.graph_generate_all();

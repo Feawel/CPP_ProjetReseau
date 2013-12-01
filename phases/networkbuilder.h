@@ -12,7 +12,6 @@ class NetworkBuilder
         void launchP1();
         void launchP2();
         void launchP3();
-        void launchP4();
 
     private:
         Request* request;
