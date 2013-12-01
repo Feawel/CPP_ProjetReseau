@@ -352,6 +352,10 @@
         <element xmi:type="uml:Operation" href="model.uml#_QIY7oFqWEeO87blT4Ac7lg"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_QIbX4VqWEeO87blT4Ac7lg"/>
       </children>
+      <children xmi:type="notation:Shape" xmi:id="_OPM9sFqcEeO87blT4Ac7lg" type="3013" fontName="Segoe UI" lineColor="0">
+        <element xmi:type="uml:Operation" href="model.uml#_OPLIgFqcEeO87blT4Ac7lg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_OPM9sVqcEeO87blT4Ac7lg"/>
+      </children>
       <styles xmi:type="notation:TitleStyle" xmi:id="_xSlWTVn_EeO5coihybFi9g"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_xSlWTln_EeO5coihybFi9g"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_xSlWT1n_EeO5coihybFi9g"/>

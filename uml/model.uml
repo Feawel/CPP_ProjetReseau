@@ -170,6 +170,11 @@
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedParameter>
     </ownedOperation>
+    <ownedOperation xmi:id="_OPLIgFqcEeO87blT4Ac7lg" name="setRules">
+      <ownedParameter xmi:id="_SlqAkFqcEeO87blT4Ac7lg" name="newRules">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_02uLYFn_EeO5coihybFi9g" name="Backbone">
     <generalization xmi:id="_2pUKYFn_EeO5coihybFi9g" general="_qEfX4Fn_EeO5coihybFi9g"/>
