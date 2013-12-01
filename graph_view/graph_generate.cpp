@@ -169,7 +169,7 @@ void Graph_generate::graph_building_generate(Building* building){
         string public_IP_firewall = firewall->getPublicAddress().toString();
         string private_IP_firewall = firewall->getAddress().toString();
 
-        string label =generate_label("Firewall", "IP Publique"+public_IP_firewall, "IP Privé"+private_IP_firewall) ;
+        string label =generate_label("Firewall", "IP Publique: "+public_IP_firewall, "IP Privé: "+private_IP_firewall) ;
         draw_cluster(myfile, "firewall",label);
 
         //We draw the router
@@ -178,7 +178,7 @@ void Graph_generate::graph_building_generate(Building* building){
 
         label =generate_label("Router",IP_router) ;
         draw_cluster(myfile, "L2L3",label);
-        myfile << "subgraph_L2L3"<< "--" <<  "firewall"<< endl;
+        myfile << "subgraph_L2L3"<< "--" <<  "subgraph_firewall"<< endl;
     }else{
         Component* L2 = building->getComponents()[0];
         string IP_switch =  L2->getAddress().toString();
@@ -191,8 +191,36 @@ void Graph_generate::graph_building_generate(Building* building){
     vector<Floor*> floors= building->getFloors();
     for(unsigned int ii=0; ii < floors.size(); ii++)
     {
-        draw_location(myfile,ii , floors[ii]);
-        myfile << "cluster_L2L3 " << " -- " << "cluster_" << ii <<endl<<endl;
+        Floor* floor= floors[ii];
+        int component_number = floor->getComponents().size();
+
+        //If it's a normal floor.
+        if(component_number==1){
+            draw_location(myfile,ii , floors[ii]);
+            myfile << "cluster_L2L3 " << " -- " << "cluster_" << ii <<endl<<endl;
+
+        //If it's a special floor (with servers)
+        }else if(component_number==2){
+            Firewall* firewall = (Firewall*) (floor->getComponents())[0];
+            string public_IP_firewall = firewall->getPublicAddress().toString();
+            string private_IP_firewall = firewall->getAddress().toString();
+
+            string label =generate_label("Firewall", "IP Publique: "+public_IP_firewall, "IP Privé: "+private_IP_firewall) ;
+            draw_cluster(myfile, "firewall_special_floor"+ii,label);
+
+            //We draw the router
+            Router* router= (Router*)building->getComponents()[1];
+            string IP_router =  router->getAddress().toString();
+
+            label =generate_label("Router",IP_router) ;
+            draw_cluster(myfile, "L2L3_special_floor"+ii,label);
+            myfile << "subgraph_L2L3" << "--" <<  "subgraph_firewall_special_floor"<< ii << endl;
+
+            myfile << "subgraph_firewall_special_floor" << "--"
+                   << "subgraph_L2L3_special_floor"<< ii << endl;
+        }else{
+            myfile << "// Plop" <<endl;
+        }
     }
     myfile <<  "}"<< endl <<endl;
     //The things after won't be in the building, they will be outside the box.
