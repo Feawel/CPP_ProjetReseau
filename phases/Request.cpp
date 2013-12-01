@@ -76,34 +76,6 @@ void Request::setBuilding_Buildings(std::vector<Building_Building*> newBuilding_
     building_buildings = newBuilding_buildings;
 }
 
-
-
-/**
- * @brief Request::generateGraphText
- */
-void Request::generateGraphText(){
-    //mockup:
-    Building b1=Building("B1");
-    Building b2=Building("B2");
-    Building b3=Building("B3");
-
-    vector<Building*> bs;
-    bs.push_back(&b1);
-    bs.push_back(&b2);
-    bs.push_back(&b3);
-
-    for(int ii=0; ii < bs.size(); ii++)
-    {
-        cout << (*bs[ii]).getName() << endl;
-    }
-
-    ofstream myfile;
-    cout << '\n';
-    myfile.open ("example.txt");
-    myfile << "Writing this to a file.\n";
-    myfile.close();
-}
-
 /**
  * @brief Request::checkData
  * @return error message
