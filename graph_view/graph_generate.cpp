@@ -153,7 +153,7 @@ void Graph_generate::graph_building_generate(Building* building){
     string file_name ="graph_building_"+replace_spaces_by_underscores(building_name);
 
     ofstream myfile;
-    myfile.open (( file_name+".txt").c_str());
+    myfile.open (( this->folder+"/"+file_name+".txt").c_str());
     myfile << "graph G {" << endl;
 
     //Creating the big box for the building.
@@ -265,7 +265,7 @@ void Graph_generate::graph_building_generate(Building* building){
     myfile.close();
 
     //  Génére le graphe en png avec un appel système, nécessite graphviz.
-    system (("fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
+    system (("fdp -Tpng "+this->folder+"/"+file_name+".txt >"+this->folder+"/"+file_name+".png").c_str());
 }
 
 //Generates the graph for the full organization.
@@ -275,7 +275,7 @@ void Graph_generate::global_graph_generate(){
 
     ofstream myfile;
     string file_name ="global_graph";
-    myfile.open ( (file_name+".txt").c_str());
+    myfile.open ( (this->folder+"/"+file_name+".txt").c_str());
     myfile << "graph G {" << endl;
 
     for(unsigned int ii=0; ii < bs.size(); ii++)
@@ -305,5 +305,5 @@ void Graph_generate::global_graph_generate(){
     myfile.close();
 
 //  Génére le graphe en png avec un appel système, nécessite graphviz. + ne marche plus
-    system (("fdp -Tpng "+file_name+".txt >"+file_name+".png").c_str());
+    system (("fdp -Tpng "+this->folder+"/"+file_name+".txt >"+this->folder+"/"+file_name+".png").c_str());
 }
