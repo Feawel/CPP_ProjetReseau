@@ -167,21 +167,21 @@ void Graph_generate::graph_building_generate(Building* building){
         string private_IP_firewall = firewall->getAddress().toString();
 
         string label =generate_label("Firewall", "IP Publique: "+public_IP_firewall, "IP Privé: "+private_IP_firewall) ;
-        draw_cluster(myfile, "firewall",label);
+        draw_cluster(myfile, "cluster_firewall",label);
 
         //We draw the router
         Router* router= (Router*)building->getComponents()[1];
         string IP_router =  router->getAddress().toString();
 
         label =generate_label("Router",IP_router) ;
-        draw_cluster(myfile, "L2L3",label);
+        draw_cluster(myfile, "cluster_L2L3",label);
         myfile << "cluster_L2L3"<< "--" <<  "cluster_firewall"<< endl;
     }else{
         Component* L2 = building->getComponents()[0];
         string IP_switch =  L2->getAddress().toString();
 
         string label =generate_label("Switch",IP_switch) ;
-        draw_cluster(myfile, "L2L3",label);
+        draw_cluster(myfile, "cluster_L2L3",label);
     }
 
     //Then we draw the floors.
@@ -203,14 +203,14 @@ void Graph_generate::graph_building_generate(Building* building){
             string private_IP_firewall = firewall->getAddress().toString();
 
             string label =generate_label("Firewall", "IP Publique: "+public_IP_firewall, "IP Privé: "+private_IP_firewall) ;
-            draw_cluster(myfile, "firewall_special_floor"+ii,label);
+            draw_cluster(myfile, "cluster_firewall_special_floor"+ii,label);
 
             //We draw the router
             Router* router= (Router*)building->getComponents()[1];
             string IP_router =  router->getAddress().toString();
 
             label =generate_label("Router",IP_router) ;
-            draw_cluster(myfile, "L2L3_special_floor"+ii,label);
+            draw_cluster(myfile, "cluster_L2L3_special_floor"+ii,label);
             myfile << "subgraph_L2L3" << "--" <<  "subgraph_firewall_special_floor"<< ii << endl;
 
             myfile << "subgraph_firewall_special_floor" << "--"
@@ -239,11 +239,11 @@ void Graph_generate::graph_building_generate(Building* building){
 
             }
             stringstream name_connected_building_stream;
-            name_connected_building_stream << "building_connected_" << ii;
+            name_connected_building_stream << "cluster_building_connected_" << ii;
             string name_connected_building = name_connected_building_stream.str();
             draw_location_str(myfile,name_connected_building, building_to_build);
 
-            myfile << "cluster_" << name_connected_building << " -- " << "cluster_L2L3 "
+            myfile << name_connected_building << " -- " << "cluster_L2L3 "
                    << "[color = \"" <<getColorB2B(&tech)<<"\"]"<<endl;
         }
     }
