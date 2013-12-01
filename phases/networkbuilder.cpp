@@ -346,9 +346,9 @@ void NetworkBuilder::launchP3() {
                 Address privateServersAddressSwitch(10,i,floors.size(),0,24);
                 privateServersSwitch->setAddress(privateServersAddressSwitch);
 
-                Floor* privateServersFloor= new Floor("Private Server Floor", -1);
-                privateServersFloor->addComponent(privateServersFirewall);
+                Floor* privateServersFloor= new Floor("Private Server Floor", -1); 
                 privateServersFloor->addComponent(privateServersSwitch);
+                privateServersFloor->addComponent(privateServersFirewall);
 
                 buildings[i]->addSpecialSection(privateServersFloor);
 
@@ -366,8 +366,9 @@ void NetworkBuilder::launchP3() {
                 adminSwitch->setAddress(adminAddressSwitch);
 
                 Floor* adminFloor= new Floor("Admin Floor", -2);
-                adminFloor->addComponent(adminFloorFirewall);
                 adminFloor->addComponent(adminSwitch);
+                adminFloor->addComponent(adminFloorFirewall);
+
 
                 buildings[i]->addSpecialSection(adminFloor);
 
