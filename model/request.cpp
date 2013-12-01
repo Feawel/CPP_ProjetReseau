@@ -88,7 +88,7 @@ string Request::checkData()
         return "You need to define at least 2 buildings";
 
     // check if there is an admin building
-    bool hasAdmin;
+    bool hasAdmin = false;
     for(unsigned int i = 0; i<buildings.size(); i++ )
     {
         if(buildings[i]->isAdmin())
