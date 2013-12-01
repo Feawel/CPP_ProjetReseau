@@ -265,6 +265,7 @@ void GraphGenerate::graphBuildingGenerate(Building* building){
 
             myfile << "cluster_firewall_special_floor"<<ii << "--"
                    << "cluster_L2L3_special_floor"<< ii << endl;
+        }
     }
 
     //We create the links with the others buildings.
@@ -302,7 +303,6 @@ void GraphGenerate::graphBuildingGenerate(Building* building){
 
     //  Generate the file using GraphViz.
     system (("fdp -Tpng "+this->folder+"/"+file_name+".txt >"+this->folder+"/"+file_name+".png").c_str());
-}
 }
 
 /**
